@@ -4,14 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CELI — Panel Ejecutivo de Proyecto Final (UTN FRBA)</title>
-  <meta name="description" content="CELI — Panel Ejecutivo y Dashboard Estratégico de Proyecto Final (UTN FRBA)">
-  <meta name="theme-color" content="#1e3a8a">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%231e3a8a'><path d='M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5'/></svg>">
-
-  <!-- Open Graph / Meta Compartir -->
-  <meta property="og:title" content="CELI — Panel Ejecutivo de Proyecto Final (UTN FRBA)">
-  <meta property="og:description" content="Panel Ejecutivo y Dashboard Estratégico de Proyecto Final (UTN FRBA)">
-  <meta property="og:type" content="website">
+  
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
@@ -1084,7 +1077,7 @@
                   <div class="flow-step border-amber-300 bg-amber-50/40">
                     <div class="step-badge bg-amber-600">4</div>
                     <div class="step-title">Horno Túnel 250°C</div>
-                    <div class="step-detail font-bold text-amber-800">Cinta continua 8,6 m &bull; 7% evap.</div>
+                    <div class="step-detail font-bold text-amber-800">Horno túnel 5 m &bull; 7% evap.</div>
                   </div>
                   <div class="step-arrow text-blue-400">&rarr;</div>
                   <div class="flow-step border-blue-200">
@@ -1102,7 +1095,7 @@
                   <div class="flow-step border-blue-400 bg-blue-100/50">
                     <div class="step-badge bg-blue-700">7</div>
                     <div class="step-title">Depósito PT</div>
-                    <div class="step-detail font-bold text-blue-900">105 cajas/pal &bull; TR-08 Zorra</div>
+                    <div class="step-detail font-bold text-blue-900">72 cajas/pal &bull; TR-08 Zorra</div>
                   </div>
                 </div>
               </div>
@@ -1967,7 +1960,7 @@
                   El horneado de los <strong>678.500 kg anuales de panificados y galletitas</strong> se realiza mediante gas natural de red:
                 </p>
                 <ul class="text-xs text-slate-700 space-y-1 font-mono">
-                  <li>&bull; Horno Túnel Continuo Polin de 8,6 m (quemadores modulantes)</li>
+                  <li>&bull; Horno Túnel Continuo Polin de 5 m (quemadores modulantes)</li>
                   <li>&bull; Batería de 2 Hornos de Convección Rotativos Pauna SIGMA</li>
                   <li>&bull; Conexión a red de media presión interna de Parque Industrial Pilar</li>
                   <li>&bull; <strong>Ventaja económica:</strong> Evita instalar un transformador de 250+ kVA con costo millonario de peaje eléctrico.</li>
@@ -3117,7 +3110,7 @@
       { id: 3, name: 'Sección Pesado', cat: 'Común', w: 2.00, h: 3.80, area: 7.60, desc: 'Balanza de piso y micropesada' },
       { id: 4, name: 'Amasado G', cat: 'Galletitas', w: 2.40, h: 2.17, area: 5.22, desc: 'Amasadora doble Z industrial' },
       { id: 5, name: 'Moldeado G', cat: 'Galletitas', w: 2.50, h: 2.32, area: 5.80, desc: 'Moldeadora rotativa con scrap 1%' },
-      { id: 6, name: 'Horno Túnel G', cat: 'Galletitas', w: 8.60, h: 2.30, area: 19.78, desc: 'Cocción continua continua (250°C, 390s)' },
+      { id: 6, name: 'Horno Túnel G (5m)', cat: 'Galletitas', w: 5.00, h: 3.96, area: 19.78, desc: 'Horno túnel continuo 5 m Polin GD-BTOM10 (250°C, 390s)' },
       { id: 7, name: 'Cinta Enfriado G', cat: 'Galletitas', w: 7.00, h: 1.19, area: 8.34, desc: 'Enfriamiento en cinta acoplada' },
       { id: 8, name: 'Envasado 1° G', cat: 'Galletitas', w: 4.30, h: 4.00, area: 17.20, desc: 'Envasadora vertical Flow-Pack' },
       { id: 9, name: 'Batido Panif.', cat: 'Panificados', w: 2.20, h: 1.85, area: 4.08, desc: 'Batidora planetaria para masas fluidas' },
@@ -3141,7 +3134,7 @@
       { cod: 'TR-05', orig: '4. Moldeado G', dest: '5. Horno Túnel G', medio: 'Cinta continua [C]', trips: 'N/A', kg: 589.7, lines: ['galletitas'] },
       { cod: 'TR-06', orig: '5. Horno Túnel G', dest: '6. Cinta Enfriado', medio: 'Cinta continua [C]', trips: 'N/A', kg: 548.4, lines: ['galletitas'] },
       { cod: 'TR-07', orig: '6. Cinta Enfriado', dest: '7. Envasado 1° G', medio: 'Cinta inclinada [C]', trips: 'N/A', kg: 521.0, lines: ['galletitas'] },
-      { cod: 'TR-08', orig: '7. Envasado 1° G', dest: '17. Depósito PT', medio: 'Zorra HELI BF25 (105 c)', trips: 2, kg: 500.2, lines: ['galletitas'] },
+      { cod: 'TR-08', orig: '7. Envasado 1° G', dest: '17. Depósito PT', medio: 'Zorra HELI BF25 (72 c)', trips: 3, kg: 500.2, lines: ['galletitas'] },
       { cod: 'TR-09', orig: '2. Sección Pesado', dest: '9. Batido Panif.', medio: 'Batea 100 kg Inox', trips: 4, kg: 551.4, lines: ['panificados'] },
       { cod: 'TR-10', orig: '9. Batido Panif.', dest: '10. Dosificado P.', medio: 'Batea 100 kg Inox', trips: 6, kg: 551.4, lines: ['panificados'] },
       { cod: 'TR-11', orig: '10. Dosificado P.', dest: '11. Fermentado P.', medio: 'Carro 15 bandejas', trips: 6, kg: 220.6, lines: ['panificados'] },
@@ -3162,7 +3155,7 @@
       galletitas: {
         name: "Galletitas Chocolate con Chips (150g)",
         icon: "🍪",
-        packType: "Caja de 24 paquetes (3,6 kg netos) &bull; Pallet de 105 cajas (378 kg)",
+        packType: "Caja de 18 paquetes (2,7 kg netos) &bull; Pallet de 72 cajas (194,4 kg netos)",
         steps: [
           {
             station: "1. Aduana de Materias Primas",
@@ -3199,7 +3192,7 @@
           {
             station: "5. Horneado Continuo 250°C (PCC-2)",
             sector: "Sector [6] Horno Túnel Continuo a Gas",
-            operatorAction: "Las galletitas ingresan sobre la malla metálica continua del horno de 28 m a gas natural. El operador de cocción supervisa las curvas térmicas registradas por pirómetros en los 3 módulos del horno.",
+            operatorAction: "Las galletitas ingresan sobre la malla metálica continua del horno de 5 m a gas natural (Polin GD-BTOM10). El operador de cocción supervisa las curvas térmicas registradas por pirómetros en la cámara de horneado.",
             cargo: "Flujo continuo por malla metálica",
             cycleTime: "390 segundos de tránsito a 250°C",
             pcc: "PCC-2: Registro continuo de termocuplas. Gelatinización de almidones y destrucción microbiana"
@@ -3207,7 +3200,7 @@
           {
             station: "6. Enfriamiento y Control de Humedad",
             sector: "Sector [7] Cinta de Enfriamiento",
-            operatorAction: "Las galletitas viajan por la cinta de enfriamiento de 28 m bajo aire forzado filtrado. El analista de calidad toma una muestra y mide humedad residual en la termobalanza halógena.",
+            operatorAction: "Las galletitas viajan por la cinta de enfriamiento de 5 m bajo aire forzado filtrado. El analista de calidad toma una muestra y mide humedad residual en la termobalanza halógena.",
             cargo: "Flujo continuo sobre cinta teflonada",
             cycleTime: "15 min de descenso térmico a &lt;28°C",
             pcc: "Humedad de galletita &lt;4,5% para garantizar vida útil de 9 meses"
@@ -3223,8 +3216,8 @@
           {
             station: "8. Encajonado, Paletizado y Depósito PT",
             sector: "Sector [8] Fin de Línea &rarr; [15] Depósito PT",
-            operatorAction: "El operario coloca 24 paquetes en la caja máster corrugada (3,6 kg), precinta y estiba sobre pallet ARLOG (105 cajas = 378 kg). Con la Zorra HELI BF25 traslada el pallet terminado al rack de 3 alturas.",
-            cargo: "Pallet completo de 105 cajas estibadas",
+            operatorAction: "El operario coloca 18 paquetes en la caja máster corrugada (2,7 kg netos), precinta y estiba sobre pallet ARLOG (72 cajas = 194,4 kg netos). Con la Zorra HELI BF25 traslada el pallet terminado al rack de 3 alturas.",
+            cargo: "Pallet completo de 72 cajas estibadas (194,4 kg netos)",
             cycleTime: "1 pallet cada 45 minutos",
             pcc: "Liberación formal tras 24h de cuarentena analítica"
           }
