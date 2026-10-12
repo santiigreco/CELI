@@ -4,12 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>CELI — Panel Ejecutivo de Proyecto Final (UTN FRBA)</title>
-
-  <!-- Vercel Web Analytics -->
-  <script>
-    window.va = window.va || function () { (window.vaq = window.vaq || []).push(arguments); };
-  </script>
-  <script defer src="/_vercel/insights/script.js"></script>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -1385,12 +1379,134 @@
           </div>
         </section>
 
-        <!-- 3. Calendario Visual de 20 Días Heijunka -->
+        <!-- 3. LOGÍSTICA DE ENTRADA: PLAN MAESTRO DE ABASTECIMIENTO Y RECEPCIÓN DE CAMIONES MP -->
+        <section class="card p-5 sm:p-6 space-y-4 mb-0 border-l-4 border-l-amber-500">
+          <div onclick="toggleCard(this)" class="card-header cursor-pointer select-none group flex items-center justify-between">
+            <div class="card-title text-base sm:text-lg">
+              <i data-lucide="truck" class="w-5 h-5 text-amber-600"></i>
+              <span>3. Logística de Entrada: Plan Maestro de Abastecimiento y Recepción de Camiones MP</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="source-tag">Cronograma Proveedores CELI</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 collapse-icon"></i>
+            </div>
+          </div>
+
+          <div class="card-body space-y-4">
+            <!-- Top KPIs de Abastecimiento MP -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <div class="text-[10px] uppercase font-mono text-slate-500 font-bold">Consumo Anual MP</div>
+                <div class="text-base sm:text-lg font-black font-mono text-slate-900 mt-0.5">826.820 kg/año</div>
+                <div class="text-[11px] text-emerald-700 font-medium">17,3 tn/sem (con empaque)</div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <div class="text-[10px] uppercase font-mono text-slate-500 font-bold">Ingreso Semanal Nivelado</div>
+                <div class="text-base sm:text-lg font-black font-mono text-slate-900 mt-0.5">~15.000 kg/sem</div>
+                <div class="text-[11px] text-amber-700 font-medium">Banda: 14,4 a 16,1 tn/sem</div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <div class="text-[10px] uppercase font-mono text-slate-500 font-bold">Frecuencia de Camiones</div>
+                <div class="text-base sm:text-lg font-black font-mono text-slate-900 mt-0.5">1 a 2 camiones/día</div>
+                <div class="text-[11px] text-blue-700 font-medium">4 a 8 proveedores/semana</div>
+              </div>
+              <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+                <div class="text-[10px] uppercase font-mono text-slate-500 font-bold">Almacén MP (Racks 3 Niv.)</div>
+                <div class="text-base sm:text-lg font-black font-mono text-slate-900 mt-0.5">52 Posiciones</div>
+                <div class="text-[11px] text-slate-500 font-medium">15 días de cobertura (3 sem)</div>
+              </div>
+            </div>
+
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Programación quincenal alternada para nivelar el flujo en la <strong>Dársena de Descarga (15 m²)</strong> y garantizar el tiempo necesario de inspección en <strong>Aduana MP (Sector #2) con Test ELISA R5 (&lt;10 ppm de gluten)</strong>. Hacé clic en cualquier entrega para consultar la ficha técnica del camión y lote:
+            </p>
+
+            <!-- Week Filters -->
+            <div class="flex flex-wrap gap-2 pt-1 pb-1">
+              <button onclick="filterMpWeek('all')" id="mpbtn-all" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-white transition-all">Ciclo Mensual Completo (S1 a S4)</button>
+              <button onclick="filterMpWeek('S1')" id="mpbtn-S1" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">Semana 1 (Impar &bull; 15.125 kg)</button>
+              <button onclick="filterMpWeek('S2')" id="mpbtn-S2" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">Semana 2 (Par &bull; 16.125 kg)</button>
+              <button onclick="filterMpWeek('S3')" id="mpbtn-S3" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">Semana 3 (Impar &bull; 14.400 kg)</button>
+              <button onclick="filterMpWeek('S4')" id="mpbtn-S4" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all">Semana 4 (Par &bull; 15.200 kg)</button>
+            </div>
+
+            <!-- Filtros por Categoría de Proveedor -->
+            <div class="flex flex-wrap gap-1.5 pt-0.5 pb-1 font-mono text-[11px]" id="mpCategoryFilters">
+              <!-- Rendered via JS -->
+            </div>
+
+            <!-- Truck Arrival Grid -->
+            <div id="mp-deliveries-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3">
+              <!-- Rendered via JS -->
+            </div>
+
+            <!-- Drawer / Ficha Técnica de Recepción del Camión -->
+            <div id="mpDetailDrawer" style="display: none;" class="day-drawer-box animate-fade-in border-l-4 border-l-amber-500">
+              <div class="flex justify-between items-center mb-3 pb-2 border-b border-slate-200">
+                <h3 id="mpDrawerTitle" class="text-sm font-bold text-slate-900 font-mono">Ficha Técnica de Recepción MP</h3>
+                <button onclick="closeMpDrawer()" class="text-xs text-slate-400 hover:text-slate-800 font-bold">&times; Cerrar</button>
+              </div>
+              <div id="mpDrawerContent" class="text-xs text-slate-700 leading-relaxed space-y-2">
+                <!-- Rendered via JS -->
+              </div>
+            </div>
+
+            <!-- Gráficos de Abastecimiento MP -->
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-6 pt-4 border-t border-slate-100">
+              <!-- Gráfico 1: Desglose Semanal por Categoría -->
+              <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">1. Carga Semanal por Rubro de Materia Prima (kg)</span>
+                  <span class="text-[11px] text-slate-500 font-mono">Nivelación Par/Impar</span>
+                </div>
+                <div class="h-64 w-full relative">
+                  <canvas id="chartMpCategories"></canvas>
+                </div>
+              </div>
+
+              <!-- Gráfico 2: Diente de Sierra de Stock en Depósito MP -->
+              <div class="space-y-2">
+                <div class="flex justify-between items-center">
+                  <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">2. Dinámica Diente de Sierra (Depósito MP - 52 Pallets)</span>
+                  <span class="text-[11px] text-amber-700 font-bold font-mono">Reposición vs Consumo Líneas</span>
+                </div>
+                <div class="h-64 w-full relative">
+                  <canvas id="chartMpSawtooth"></canvas>
+                </div>
+              </div>
+            </div>
+
+            <!-- Circuito Físico de Descarga y Aduana -->
+            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-2 font-mono text-xs">
+              <div class="font-bold text-slate-800 flex items-center space-x-2">
+                <i data-lucide="workflow" class="w-4 h-4 text-emerald-600"></i>
+                <span>Circuito Operativo: Dársena (15 m²) &rarr; Aduana MP (14,5 m²) &rarr; Racks (52 pal)</span>
+              </div>
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pt-1 text-slate-600 font-sans">
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200">
+                  <div class="font-bold text-slate-900 text-xs">1. Descarga en Dársena</div>
+                  <div class="text-[11px] text-slate-500 mt-1">Atraco en portón seccional. Descarga con zorra hidráulica o autoelevador eléctrico HELI ORME-CMM-16. Ventana técnica de 60 a 90 min por camión.</div>
+                </div>
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200">
+                  <div class="font-bold text-amber-900 text-xs">2. Cuarentena y Test ELISA</div>
+                  <div class="text-[11px] text-slate-500 mt-1">Aduana [2] con 12 m² de cuarentena física. Muestreo en 5 puntos con calador estéril. Ensayo rápido ELISA R5 (&lt;10 ppm de gluten). Si aprueba, firma de remito.</div>
+                </div>
+                <div class="p-2.5 bg-white rounded-lg border border-slate-200">
+                  <div class="font-bold text-emerald-900 text-xs">3. Estiba en Racks Selectivos</div>
+                  <div class="text-[11px] text-slate-500 mt-1">Depósito [1] de 52,29 m² con racks de 3 niveles. Asignación FIFO por lote y SKU. Abastecimiento programado a Sección Pesado [3].</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
+        <!-- 4. Calendario Visual de 20 Días Heijunka -->
         <section class="card p-5 sm:p-6 space-y-4 mb-0">
           <div onclick="toggleCard(this)" class="card-header cursor-pointer select-none group flex items-center justify-between">
             <div class="card-title text-base sm:text-lg">
               <i data-lucide="calendar" class="w-5 h-5 text-emerald-600"></i>
-              <span>3. Programación Heijunka: Balance de Producción y Despacho Diario</span>
+              <span>4. Programación Heijunka: Balance de Producción y Despacho Diario (PT)</span>
             </div>
             <div class="flex items-center space-x-2">
               <span class="source-tag">Analisis layout optimo - PCP</span>
@@ -1455,12 +1571,12 @@
           </div>
         </section>
 
-        <!-- 4. Depósito de PT: Amortiguador y Racks Selectivos -->
+        <!-- 5. Depósito de PT: Amortiguador y Racks Selectivos -->
         <section class="card p-5 sm:p-6 space-y-4 mb-0">
           <div onclick="toggleCard(this)" class="card-header cursor-pointer select-none group flex items-center justify-between">
             <div class="card-title text-base sm:text-lg">
               <i data-lucide="boxes" class="w-5 h-5 text-amber-600"></i>
-              <span>4. Depósito de PT: Amortiguador de Stock y Racks Selectivos (153 Pallets Útiles)</span>
+              <span>5. Depósito de PT: Amortiguador de Stock y Racks Selectivos (153 Pallets Útiles)</span>
             </div>
             <div class="flex items-center space-x-2">
               <span class="source-tag">Dimensionamiento de Almacén</span>
@@ -1505,12 +1621,12 @@
           </div>
         </section>
 
-        <!-- 5. Logística de Salida: Despacho Heijunka -->
+        <!-- 6. Logística de Salida: Despacho Heijunka -->
         <section class="card p-5 sm:p-6 space-y-4 mb-0">
           <div onclick="toggleCard(this)" class="card-header cursor-pointer select-none group flex items-center justify-between">
             <div class="card-title text-base sm:text-lg">
               <i data-lucide="truck" class="w-5 h-5 text-emerald-600"></i>
-              <span>5. Logística de Salida: Despacho Nivelado Diario (16 Pallets / Día)</span>
+              <span>6. Logística de Salida: Despacho Nivelado Diario (16 Pallets / Día)</span>
             </div>
             <div class="flex items-center space-x-2">
               <span class="source-tag">Logística de Despacho</span>
@@ -1563,12 +1679,12 @@
           </div>
         </section>
 
-        <!-- NUEVO: 4.b SIMULADOR INTERACTIVO: EL VIAJE DE UNA CAJA DE PRODUCTO -->
+        <!-- 7. SIMULADOR INTERACTIVO: EL VIAJE DE UNA CAJA DE PRODUCTO -->
         <section class="card p-5 sm:p-6 space-y-4 mb-0 border-l-4 border-l-blue-600">
           <div onclick="toggleCard(this)" class="card-header cursor-pointer select-none group flex items-center justify-between">
             <div class="card-title text-base sm:text-lg">
               <i data-lucide="package" class="w-5 h-5 text-blue-600"></i>
-              <span>Trazabilidad Operativa: El Viaje Interactivo de una Caja de Producto</span>
+              <span>7. Trazabilidad Operativa: El Viaje Interactivo de una Caja de Producto</span>
             </div>
             <div class="flex items-center space-x-2">
               <span class="source-tag">PCP &bull; Flujo del Operario por Puesto</span>
@@ -1631,12 +1747,12 @@
           </div>
         </section>
 
-        <!-- 6. Manejo de Materiales Optimizado: Bateas Rodantes de 100 kg -->
+        <!-- 8. Manejo de Materiales Optimizado: Bateas Rodantes de 100 kg -->
         <section class="card p-5 sm:p-6 space-y-4 mb-0 border-l-4 border-l-emerald-600">
           <div onclick="toggleCard(this)" class="card-header cursor-pointer select-none group flex items-center justify-between">
             <div class="card-title text-base sm:text-lg">
               <i data-lucide="sparkles" class="w-5 h-5 text-emerald-600"></i>
-              <span>6. Manejo de Materiales Optimizado: Bateas Rodantes Sanitarias de 100 kg</span>
+              <span>8. Manejo de Materiales Optimizado: Bateas Rodantes Sanitarias de 100 kg</span>
             </div>
             <div class="flex items-center space-x-2">
               <span class="source-tag">Ingeniería de Planta</span>
@@ -3085,6 +3201,57 @@
       { cod: 'B02', name: 'Budines tradicionales', weight: '180g', line: 'Panificados', costMp: 3799, priceKg: 11296, pSuper: 2040, pDistr: 2340, qty: 466667, y1: 408.33, y2: 466.67, y3: 495.04, y4: 525.14, y5: 557.07 }
     ];
 
+    // ==========================================
+    // LOGÍSTICA DE ENTRADA: CRONOGRAMA DE PROVEEDORES Y RECEPCIÓN MP (Cronograma proveedores CELI.xlsx)
+    // ==========================================
+    const mpDeliveriesData = [
+      // SEMANA 1 (Impar: Bernesa & Marjuanc - 15.125 kg)
+      { id: 'D01', week: 'S1', day: 'LU', time: '08:30 - 10:30 hs', prov: 'Bernesa', cat: 'Harinas y Almidones', kg: 7500, pallets: 8, truck: 'Chasis 14 pal (Balancín)', main_mp: 'Fécula de Maíz (6.000 kg) + Mandioca (1.500 kg)', origin: 'Baradero, Bs. As.', dock_time: '90 min', pcc: 'ELISA R5 (<10 ppm) & Humedad <13%', icon: '🌾' },
+      { id: 'D02', week: 'S1', day: 'MA', time: '09:00 - 10:30 hs', prov: 'Marjuanc', cat: 'Grasas y Aceites', kg: 3700, pallets: 4, truck: 'Furgón Térmico Sanitario', main_mp: 'Aceite Interesterificado (2.000 kg) + Margarina (1.500 kg) + Grasa (200 kg)', origin: 'Lanús, Bs. As.', dock_time: '60 min', pcc: 'Índice de peróxidos y punto de fusión', icon: '🧈' },
+      { id: 'D03', week: 'S1', day: 'MI', time: '08:30 - 11:30 hs', prov: 'Lodiser & Arco de Oro', cat: 'Chocolates y Rellenos', kg: 2300, pallets: 3, truck: 'Furgón Climatizado', main_mp: 'Chips (700 kg) + Cacao (700 kg) + Mermelada Batata (900 kg)', origin: 'CABA / San Martín, Bs. As.', dock_time: '75 min', pcc: 'Libre de gluten & Ausencia de alérgenos cruzados', icon: '🍫' },
+      { id: 'D04', week: 'S1', day: 'JU', time: '10:00 - 12:00 hs', prov: 'Ensoolfood / Harmony / Robertet / Villares', cat: 'Esencias y Aditivos', kg: 1625, pallets: 2, truck: 'Camioneta Utilitaria Furgón', main_mp: 'Fibras/Propionato (400 kg) + Esencias (300 kg) + Panacea (300 kg) + Pasas/Psyllium (625 kg)', origin: 'Pilar / Vicente López, Bs. As.', dock_time: '60 min', pcc: 'Grado alimenticio USP & Certificación Sin TACC', icon: '✨' },
+      { id: 'D05', week: 'S1', day: 'VI', time: '08:30 - 10:00 hs', prov: 'RAINAP', cat: 'Packaging', kg: 0, pallets: 4, units: '10.000 cajas', truck: 'Chasis Carrozado Cerrado', main_mp: '7.000 cajas estándar galletitas + 3.000 cajas budines y pan', origin: 'Tortuguitas, Bs. As.', dock_time: '60 min', pcc: 'Gramaje BCT corrugado & Compresión vertical', icon: '📦' },
+
+      // SEMANA 2 (Par: Cooperativa & Bahiense - 16.125 kg)
+      { id: 'D06', week: 'S2', day: 'LU', time: '08:30 - 10:30 hs', prov: 'Cooperativa', cat: 'Harinas y Almidones', kg: 6000, pallets: 6, truck: 'Chasis 14 pal (Balancín)', main_mp: 'Harina de Arroz Fina Sin TACC (6.000 kg)', origin: 'San Salvador, Entre Ríos', dock_time: '75 min', pcc: 'ELISA R5 (<10 ppm) & Granulometría malla 80', icon: '🌾' },
+      { id: 'D07', week: 'S2', day: 'MA', time: '09:00 - 11:30 hs', prov: 'Bahiense', cat: 'Azúcar y Químicos', kg: 7425, pallets: 8, truck: 'Semirremolque Furgón', main_mp: 'Azúcar (4.000 kg) + Glucosa/JMAF (1.200 kg) + Goma/Polvo (600 kg) + Sal/Aditivos (1.625 kg)', origin: 'Bahía Blanca / CABA', dock_time: '90 min', pcc: 'Ausencia de humedad & Solubilidad y pureza', icon: '🧪' },
+      { id: 'D08', week: 'S2', day: 'MI', time: '09:00 - 11:30 hs', prov: 'Vacalin & Ovoalda', cat: 'Lácteos y Ovoproductos', kg: 1900, pallets: 2, truck: 'Furgón Térmico Refrigerado', main_mp: 'Leche en polvo (700 kg) + Quesos (300 kg) + Huevo en polvo (800 kg) + Clara (100 kg)', origin: 'Magdalena / Pilar, Bs. As.', dock_time: '60 min', pcc: 'Salmonella / Enterobacterias & Libre de TACC', icon: '🥛' },
+      { id: 'D09', week: 'S2', day: 'JU', time: '10:00 - 11:30 hs', prov: 'Calsa & Brentagg', cat: 'Esencias y Aditivos', kg: 800, pallets: 1, truck: 'Utilitario Cerrado', main_mp: 'Levadura Seca Instantánea (400 kg) + Fibra de Bambú (400 kg)', origin: 'Lanús / Pacheco, Bs. As.', dock_time: '45 min', pcc: 'Poder fermentativo & Inocuidad alimentaria', icon: '🥖' },
+      { id: 'D10', week: 'S2', day: 'VI', time: '08:30 - 10:00 hs', prov: 'RAINAP', cat: 'Packaging', kg: 0, pallets: 4, units: '10.000 cajas', truck: 'Chasis Carrozado Cerrado', main_mp: '7.000 cajas estándar galletitas + 3.000 cajas budines y pan', origin: 'Tortuguitas, Bs. As.', dock_time: '60 min', pcc: 'Gramaje BCT corrugado & Compresión vertical', icon: '📦' },
+
+      // SEMANA 3 (Impar: Bernesa & Marjuanc - 14.400 kg)
+      { id: 'D11', week: 'S3', day: 'LU', time: '08:30 - 10:30 hs', prov: 'Bernesa', cat: 'Harinas y Almidones', kg: 7500, pallets: 8, truck: 'Chasis 14 pal (Balancín)', main_mp: 'Fécula de Maíz (6.000 kg) + Mandioca (1.500 kg)', origin: 'Baradero, Bs. As.', dock_time: '90 min', pcc: 'ELISA R5 (<10 ppm) & Humedad <13%', icon: '🌾' },
+      { id: 'D12', week: 'S3', day: 'MA', time: '09:00 - 10:30 hs', prov: 'Marjuanc', cat: 'Grasas y Aceites', kg: 3700, pallets: 4, truck: 'Furgón Térmico Sanitario', main_mp: 'Aceite Interesterificado (2.000 kg) + Margarina (1.500 kg) + Grasa (200 kg)', origin: 'Lanús, Bs. As.', dock_time: '60 min', pcc: 'Índice de peróxidos y punto de fusión', icon: '🧈' },
+      { id: 'D13', week: 'S3', day: 'MI', time: '08:30 - 11:30 hs', prov: 'Lodiser & Arco de Oro', cat: 'Chocolates y Rellenos', kg: 2300, pallets: 3, truck: 'Furgón Climatizado', main_mp: 'Chips (700 kg) + Cacao (700 kg) + Mermelada Batata (900 kg)', origin: 'CABA / San Martín, Bs. As.', dock_time: '75 min', pcc: 'Libre de gluten & Ausencia de alérgenos cruzados', icon: '🍫' },
+      { id: 'D14', week: 'S3', day: 'JU', time: '10:00 - 11:30 hs', prov: 'Harmony / Robertet / Villares', cat: 'Esencias y Aditivos', kg: 900, pallets: 1, truck: 'Camioneta Utilitaria Furgón', main_mp: 'Esencias (100 kg) + Panacea (300 kg) + Pasas/Psyllium (500 kg)', origin: 'Pilar / Vicente López, Bs. As.', dock_time: '45 min', pcc: 'Grado alimenticio USP & Certificación Sin TACC', icon: '✨' },
+      { id: 'D15', week: 'S3', day: 'VI', time: '08:30 - 10:00 hs', prov: 'RAINAP', cat: 'Packaging', kg: 0, pallets: 4, units: '10.000 cajas', truck: 'Chasis Carrozado Cerrado', main_mp: '7.000 cajas estándar galletitas + 3.000 cajas budines y pan', origin: 'Tortuguitas, Bs. As.', dock_time: '60 min', pcc: 'Gramaje BCT corrugado & Compresión vertical', icon: '📦' },
+
+      // SEMANA 4 (Par: Cooperativa & Bahiense - 15.200 kg)
+      { id: 'D16', week: 'S4', day: 'LU', time: '08:30 - 10:30 hs', prov: 'Cooperativa', cat: 'Harinas y Almidones', kg: 6000, pallets: 6, truck: 'Chasis 14 pal (Balancín)', main_mp: 'Harina de Arroz Fina Sin TACC (6.000 kg)', origin: 'San Salvador, Entre Ríos', dock_time: '75 min', pcc: 'ELISA R5 (<10 ppm) & Granulometría malla 80', icon: '🌾' },
+      { id: 'D17', week: 'S4', day: 'MA', time: '09:00 - 11:30 hs', prov: 'Bahiense', cat: 'Azúcar y Químicos', kg: 6900, pallets: 7, truck: 'Semirremolque Furgón', main_mp: 'Azúcar (4.000 kg) + Glucosa/JMAF (1.200 kg) + Goma/Polvo (600 kg) + Sal/Aditivos (1.100 kg)', origin: 'Bahía Blanca / CABA', dock_time: '85 min', pcc: 'Ausencia de humedad & Solubilidad y pureza', icon: '🧪' },
+      { id: 'D18', week: 'S4', day: 'MI', time: '09:00 - 11:30 hs', prov: 'Vacalin & Ovoalda', cat: 'Lácteos y Ovoproductos', kg: 1900, pallets: 2, truck: 'Furgón Térmico Refrigerado', main_mp: 'Leche en polvo (700 kg) + Quesos (300 kg) + Huevo en polvo (800 kg) + Clara (100 kg)', origin: 'Magdalena / Pilar, Bs. As.', dock_time: '60 min', pcc: 'Salmonella / Enterobacterias & Libre de TACC', icon: '🥛' },
+      { id: 'D19', week: 'S4', day: 'JU', time: '10:00 - 11:30 hs', prov: 'Ensoolfood', cat: 'Esencias y Aditivos', kg: 400, pallets: 1, truck: 'Utilitario Cerrado', main_mp: 'Fibra C 200 (200 kg) + Propionato de Calcio (200 kg)', origin: 'Pilar, Bs. As.', dock_time: '45 min', pcc: 'Pureza analítica & Grado alimenticio', icon: '🌿' },
+      { id: 'D20', week: 'S4', day: 'VI', time: '08:30 - 10:00 hs', prov: 'RAINAP', cat: 'Packaging', kg: 0, pallets: 4, units: '10.000 cajas', truck: 'Chasis Carrozado Cerrado', main_mp: '7.000 cajas estándar galletitas + 3.000 cajas budines y pan', origin: 'Tortuguitas, Bs. As.', dock_time: '60 min', pcc: 'Gramaje BCT corrugado & Compresión vertical', icon: '📦' }
+    ];
+
+    const mpProvidersData = {
+      'Bernesa': { name: 'Bernesa S.A.', origin: 'Baradero, Bs. As.', cat: 'Harinas y Almidones', icon: '🌾', freq: 'Quincenal (Semanas Impares)', items: 'Fécula de Maíz (M001: 6.000 kg), Fécula de Mandioca (M116: 1.500 kg)', minLot: '7.500 kg', weeklyBOM: '3.404,5 kg/sem', coverage: '2,2 semanas', truck: 'Chasis Balancín (14 pal)', pallets: 8, leadTime: '48 hs', pcc: 'ELISA R5 (<10 ppm de gluten) en Aduana' },
+      'Cooperativa': { name: 'Cooperativa Arrocera San Salvador', origin: 'San Salvador, Entre Ríos', cat: 'Harinas y Almidones', icon: '🌾', freq: 'Quincenal (Semanas Pares)', items: 'Harina de Arroz Fina Sin TACC (M030: 6.000 kg)', minLot: '6.000 kg', weeklyBOM: '2.564,5 kg/sem', coverage: '2,3 semanas', truck: 'Chasis Balancín (14 pal)', pallets: 6, leadTime: '72 hs', pcc: 'ELISA R5 (<10 ppm), Humedad <13%' },
+      'Bahiense': { name: 'Distribuidora Bahiense', origin: 'Bahía Blanca / CABA', cat: 'Azúcar y Químicos', icon: '🧪', freq: 'Quincenal (Semanas Pares)', items: 'Azúcar (4.000 kg), Glucosa (700 kg), Aceite girasol (500 kg), JMAF (500 kg), Goma xántica (300 kg), Polvo hornear (300 kg), Sal (200 kg), Dextrosa, Bicarbonatos', minLot: '7.425 kg (17 insumos)', weeklyBOM: '3.250 kg/sem', coverage: '2,3 semanas', truck: 'Semirremolque Furgón', pallets: 8, leadTime: '48 hs', pcc: 'Pureza química, granulometría y Sin TACC' },
+      'Marjuanc': { name: 'Marjuanc Grasas Industriales', origin: 'Lanús, Bs. As.', cat: 'Grasas y Aceites', icon: '🧈', freq: 'Quincenal (Semanas Impares)', items: 'Aceite vegetal interesterificado (2.000 kg), Margarina vegetal (1.500 kg), Grasa vacuna (200 kg)', minLot: '3.700 kg', weeklyBOM: '1.722,0 kg/sem', coverage: '2,1 semanas', truck: 'Furgón Térmico Sanitario', pallets: 4, leadTime: '24 hs', pcc: 'Punto de fusión, índice de acidez y peróxidos' },
+      'Lodiser': { name: 'Lodiser S.A.', origin: 'CABA', cat: 'Chocolates y Rellenos', icon: '🍫', freq: 'Quincenal (Semanas Impares)', items: 'Chips de chocolate semiamargo (700 kg), Cacao en polvo alcalino (700 kg)', minLot: '1.400 kg', weeklyBOM: '574,9 kg/sem', coverage: '2,4 semanas', truck: 'Furgón Climatizado (18-20°C)', pallets: 2, leadTime: '48 hs', pcc: 'Ensayo libre de gluten & Ausencia de alérgenos cruzados' },
+      'Arco de Oro': { name: 'Dulces Arco de Oro', origin: 'San Martín, Bs. As.', cat: 'Chocolates y Rellenos', icon: '🍯', freq: 'Quincenal (Semanas Impares)', items: 'Mermelada de batata repostera en pailas/cajas (M113: 900 kg)', minLot: '900 kg', weeklyBOM: '423,3 kg/sem', coverage: '2,1 semanas', truck: 'Furgón Cerrado', pallets: 1, leadTime: '48 hs', pcc: 'Grados Brix 68-70° & pH 3,2-3,4' },
+      'Vacalin': { name: 'Ernesto Rodríguez e Hijos (Vacalin)', origin: 'Magdalena, Bs. As.', cat: 'Lácteos y Ovoproductos', icon: '🥛', freq: 'Quincenal (Semanas Pares)', items: 'Leche en polvo descremada (700 kg), Queso sardo rallado (200 kg), Queso en polvo (100 kg)', minLot: '1.000 kg', weeklyBOM: '459,0 kg/sem', coverage: '2,2 semanas', truck: 'Furgón Refrigerado', pallets: 1, leadTime: '48 hs', pcc: 'Recuento microbiológico & Certificación Sin TACC' },
+      'Ovoalda': { name: 'Ovoalda Ovoproductos', origin: 'Pilar, Bs. As.', cat: 'Lácteos y Ovoproductos', icon: '🥚', freq: 'Quincenal (Semanas Pares)', items: 'Huevo entero deshidratado en polvo (800 kg), Clara de huevo en polvo (100 kg)', minLot: '900 kg', weeklyBOM: '374,9 kg/sem', coverage: '2,4 semanas', truck: 'Furgón Sanitario Climatizado', pallets: 1, leadTime: '24 hs', pcc: 'Salmonella ausente en 25g & Humedad <5%' },
+      'Ensoolfood': { name: 'Ensoolfood Argentina', origin: 'Pilar, Bs. As.', cat: 'Esencias y Aditivos', icon: '🌿', freq: 'Cada 3 semanas (S1, S4, S7...)', items: 'Fibra vegetal insoluble C 200 (200 kg), Propionato de calcio conservante (200 kg)', minLot: '400 kg', weeklyBOM: '120,0 kg/sem', coverage: '3,3 semanas', truck: 'Utilitario Cerrado', pallets: 1, leadTime: '48 hs', pcc: 'Grado alimenticio FCC & Pureza >99%' },
+      'Harmony': { name: 'Harmony Aromas y Sabores', origin: 'Vicente López, Bs. As.', cat: 'Esencias y Aditivos', icon: '🍋', freq: 'Quincenal (Semanas Impares)', items: 'Esencias líquidas: vainilla, naranja, limón (100 kg), chocolate (100 kg), queso (50 kg), leche condensada (50 kg)', minLot: '300 kg', weeklyBOM: '70,6 kg/sem', coverage: '4,2 semanas', truck: 'Utilitario Cerrado', pallets: 1, leadTime: '48 hs', pcc: 'Ausencia de alérgenos & Concentración aromática' },
+      'Robertet': { name: 'Robertet Argentina', origin: 'San Isidro, Bs. As.', cat: 'Esencias y Aditivos', icon: '✨', freq: 'Quincenal (Semanas Impares)', items: 'Aditivo mejorador de textura y frescura Panacea (M125: 300 kg)', minLot: '300 kg', weeklyBOM: '140,7 kg/sem', coverage: '2,1 semanas', truck: 'Utilitario Cerrado', pallets: 1, leadTime: '48 hs', pcc: 'Inocuidad específica para panificación sin gluten' },
+      'Villares': { name: 'Villares Nutrición Natural', origin: 'Tigre, Bs. As.', cat: 'Esencias y Aditivos', icon: '🥥', freq: 'Quincenal (Semanas Impares)', items: 'Pasta de pasas de uva (300 kg), Psyllium en polvo (200 kg), Aceite de coco (100 kg), Jalapeño deshidratado (25 kg)', minLot: '625 kg', weeklyBOM: '224,1 kg/sem', coverage: '2,8 semanas', truck: 'Furgón Térmico', pallets: 1, leadTime: '48 hs', pcc: 'Materia extraña nula & Psyllium malla 100' },
+      'Calsa': { name: 'Compañía Argentina de Levaduras (CALSA)', origin: 'Lanús, Bs. As.', cat: 'Esencias y Aditivos', icon: '🥖', freq: 'Cada 8 semanas (S2, S10, S18...)', items: 'Levadura seca instantánea de alta actividad (M131: 400 kg)', minLot: '400 kg', weeklyBOM: '48,7 kg/sem', coverage: '8,2 semanas', truck: 'Furgón Cerrado', pallets: 1, leadTime: '72 hs', pcc: 'Poder fermentativo CO2 & Hermeticidad al vacío' },
+      'Brentagg': { name: 'Brenntag Argentina', origin: 'Pacheco, Bs. As.', cat: 'Esencias y Aditivos', icon: '🎋', freq: 'Cada 9 semanas (S2, S11, S20...)', items: 'Fibra vegetal purificada de bambú (M106: 400 kg)', minLot: '400 kg', weeklyBOM: '43,3 kg/sem', coverage: '9,2 semanas', truck: 'Furgón Cerrado', pallets: 1, leadTime: '96 hs', pcc: 'Fibra dietética >98% & Certificación Sin TACC' },
+      'RAINAP': { name: 'Corrugadora RAINAP S.A.', origin: 'Tortuguitas, Bs. As.', cat: 'Packaging', icon: '📦', freq: 'Semanal (Viernes, S1 a S52)', items: 'Cajas máster estándar corrugado B (7.000 u), Cajas panificados/budines (3.000 u) = 10.000 cajas/sem', minLot: '10.000 cajas', weeklyBOM: '8.680 cajas/sem', coverage: '1,1 semanas', truck: 'Chasis Carrozado Cerrado', pallets: 4, leadTime: '24 hs', pcc: 'Resistencia BCT compresión estiba vertical' }
+    };
+
     // Daily PCP Data (Analisis layout optimo - PCP Hoja 2 R43:R62)
     const dailyData = [
       { row: 43, semana: "S1", dia: "LU", ingreso_pt: 18, ingreso_formula: "=O9+O17", egreso_pt: 16, stock_pallets: 146, posiciones_rack: 48.7 },
@@ -4013,6 +4180,387 @@
       updateMassBalanceUI();
     }
 
+    // ==========================================
+    // LOGÍSTICA DE ENTRADA: CRONOGRAMA PROVEEDORES & RECEPCIÓN MP
+    // ==========================================
+    let currentMpWeekFilter = 'all';
+    let currentMpCategoryFilter = 'all';
+    let currentSelectedMpId = null;
+    let chartMpCategoriesInstance = null;
+    let chartMpSawtoothInstance = null;
+
+    const mpCategoryList = [
+      'all', 'Harinas y Almidones', 'Grasas y Aceites', 'Azúcar y Químicos',
+      'Chocolates y Rellenos', 'Lácteos y Ovoproductos', 'Esencias y Aditivos', 'Packaging'
+    ];
+
+    function renderMpCategoryFilters() {
+      const container = document.getElementById('mpCategoryFilters');
+      if (!container) return;
+
+      container.innerHTML = mpCategoryList.map(cat => {
+        const isSelected = cat === currentMpCategoryFilter;
+        const label = cat === 'all' ? 'Todos los Rubros' : cat;
+        const cls = isSelected
+          ? 'px-2.5 py-1 rounded-md text-[11px] font-bold bg-amber-600 text-white shadow-xs transition-all'
+          : 'px-2.5 py-1 rounded-md text-[11px] font-medium bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all';
+        return `<button onclick="filterMpCategory('${cat}')" class="${cls}">${label}</button>`;
+      }).join('');
+    }
+
+    function renderMpDeliveries() {
+      const container = document.getElementById('mp-deliveries-container');
+      if (!container) return;
+
+      const filtered = mpDeliveriesData.filter(d => {
+        const matchWeek = currentMpWeekFilter === 'all' || d.week === currentMpWeekFilter;
+        const matchCat = currentMpCategoryFilter === 'all' || d.cat === currentMpCategoryFilter;
+        return matchWeek && matchCat;
+      });
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="col-span-full p-6 text-center text-slate-400 bg-slate-50 rounded-xl border border-dashed border-slate-200">
+            No se registran descargas para el filtro seleccionado.
+          </div>
+        `;
+        return;
+      }
+
+      container.innerHTML = filtered.map(d => {
+        const isSelected = d.id === currentSelectedMpId;
+        const borderCls = isSelected ? 'border-amber-500 bg-amber-50/40 ring-2 ring-amber-400/40' : 'border-slate-200 bg-white hover:border-amber-400';
+        const volText = d.kg > 0 ? `${d.kg.toLocaleString('es-AR')} kg` : d.units;
+
+        return `
+          <div id="card-mp-${d.id}" onclick="selectMpDelivery('${d.id}')" class="day-card p-3 rounded-xl border ${borderCls} cursor-pointer transition-all flex flex-col justify-between mb-0">
+            <div>
+              <div class="flex justify-between items-center mb-1.5 pb-1 border-b border-slate-100 font-mono">
+                <div class="flex items-center space-x-1">
+                  <span class="font-bold text-xs text-slate-900">${d.day}</span>
+                  <span class="text-[10px] px-1.5 py-0.2 rounded bg-amber-50 text-amber-800 font-bold border border-amber-200">${d.week}</span>
+                </div>
+                <span class="text-[10px] text-slate-500 font-mono">${d.time.split(' ')[0]} hs</span>
+              </div>
+              <div class="flex items-center space-x-1.5 mb-1">
+                <span class="text-sm">${d.icon}</span>
+                <span class="text-xs font-bold text-slate-900 truncate" title="${d.prov}">${d.prov}</span>
+              </div>
+              <div class="text-[11px] text-slate-600 line-clamp-2 leading-tight">${d.main_mp}</div>
+            </div>
+            <div class="mt-2.5 pt-1.5 border-t border-slate-100 font-mono text-[11px]">
+              <div class="flex justify-between items-center text-slate-500 text-[10px] mb-0.5">
+                <span>Camión:</span>
+                <span class="text-slate-700 font-medium truncate max-w-[110px]" title="${d.truck}">${d.truck.split('(')[0]}</span>
+              </div>
+              <div class="flex justify-between items-center">
+                <span class="text-slate-500">Volumen:</span>
+                <span class="font-bold text-amber-700">${volText} (${d.pallets} pal)</span>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function filterMpWeek(week) {
+      currentMpWeekFilter = week;
+      ['all', 'S1', 'S2', 'S3', 'S4'].forEach(w => {
+        const btn = document.getElementById(`mpbtn-${w}`);
+        if (btn) {
+          if (w === week) {
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-white transition-all";
+          } else {
+            btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-100 text-slate-700 hover:bg-slate-200 transition-all";
+          }
+        }
+      });
+      renderMpDeliveries();
+      closeMpDrawer();
+    }
+
+    function filterMpCategory(cat) {
+      currentMpCategoryFilter = cat;
+      renderMpCategoryFilters();
+      renderMpDeliveries();
+      closeMpDrawer();
+    }
+
+    function selectMpDelivery(id) {
+      currentSelectedMpId = id;
+      renderMpDeliveries();
+
+      const d = mpDeliveriesData.find(item => item.id === id);
+      if (!d) return;
+
+      // Buscar datos complementarios del proveedor en mpProvidersData
+      const provKeys = Object.keys(mpProvidersData);
+      const matchedKey = provKeys.find(k => d.prov.includes(k)) || provKeys[0];
+      const p = mpProvidersData[matchedKey] || {};
+
+      const drawer = document.getElementById('mpDetailDrawer');
+      const title = document.getElementById('mpDrawerTitle');
+      const content = document.getElementById('mpDrawerContent');
+      if (!drawer || !title || !content) return;
+
+      const volFormatted = d.kg > 0 ? `${d.kg.toLocaleString('es-AR')} kg (${d.pallets} pallets)` : `${d.units} (${d.pallets} pallets)`;
+
+      title.innerHTML = `🚚 Ficha Técnica de Recepción: Camión ${d.id} &bull; ${d.week} - Día ${d.day} (${d.time})`;
+
+      content.innerHTML = `
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-3 pb-3 border-b border-slate-200">
+          <div class="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1">
+            <div class="text-[10px] uppercase font-mono text-slate-500 font-bold">Proveedor / Origen</div>
+            <div class="text-sm font-bold text-slate-900">${d.icon} ${p.name || d.prov}</div>
+            <div class="text-[11px] text-slate-600 font-mono">📍 ${d.origin}</div>
+            <div class="text-[10px] text-emerald-700 font-bold">Frecuencia: ${p.freq || 'Programada'}</div>
+          </div>
+
+          <div class="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1">
+            <div class="text-[10px] uppercase font-mono text-slate-500 font-bold">Carga & Logística de Transporte</div>
+            <div class="text-sm font-bold text-amber-800 font-mono">${volFormatted}</div>
+            <div class="text-[11px] text-slate-600"><strong>Tipo de Camión:</strong> ${d.truck}</div>
+            <div class="text-[10px] text-blue-700 font-bold">Tiempo en Dársena: ${d.dock_time} &bull; Lead Time: ${p.leadTime || '48 hs'}</div>
+          </div>
+
+          <div class="p-2.5 bg-white rounded-lg border border-slate-200 space-y-1">
+            <div class="text-[10px] uppercase font-mono text-slate-500 font-bold">Control de Calidad / Inocuidad</div>
+            <div class="text-xs font-bold text-slate-800">Test Rápido ELISA R5 (&lt;10 ppm)</div>
+            <div class="text-[11px] text-slate-600 font-mono">${d.pcc}</div>
+            <div class="text-[10px] text-emerald-700 font-bold">Aduana MP #2 (14,5 m²) &bull; Racks: Nivel 1 a 3</div>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-3 pt-1">
+          <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-1.5">
+            <div class="font-bold text-slate-900 text-xs flex items-center space-x-1.5">
+              <span>🌾</span>
+              <span>Insumos Declarados en Remito</span>
+            </div>
+            <div class="text-xs text-slate-700 leading-relaxed font-sans">
+              <strong>Detalle de Fórmula / Insumos:</strong> ${d.main_mp}
+            </div>
+            <div class="pt-1 text-[11px] text-slate-500 font-mono">
+              Consumo Semanal BOM Planta: <strong>${p.weeklyBOM || 'Calculado en balance'}</strong> &bull; Cobertura de Lote: <strong>${p.coverage || 'Quincenal'}</strong>
+            </div>
+          </div>
+
+          <div class="p-3 bg-white rounded-lg border border-slate-200 space-y-1.5">
+            <div class="font-bold text-slate-900 text-xs flex items-center space-x-1.5">
+              <span>🛡️</span>
+              <span>Protocolo Sanitario Sin TACC y Recepción en Dársena</span>
+            </div>
+            <p class="text-xs text-slate-600 leading-relaxed font-sans">
+              Cada entrega ampara un <strong>Certificado de Calidad Oficial</strong> por lote expedido por el fabricante. La dársena se higieniza según POES-01 antes de la apertura del furgón. En Aduana MP se toman muestras representativas con calador higienizado con alcohol al 70%. Al superar el ensayo de flujo lateral de gluten, se autoriza el ingreso con Zorra Hidráulica HELI BF25 a los racks de 3 niveles del Depósito MP.
+            </p>
+          </div>
+        </div>
+      `;
+
+      drawer.style.display = 'block';
+    }
+
+    function closeMpDrawer() {
+      const drawer = document.getElementById('mpDetailDrawer');
+      if (drawer) drawer.style.display = 'none';
+      currentSelectedMpId = null;
+      renderMpDeliveries();
+    }
+
+    function initMpCharts() {
+      const canvasCat = document.getElementById('chartMpCategories');
+      const canvasSaw = document.getElementById('chartMpSawtooth');
+      if (!canvasCat || !canvasSaw) return;
+
+      // Gráfico 1: Barras apiladas semanales por Rubro (kg)
+      const weeks = ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'];
+      const catDatasets = [
+        { label: 'Harinas y Almidones', data: [7500, 6000, 7500, 6000], backgroundColor: '#059669', borderRadius: 4 },
+        { label: 'Azúcar y Químicos', data: [0, 7425, 0, 6900], backgroundColor: '#2563eb', borderRadius: 4 },
+        { label: 'Grasas y Aceites', data: [3700, 0, 3700, 0], backgroundColor: '#d97706', borderRadius: 4 },
+        { label: 'Chocolates y Rellenos', data: [2300, 0, 2300, 0], backgroundColor: '#7c3aed', borderRadius: 4 },
+        { label: 'Lácteos y Ovoproductos', data: [0, 1900, 0, 1900], backgroundColor: '#06b6d4', borderRadius: 4 },
+        { label: 'Esencias y Aditivos', data: [1625, 800, 900, 400], backgroundColor: '#e11d48', borderRadius: 4 }
+      ];
+
+      if (!chartMpCategoriesInstance) {
+        chartMpCategoriesInstance = new Chart(canvasCat, {
+          type: 'bar',
+          data: { labels: weeks, datasets: catDatasets },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                stacked: true,
+                grid: { display: false },
+                ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#475569' }
+              },
+              y: {
+                stacked: true,
+                grid: { color: '#f1f5f9' },
+                ticks: {
+                  font: { family: 'JetBrains Mono', size: 10 },
+                  color: '#475569',
+                  callback: v => `${(v / 1000).toFixed(0)} tn`
+                },
+                title: { display: true, text: 'Masa Recibida (kg)', color: '#475569', font: { size: 11, weight: 'bold' } }
+              }
+            },
+            plugins: {
+              legend: {
+                position: 'bottom',
+                labels: { font: { family: 'Inter', size: 10 }, color: '#1e293b', boxWidth: 10, padding: 8 }
+              },
+              tooltip: {
+                callbacks: {
+                  label: ctx => ` ${ctx.dataset.label}: ${ctx.parsed.y.toLocaleString('es-AR')} kg`
+                }
+              }
+            }
+          }
+        });
+      }
+
+      // Gráfico 2: Diente de Sierra de Stock en Depósito MP (52 Pallets Capacidad, 15 Pallets Seguridad)
+      if (!chartMpSawtoothInstance) {
+        const mpSawLabels = [];
+        const mpSawStock = [];
+        const mpCapMax = [];
+        const mpStockSeguridad = [];
+        const mpStockMedio = [];
+
+        // Generamos los 20 días hábiles (S1-LU a S4-V)
+        // Consumo diario de líneas: ~3,5 pallets/día
+        // Ingresos: S1 (8, 4, 3, 2, 4), S2 (6, 8, 2, 1, 4), S3 (8, 4, 3, 1, 4), S4 (6, 7, 2, 1, 4)
+        const incomingPallets = [
+          8, 4, 3, 2, 4,  // S1 (21 pal)
+          6, 8, 2, 1, 4,  // S2 (21 pal)
+          8, 4, 3, 1, 4,  // S3 (20 pal)
+          6, 7, 2, 1, 4   // S4 (20 pal)
+        ];
+
+        const days = ['LU', 'MA', 'MI', 'JU', 'VI'];
+        let currentStock = 28.0; // Stock inicial el lunes mañana S1
+
+        for (let i = 0; i < 20; i++) {
+          const sem = `S${Math.floor(i / 5) + 1}`;
+          const dName = days[i % 5];
+          const inc = incomingPallets[i];
+          const cons = 3.5; // Consumo diario promedio de ambas líneas (Galletitas + Panificados)
+
+          // 1. Mañana Pre-Camión (08:00 hs)
+          mpSawLabels.push(`${sem}-${dName} 08h`);
+          mpSawStock.push(Number(currentStock.toFixed(1)));
+
+          // 2. Post-Camión descarga en Dársena (10:30 hs)
+          currentStock += inc;
+          mpSawLabels.push(`${sem}-${dName} 11h`);
+          mpSawStock.push(Number(currentStock.toFixed(1)));
+
+          // 3. Tarde (Consumo turno tarde 16:00 hs)
+          currentStock -= cons * 0.6;
+          mpSawLabels.push(`${sem}-${dName} 16h`);
+          mpSawStock.push(Number(currentStock.toFixed(1)));
+
+          // 4. Cierre Jornada (Consumo turno noche 22:00 hs)
+          currentStock -= cons * 0.4;
+          mpSawLabels.push(`${sem}-${dName} 22h`);
+          mpSawStock.push(Number(currentStock.toFixed(1)));
+
+          for (let k = 0; k < 4; k++) {
+            mpCapMax.push(52);         // Capacidad máxima de racks en Depósito MP
+            mpStockMedio.push(33);      // Stock medio operacional
+            mpStockSeguridad.push(15);  // Stock de seguridad (5 días de producción)
+          }
+        }
+
+        chartMpSawtoothInstance = new Chart(canvasSaw, {
+          type: 'line',
+          data: {
+            labels: mpSawLabels,
+            datasets: [
+              {
+                label: 'Capacidad Racks MP (52)',
+                data: mpCapMax,
+                borderColor: '#ef4444',
+                borderDash: [5, 4],
+                borderWidth: 1.5,
+                pointRadius: 0,
+                fill: false
+              },
+              {
+                label: 'Stock en Depósito MP (Sawtooth)',
+                data: mpSawStock,
+                borderColor: '#d97706',
+                backgroundColor: 'rgba(217, 119, 6, 0.08)',
+                borderWidth: 2,
+                pointRadius: 0,
+                tension: 0.02,
+                fill: true
+              },
+              {
+                label: 'Stock Medio Operacional (33)',
+                data: mpStockMedio,
+                borderColor: '#2563eb',
+                borderDash: [3, 3],
+                borderWidth: 1.5,
+                pointRadius: 0,
+                fill: false
+              },
+              {
+                label: 'Stock de Seguridad (15)',
+                data: mpStockSeguridad,
+                borderColor: '#94a3b8',
+                borderDash: [2, 2],
+                borderWidth: 1.5,
+                pointRadius: 0,
+                fill: false
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: {
+                  font: { family: 'JetBrains Mono', size: 9 },
+                  color: '#64748b',
+                  callback: function(val, index) {
+                    return index % 4 === 0 ? mpSawLabels[index].split(' ')[0] : '';
+                  }
+                }
+              },
+              y: {
+                min: 10,
+                max: 56,
+                grid: { color: '#f1f5f9' },
+                ticks: {
+                  color: '#475569',
+                  font: { family: 'JetBrains Mono', size: 10 },
+                  callback: v => `${v} pal`
+                },
+                title: { display: true, text: 'Pallets en Depósito MP', color: '#475569', font: { size: 11, weight: 'bold' } }
+              }
+            },
+            plugins: {
+              legend: {
+                labels: { font: { family: 'Inter', size: 10 }, color: '#1e293b' }
+              },
+              tooltip: {
+                callbacks: {
+                  title: items => `Momento: ${items[0].label}`,
+                  label: ctx => `${ctx.dataset.label}: ${ctx.parsed.y.toFixed(1)} pallets`
+                }
+              }
+            }
+          }
+        });
+      }
+    }
+
     // Render Day Cards (PCP Heijunka)
     function renderDayCards(filter = 'all') {
       const container = document.getElementById('days-container');
@@ -4326,6 +4874,9 @@
       }
       if (subtabId === 'pcp') {
         initMassBalanceChart();
+        initMpCharts();
+        if (chartMpCategoriesInstance) chartMpCategoriesInstance.resize();
+        if (chartMpSawtoothInstance) chartMpSawtoothInstance.resize();
       }
       if (window.lucide) lucide.createIcons();
     }
@@ -4509,6 +5060,9 @@
 
     // ÚNICA DEFINICIÓN DE initTecnicaCharts (SIN DUPLICADOS)
     function initTecnicaCharts() {
+      renderMpCategoryFilters();
+      renderMpDeliveries();
+      initMpCharts();
       renderDayCards('all');
       renderSim();
       renderDapTable();
