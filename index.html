@@ -1285,34 +1285,50 @@
             </div>
           </div>
 
-          <!-- 4 KPI Cards Dinámicos del Balance de Masa -->
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+          <!-- 5 KPI Cards Dinámicos del Balance de Masa -->
+          <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 sm:gap-3.5">
             <!-- 1. Entrada de Masa -->
-            <div class="card p-4 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-blue-600">
-              <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">1. Masa / Insumos Entrantes</div>
-              <div id="mass-kpi-input" class="text-xl sm:text-2xl font-black font-mono text-slate-900 mt-1">100.0 kg</div>
-              <div id="mass-kpi-input-sub" class="text-[11px] text-slate-500 font-mono mt-0.5">86% Insumos Secos + 14% Agua</div>
+            <div class="card p-3.5 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-blue-600 flex flex-col justify-between">
+              <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">1. Masa Formulada Entrada</div>
+              <div id="mass-kpi-input" class="text-lg sm:text-xl font-black font-mono text-slate-900 mt-1">100.0 kg</div>
+              <div id="mass-kpi-input-sub" class="text-[10px] sm:text-[11px] text-slate-500 font-mono mt-0.5">86% Insumos Secos + 14% Agua</div>
             </div>
 
-            <!-- 2. Evaporación Térmica Horno -->
-            <div class="card p-4 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-amber-500">
-              <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">2. Evaporación Hornos (Vapor)</div>
-              <div id="mass-kpi-evap" class="text-xl sm:text-2xl font-black font-mono text-amber-600 mt-1">-9.5 kg</div>
-              <div id="mass-kpi-evap-sub" class="text-[11px] text-slate-500 font-mono mt-0.5">Merma por cocción (-9,5%)</div>
+            <!-- 2. Evaporación Térmica Horno (Vapor a Chimenea - NO es Scrap a Retirar) -->
+            <div class="card p-3.5 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-amber-500 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-amber-800 font-bold">2. Evaporación Hornos</span>
+                <span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[9px] font-bold">Vapor a Techo</span>
+              </div>
+              <div id="mass-kpi-evap" class="text-lg sm:text-xl font-black font-mono text-amber-600 mt-1">-9.8 kg</div>
+              <div id="mass-kpi-evap-sub" class="text-[10px] text-amber-700 font-mono mt-0.5 font-medium">Agua a chimeneas &bull; NO es scrap a retirar</div>
             </div>
 
-            <!-- 3. Scrap de Proceso y Reciclado -->
-            <div class="card p-4 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-purple-600">
-              <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">3. Scrap Recuperable &amp; Mermas</div>
-              <div id="mass-kpi-scrap" class="text-xl sm:text-2xl font-black font-mono text-purple-600 mt-1">-2.5 kg</div>
-              <div id="mass-kpi-scrap-sub" class="text-[11px] text-slate-500 font-mono mt-0.5">TR-17 retorno crudo (1%) + TR-18 cocido (1%)</div>
+            <!-- 3. Scrap Recuperable (100% Reinyectado a Amasado) -->
+            <div class="card p-3.5 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-purple-600 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-purple-800 font-bold">3. Scrap Recuperable</span>
+                <span class="px-1.5 py-0.2 rounded bg-purple-100 text-purple-800 text-[9px] font-bold">Retorno 100%</span>
+              </div>
+              <div id="mass-kpi-scrap-recup" class="text-lg sm:text-xl font-black font-mono text-purple-600 mt-1">4.2 kg</div>
+              <div id="mass-kpi-scrap-recup-sub" class="text-[10px] text-purple-700 font-mono mt-0.5 font-medium">TR-17 (crudo) + TR-18 (molido) a amasado</div>
             </div>
 
-            <!-- 4. Salida PT Neto en Cajas -->
-            <div class="card p-4 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-emerald-600">
-              <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">4. Producto Terminado Neto (PT)</div>
-              <div id="mass-kpi-output" class="text-xl sm:text-2xl font-black font-mono text-emerald-600 mt-1">88.0 kg</div>
-              <div id="mass-kpi-output-sub" class="text-[11px] text-emerald-700 font-bold font-mono mt-0.5">Rendimiento Industrial: 88,0%</div>
+            <!-- 4. Mermas No Recuperables (Residuo Sólido Real a Retirar) -->
+            <div class="card p-3.5 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-rose-600 flex flex-col justify-between">
+              <div class="flex items-center justify-between">
+                <span class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-rose-800 font-bold">4. Mermas No Recuperables</span>
+                <span class="px-1.5 py-0.2 rounded bg-rose-100 text-rose-800 text-[9px] font-bold">Retiro POES</span>
+              </div>
+              <div id="mass-kpi-scrap-norecup" class="text-lg sm:text-xl font-black font-mono text-rose-600 mt-1">-3.9 kg</div>
+              <div id="mass-kpi-scrap-norecup-sub" class="text-[10px] text-rose-700 font-mono mt-0.5 font-medium">Lavado POES, talones pan y film empaque</div>
+            </div>
+
+            <!-- 5. Salida PT Neto en Cajas -->
+            <div class="card p-3.5 rounded-xl border border-slate-200 bg-white mb-0 shadow-sm border-l-4 border-l-emerald-600 flex flex-col justify-between col-span-2 md:col-span-1">
+              <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-emerald-800 font-bold">5. PT Neto en Cajas</div>
+              <div id="mass-kpi-output" class="text-lg sm:text-xl font-black font-mono text-emerald-600 mt-1">82.1 kg</div>
+              <div id="mass-kpi-output-sub" class="text-[10px] text-emerald-700 font-bold font-mono mt-0.5">Rendimiento: 82,1% &bull; A Depósito PT</div>
             </div>
           </div>
 
@@ -1321,7 +1337,7 @@
             <!-- Gráfico Cascada / Waterfall de Transformación -->
             <div class="lg:col-span-7 space-y-2">
               <div class="flex justify-between items-center">
-                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">Cascada de Transformación de Masa (Entrada &rarr; Mermas &rarr; Salida PT)</span>
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">Cascada de Transformación (Masa &rarr; Vapor &rarr; Scrap Circular &rarr; Merma POES &rarr; PT)</span>
                 <span id="mass-chart-scale-label" class="text-[11px] text-slate-500 font-mono">Unidad: kg</span>
               </div>
               <div class="h-64 w-full relative bg-slate-50/50 p-2 rounded-xl border border-slate-100">
@@ -1332,8 +1348,8 @@
             <!-- Gráfico Dona de Composición y Destino del Material -->
             <div class="lg:col-span-5 space-y-2">
               <div class="flex justify-between items-center">
-                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">Distribución Porcentual del Lote</span>
-                <span class="text-[11px] text-emerald-700 font-bold font-mono">100% Masa Cruda</span>
+                <span class="text-xs font-bold text-slate-700 uppercase tracking-wider font-mono">Destino Físico del Lote Elaborado</span>
+                <span class="text-[11px] text-emerald-700 font-bold font-mono">100% Masa Formulada</span>
               </div>
               <div class="h-64 w-full relative bg-slate-50/50 p-2 rounded-xl border border-slate-100">
                 <canvas id="chartMassDoughnut"></canvas>
@@ -1341,19 +1357,52 @@
             </div>
           </div>
 
-          <!-- Ecuación de Balance y Explicación de Ingeniería -->
+          <!-- Clarificación de Ingeniería y Destino Físico de Flujos -->
           <div class="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3 font-sans">
             <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-200 pb-2">
               <span class="text-xs font-bold text-slate-900 font-mono flex items-center space-x-2">
                 <i data-lucide="check-circle-2" class="w-4 h-4 text-emerald-600"></i>
-                <span>Ecuación de Conservación de la Materia (Primera Ley):</span>
+                <span>Criterio de Ingeniería: Distinción entre Evaporación, Scrap y Mermas</span>
               </span>
-              <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200" id="mass-equation-tag">
-                &sum; M_Entrada = M_PT + M_Evaporación + M_Scrap + M_Empaque
+              <span class="text-xs font-mono font-bold text-emerald-700 bg-emerald-50 px-2.5 py-0.5 rounded border border-emerald-200" id="mass-equation-tag">
+                &sum; M_Entrada = M_PT + M_Evaporación(Vapor) + M_Merma(Desecho POES)
               </span>
             </div>
 
-            <div id="mass-engineering-notes" class="text-xs text-slate-600 leading-relaxed space-y-1.5">
+            <!-- 3 Cajas Claras Explicativas -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs pt-1">
+              <div class="p-3 bg-amber-50/70 rounded-xl border border-amber-200 space-y-1">
+                <div class="font-bold text-amber-900 flex items-center space-x-1.5">
+                  <span>🌬️</span>
+                  <span>1. Evaporación Hornos (Vapor)</span>
+                </div>
+                <p class="text-slate-600 leading-relaxed font-sans">
+                  <strong>NO es residuo sólido ni scrap a retirar.</strong> Es agua pura de receta que cambia de fase líquida a vapor ($165^\circ\text{C}-250^\circ\text{C}$) y se evacua a los 4 vientos por chimeneas de tiro forzado. No llena tolvas ni requiere flete de residuos.
+                </p>
+              </div>
+
+              <div class="p-3 bg-purple-50/70 rounded-xl border border-purple-200 space-y-1">
+                <div class="font-bold text-purple-900 flex items-center space-x-1.5">
+                  <span>🔄</span>
+                  <span>2. Scrap Recuperable (100% Circular)</span>
+                </div>
+                <p class="text-slate-600 leading-relaxed font-sans">
+                  <strong>NO sale de fábrica ni se descarta.</strong> Recortes de masa cruda en formadora (TR-17) y galletitas cocidas de cinta de enfriado (TR-18) molidas. Se reinyectan al 100% en la amasadora cerrada, manteniendo el balance y ahorrando materia prima.
+                </p>
+              </div>
+
+              <div class="p-3 bg-rose-50/70 rounded-xl border border-rose-200 space-y-1">
+                <div class="font-bold text-rose-900 flex items-center space-x-1.5">
+                  <span>🗑️</span>
+                  <span>3. Mermas No Recuperables (Desecho a Retirar)</span>
+                </div>
+                <p class="text-slate-600 leading-relaxed font-sans">
+                  <strong>Este es el ÚNICO scrap sólido a retirar de planta.</strong> Masas adheridas removidas durante el lavado POES de tolvas, despunte de talones de pan de molde no comerciales y film de empaque fallado. Se colocan en contenedores rotulados para retiro de nave.
+                </p>
+              </div>
+            </div>
+
+            <div id="mass-engineering-notes" class="text-xs text-slate-600 leading-relaxed space-y-1.5 pt-2 border-t border-slate-200">
               <!-- Inyectado dinámicamente según producto -->
             </div>
           </div>
@@ -3936,18 +3985,18 @@
         },
         notes: `
           <p><strong>&bull; Alimentación Anual MP (431.449,24 kg/año):</strong> Masa formulada que ingresa a la amasadora continua Catania doble Z (50 kg). Rendimiento neto final de <strong>83,12%</strong> conforme a la hoja oficial <em>BOM y balanceo</em> de <em>Calculos vf.xlsx</em>.</p>
-          <p><strong>&bull; Moldeado Rotativo (Ralem 400):</strong> Desperdicio recuperable 1,0% (4.314,49 kg/año) retornado en crudo a tolva (TR-17) y 1,0% de desperdicio no recuperable (4.314,49 kg/año).</p>
-          <p><strong>&bull; Horneado Continuo Túnel (250°C):</strong> Merma térmica por evaporación del 7,0% sobre masa horneada (<strong>29.597,42 kg/año de agua</strong> evacuada a chimenea).</p>
-          <p><strong>&bull; Enfriado y Envasado:</strong> Desperdicio recuperable en cinta de enfriado de 4,0% (15.728,91 kg/año triturado TR-18), 1,0% merma no recuperable (3.932,23 kg/año) y 4,0% recuperable en envasado primario (14.942,47 kg/año).</p>
-          <p><strong>&bull; Total Producto Terminado Neto:</strong> <strong>358.619,23 kg PT/año</strong> (132.822 cajas de 18 u de 150g, 9 pallets diarios despachados).</p>
+          <p><strong>&bull; Evaporación Horno Túnel (29.597,42 kg agua/año &bull; 6,86%):</strong> Pérdida por cambio de fase térmica (agua líquida a vapor a 250°C) evacuada a la atmósfera por chimenea de tiraje inducido. <strong>NO es residuo sólido ni scrap a retirar</strong> (no genera recipientes ni logística de descarte).</p>
+          <p><strong>&bull; Scrap Recuperable (34.985,87 kg/año &bull; 8,11%):</strong> Circuito cerrado 100% circular. Compuesto por 4.314,49 kg de recortes en moldeadora rotativa (TR-17) reinyectados a tolva + 15.728,91 kg de galletitas en cinta de enfriado (TR-18) molidas en molino de martillos + 14.942,47 kg de rechazo de envasado molido. <strong>100% retornado al amasado</strong>, sin salir de la nave.</p>
+          <p><strong>&bull; Mermas No Recuperables Reales (8.246,72 kg/año &bull; 1,91%):</strong> Desecho sólido proveniente de adherencias retiradas en el lavado diario POES de tolvas (4.314,49 kg) y roturas de enfriado (3.932,23 kg). Es el <strong>ÚNICO desecho sólido</strong> que se retira de la nave en contenedores rotulados.</p>
+          <p><strong>&bull; Producto Terminado Neto en Cajas:</strong> <strong>358.619,23 kg PT/año</strong> (132.822 cajas de 18 u de 150g, 9 pallets diarios despachados a racks PT).</p>
         `,
         streams: [
           { name: 'Insumos Secos Mezclados', type: 'Fécula maíz, harina arroz, azúcar, aceite', pct: '86,0%', calc: (s) => s.dry, dest: 'Amasadora Continua', rule: 'BOM A01-A08 / Sin TACC' },
           { name: 'Agua de Receta Libre', type: 'Agua potable tratada', pct: '14,0%', calc: (s) => s.water, dest: 'Amasadora Continua', rule: 'Hidratación controlada' },
-          { name: 'Masa Cruda Homogénea Ingresada', type: 'Masa para galletitas moldeables', pct: '100,0%', calc: (s) => s.input, dest: 'Tolva Formadora Rotativa', rule: '431.449,2 kg/año' },
-          { name: 'Evaporación Horno Túnel (250°C)', type: 'Vapor de agua a chimenea', pct: '-6,9%', calc: (s) => -s.evap, dest: 'Extracción a Techo (Chimenea)', rule: '29.597,4 kg agua/año' },
-          { name: 'Scrap Recuperable (TR-17 + TR-18 + Env.)', type: 'Recortes masa cruda + piezas molidas', pct: '-8,1%', calc: (s) => -s.scrapRaw, dest: 'Retorno 100% a Amasado', rule: '34.985,9 kg/año recup.' },
-          { name: 'Mermas No Recuperables Proceso', type: 'Descartes de moldeado y enfriado', pct: '-1,9%', calc: (s) => -s.scrapBaked, dest: 'Disposición final / POES', rule: '8.246,7 kg/año descarte' },
+          { name: 'Masa Cruda Homogénea Ingresada', type: 'Masa para galletitas moldeables', pct: '100,0%', calc: (s) => s.input, dest: 'Tolva Formadora Rotativa', rule: '431.449,2 kg/año (Base 100%)' },
+          { name: 'Evaporación Horno Túnel (250°C)', type: 'Vapor de agua a chimenea (NO scrap)', pct: '-6,9%', calc: (s) => -s.evap, dest: 'Extracción a Techo (Chimenea)', rule: '29.597,4 kg agua/año (Vapor)' },
+          { name: 'Scrap Recuperable (TR-17 + TR-18)', type: 'Recortes crudos + galleta molida', pct: '+8,1%', calc: (s) => s.scrapRaw, dest: 'Retorno 100% a Amasado', rule: '34.985,9 kg/año circular' },
+          { name: 'Mermas No Recuperables (POES)', type: 'ÚNICO scrap sólido a retirar', pct: '-1,9%', calc: (s) => -s.scrapBaked, dest: 'Contenedores POES / Retiro nave', rule: '8.246,7 kg/año desecho' },
           { name: 'Producto Terminado Neto en Caja', type: 'Galletitas listas para despacho', pct: '83,1%', calc: (s) => s.output, dest: 'Depósito PT (Racks 153 pal)', rule: '358.619,2 kg PT/año' }
         ]
       },
@@ -3969,16 +4018,18 @@
         },
         notes: `
           <p><strong>&bull; Alimentación Anual MP Línea B (395.371,07 kg/año):</strong> Procesa por lotes los requerimientos de Pan de Molde Lactal (B01: 117.855,92 kg PT) y Budines (B02+B03: 202.038,81 kg PT), con un rendimiento consolidado de <strong>80,91%</strong> (Calculos vf.xlsx hoja BOM y balanceo).</p>
-          <p><strong>&bull; Evaporación en Hornos Rotativos:</strong> Desperdicio no recuperable del 13,0% (<strong>51.398,24 kg/año de agua</strong> en cocción a 180°C/165°C).</p>
-          <p><strong>&bull; Enfriado y Rebanado:</strong> Desperdicio no recuperable del 7,0% (<strong>24.078,10 kg/año</strong> en despunte de talones y deshidratación).</p>
+          <p><strong>&bull; Evaporación en Hornos Rotativos (51.398,24 kg agua/año &bull; 13,00%):</strong> Vapor generado en cocción convectiva a 180°C/165°C evacuado a través de conductos a cubierta. <strong>NO es scrap ni genera residuo sólido</strong>.</p>
+          <p><strong>&bull; Scrap Recuperable (0,0 kg/año &bull; 0,0%):</strong> En procesos con levaduras biológicas y emulsiones batidas no se admite reciclado de masa cruda para no afectar la fermentación ni la textura alveolar.</p>
+          <p><strong>&bull; Mermas No Recuperables Reales (24.078,10 kg/año &bull; 6,09%):</strong> Despunte de talones de pan de molde no comerciales en rebanadora y masa adherida retirada en limpieza POES. Es el <strong>ÚNICO scrap sólido</strong> que se retira de la planta.</p>
           <p><strong>&bull; Total Producto Terminado Neto:</strong> <strong>319.894,73 kg PT/año</strong> despachados en 7 pallets diarios nivelados.</p>
         `,
         streams: [
           { name: 'Insumos Secos Mezclados', type: 'Almidón maíz, mandioca, azúcar, psyllium', pct: '69,5%', calc: (s) => s.dry, dest: 'Batidora Planetaria 120L', rule: 'BOM B01-B03' },
           { name: 'Agua de Receta Libre (M127)', type: 'Agua potable tratada a 18°C', pct: '30,5%', calc: (s) => s.water, dest: 'Batidora Planetaria 120L', rule: 'Hidratación de hidrocoloides' },
-          { name: 'Masa Cruda Total Ingresada', type: 'Masa viscosa y emulsiones batidas', pct: '100,0%', calc: (s) => s.input, dest: 'Dosificadora Neumática', rule: '395.371,1 kg/año' },
-          { name: 'Evaporación en Hornos Rotativos', type: 'Vapor de agua a chimeneas', pct: '-13,0%', calc: (s) => -s.evap, dest: 'Extracción a Techo', rule: '51.398,2 kg agua/año' },
-          { name: 'Mermas Enfriado / Rebanado (Talones)', type: 'Recortes de miga y deshidratación', pct: '-6,1%', calc: (s) => -s.scrapBaked, dest: 'Subproducto / Scrap', rule: '24.078,1 kg/año' },
+          { name: 'Masa Cruda Total Ingresada', type: 'Masa viscosa y emulsiones batidas', pct: '100,0%', calc: (s) => s.input, dest: 'Dosificadora Neumática', rule: '395.371,1 kg/año (Base 100%)' },
+          { name: 'Evaporación en Hornos Rotativos', type: 'Vapor de agua a chimeneas (NO scrap)', pct: '-13,0%', calc: (s) => -s.evap, dest: 'Extracción a Techo', rule: '51.398,2 kg agua/año (Vapor)' },
+          { name: 'Scrap Recuperable Proceso', type: 'Sin recirculación en masas fermentadas', pct: '0,0%', calc: (s) => s.scrapRaw, dest: 'N/A (Cero retorno)', rule: '0,0 kg/año' },
+          { name: 'Mermas No Recuperables (Talones Pan / POES)', type: 'ÚNICO scrap sólido a retirar de nave', pct: '-6,1%', calc: (s) => -s.scrapBaked, dest: 'Contenedores POES / Retiro nave', rule: '24.078,1 kg/año desecho' },
           { name: 'Producto Terminado Neto en Caja', type: 'Panes 500g y Budines 200g', pct: '80,9%', calc: (s) => s.output, dest: 'Depósito PT (Racks 153 pal)', rule: '319.894,7 kg PT/año' }
         ]
       },
@@ -4000,16 +4051,18 @@
         },
         notes: `
           <p><strong>&bull; Parámetros de Receta Oficial (BOM y balanceo Fila 259):</strong> Lote estándar = 1 caja &times; 12 unid &times; 500g = <strong>6,00 kg PT</strong> con una mezcla a preparar de <strong>6,98 kg</strong> (rendimiento 86,0%).</p>
-          <p><strong>&bull; Alta Hidratación (38% Agua):</strong> Requerida para activar el psyllium (M107) y la goma xántica (M022), y gelatinizar los almidones durante el horneado a 180°C.</p>
-          <p><strong>&bull; Producción Anual Neta:</strong> <strong>117.855,92 kg PT/año</strong> embolsados con clip hermético.</p>
+          <p><strong>&bull; Evaporación Hornos Rotativos (14.389,4 kg agua/año &bull; 10,5%):</strong> Evacuación limpia de vapor por conducto a cubierta durante la cocción a 180°C. <strong>NO es residuo sólido</strong>.</p>
+          <p><strong>&bull; Mermas Rebanado y Talones (3.426,0 kg/año &bull; 2,5%):</strong> Despunte de extremos en rebanadora continua. Único desecho sólido comercialmente retirado.</p>
+          <p><strong>&bull; Merma Desmolde y Envasado (1.370,4 kg/año &bull; 1,0%):</strong> Adherencias en moldes de teflón retiradas en saneamiento POES.</p>
+          <p><strong>&bull; Producción Anual Neta:</strong> <strong>117.855,92 kg PT/año</strong> embolsados con clip hermético en 393 pallets.</p>
         `,
         streams: [
           { name: 'Insumos Secos (Almidón, Arroz, Psyllium)', type: 'Mezcla seca dosificada', pct: '62,0%', calc: (s) => s.dry, dest: 'Batidora Planetaria 120L', rule: 'BOM B01' },
           { name: 'Agua de Hidratación (M127)', type: 'Agua tratada a 18°C', pct: '38,0%', calc: (s) => s.water, dest: 'Batidora Planetaria 120L', rule: 'Hidratación psyllium' },
-          { name: 'Masa Cruda Viscosa', type: 'Masa fluida para moldes', pct: '100,0%', calc: (s) => s.input, dest: 'Dosificadora a pistón en moldes', rule: 'Volumen 500g' },
-          { name: 'Evaporación en Hornos Rotativos', type: 'Vapor de cocción (180°C)', pct: '-10,5%', calc: (s) => -s.evap, dest: 'Campana extractora a techo', rule: 'Deshidratación' },
-          { name: 'Merma Rebanado y Talones', type: 'Recortes de puntas y miga', pct: '-2,5%', calc: (s) => -s.scrapBaked, dest: 'Subproducto (tostadas / rallado)', rule: 'Reaprovechamiento' },
-          { name: 'Merma Desmolde y Envasado', type: 'Adherencia en moldes y ajuste peso', pct: '-1,0%', calc: (s) => -s.lossPack, dest: 'Lavado de moldes / Scrap', rule: 'POES' },
+          { name: 'Masa Cruda Viscosa', type: 'Masa fluida para moldes', pct: '100,0%', calc: (s) => s.input, dest: 'Dosificadora a pistón en moldes', rule: 'Volumen 500g (Base 100%)' },
+          { name: 'Evaporación en Hornos Rotativos', type: 'Vapor de cocción (180°C - NO scrap)', pct: '-10,5%', calc: (s) => -s.evap, dest: 'Campana extractora a techo', rule: '14.389,4 kg agua/año (Vapor)' },
+          { name: 'Scrap Recuperable', type: 'Sin recirculación en masa fermentada', pct: '0,0%', calc: (s) => s.scrapRaw, dest: 'N/A', rule: '0,0 kg' },
+          { name: 'Merma Rebanado Talones y POES', type: 'ÚNICO scrap sólido a retirar', pct: '-3,5%', calc: (s) => -(s.scrapBaked + s.lossPack), dest: 'Tachos POES / Retiro nave', rule: '4.796,4 kg/año desecho' },
           { name: 'Producto Terminado Neto en Caja', type: 'Pan de molde 500g en bolsa', pct: '86,0%', calc: (s) => s.output, dest: 'Depósito PT (Racks 153 pal)', rule: '117.856 kg PT/año' }
         ]
       },
@@ -4030,17 +4083,18 @@
           year:    { input: 237692.7, dry: 173515.7, water: 64177.0, evap: 28523.1, scrapRaw: 0.0, scrapBaked: 4753.9, lossPack: 2376.9, output: 202038.8, unit: 'kg/año', unitBoxes: '84.183 cajas', unitPallets: '1.280 pallets' }
         },
         notes: `
-          <p><strong>&bull; Parámetros de Receta Oficial (BOM y balanceo Filas 288 y 321):</strong> Lote estándar = 1 caja &times; 12 unid &times; 200g = <strong>2,40 kg PT</strong> con una mezcla a preparar de <strong>2,82 kg</strong> (rendimiento 85,0%).</p>
-          <p><strong>&bull; Desglose Oficial de Volumen:</strong> B02 (Budín Vainilla/Cítricos) = <strong>141.427,20 kg PT/año</strong>; B03 (Budín Chips) = <strong>60.611,61 kg PT/año</strong>. Total combinado: <strong>202.038,81 kg PT/año</strong>.</p>
-          <p><strong>&bull; Horneado y Dosificado:</strong> Cocción suave a 165°C en moldes pirotines microcorrugados con 12% evaporación de agua.</p>
+          <p><strong>&bull; Parámetros de Receta Oficial (BOM y balanceo Filas 288 y 321):</strong> Lote estándar = 1 caja &times; 12 unid &times; 200g = <strong>2,40 kg PT</strong> con una mezcla a preparar de <strong>2,82 kg</strong> (rendimiento 85,0%). Total combinado B02+B03: <strong>202.038,81 kg PT/año</strong>.</p>
+          <p><strong>&bull; Evaporación Hornos Rotativos (28.523,1 kg agua/año &bull; 12,0%):</strong> Pérdida de agua por evaporación suave en moldes microcorrugados a 165°C evacuada a techo. <strong>NO es residuo sólido</strong>.</p>
+          <p><strong>&bull; Mermas de Dosificado y Limpieza POES (4.753,9 kg/año &bull; 2,0%):</strong> Masa batida adherida a tolva y boquillas neumáticas retirada en saneamiento.</p>
+          <p><strong>&bull; Merma Film Flowpack (2.376,9 kg/año &bull; 1,0%):</strong> Rechazo en selladora de empaque por ajuste de sellado o fotocélula. Único desecho seco retirado.</p>
         `,
         streams: [
           { name: 'Insumos Secos + Grasas + Azúcar', type: 'Azúcar, margarina, almidones, huevos', pct: '73,0%', calc: (s) => s.dry, dest: 'Batidora Planetaria 120L', rule: 'BOM B02 / B03' },
           { name: 'Agua y Esencias Líquidas', type: 'Agua potable + esencias cítricas', pct: '27,0%', calc: (s) => s.water, dest: 'Batidora Planetaria 120L', rule: 'Emulsión cremosa' },
-          { name: 'Masa Batida Emulsionada', type: 'Batido con densidad 0,85 g/cm³', pct: '100,0%', calc: (s) => s.input, dest: 'Dosificadora Neumática', rule: 'Tolerancia ±2g' },
-          { name: 'Evaporación en Hornos Rotativos', type: 'Vapor de horneado suave (165°C)', pct: '-12,0%', calc: (s) => -s.evap, dest: 'Extracción a Techo', rule: 'Curva de humedad' },
-          { name: 'Merma de Dosificado / Adherencia', type: 'Restos de tolva y rebose moldes', pct: '-2,0%', calc: (s) => -s.scrapBaked, dest: 'Lavado / Scrap húmedo', rule: 'Limpieza POES' },
-          { name: 'Merma Sellado Flowpack', type: 'Film mordido y rechazo por peso', pct: '-1,0%', calc: (s) => -s.lossPack, dest: 'Descarte / Reciclado film', rule: 'Control empaque' },
+          { name: 'Masa Batida Emulsionada', type: 'Batido con densidad 0,85 g/cm³', pct: '100,0%', calc: (s) => s.input, dest: 'Dosificadora Neumática', rule: 'Tolerancia ±2g (Base 100%)' },
+          { name: 'Evaporación en Hornos Rotativos', type: 'Vapor horneado suave (NO scrap)', pct: '-12,0%', calc: (s) => -s.evap, dest: 'Extracción a Techo', rule: '28.523,1 kg agua/año (Vapor)' },
+          { name: 'Scrap Recuperable', type: 'Sin recirculación en masas batidas', pct: '0,0%', calc: (s) => s.scrapRaw, dest: 'N/A', rule: '0,0 kg' },
+          { name: 'Merma Dosificado y Flowpack (POES)', type: 'ÚNICO desecho sólido a retirar', pct: '-3,0%', calc: (s) => -(s.scrapBaked + s.lossPack), dest: 'Tachos POES / Retiro nave', rule: '7.130,8 kg/año desecho' },
           { name: 'Producto Terminado Neto en Caja', type: 'Budines 200g en cajas de 12 u', pct: '85,0%', calc: (s) => s.output, dest: 'Depósito PT (Racks 153 pal)', rule: '202.039 kg PT/año' }
         ]
       },
@@ -4061,18 +4115,19 @@
           year:    { input: 826820.3, dry: 645829.2, water: 180991.1, evap: 80995.7, scrapRaw: 34985.9, scrapBaked: 32324.8, lossPack: 0.0, output: 678514.0, unit: 'kg/año', unitBoxes: '212.495 cajas', unitPallets: '3.825 pallets' }
         },
         notes: `
-          <p><strong>&bull; Consolidado Fábrica CELI Año 10 (Régimen Pleno):</strong> Para alcanzar la producción de <strong>678.514 kg PT/año</strong> (Línea A: 358.619 kg + Línea B: 319.895 kg), la planta alimenta <strong>826.820,31 kg de materias primas anuales</strong> (rendimiento global ponderado: <strong>82,06%</strong>).</p>
-          <p><strong>&bull; Evaporación Total en Hornos (80.995,66 kg agua/año):</strong> 29.597,42 kg en el horno túnel de galletitas + 51.398,24 kg en los hornos rotativos de panificados (9,79% de la masa total elaborada).</p>
-          <p><strong>&bull; Circuito de Scrap Recuperable (34.985,87 kg/año):</strong> Los flujos circulares TR-17 (masa cruda en formadora) y TR-18 (galletitas enfriadas molidas) recuperan un 4,23% del insumo, reincorporándolo directamente al proceso.</p>
-          <p><strong>&bull; Flujo Saliente Diario Nivelado:</strong> Exactamente <strong>16 pallets diarios</strong> despachados por Heijunka en 2 camiones de distribución.</p>
+          <p><strong>&bull; Consolidado Fábrica CELI Año 10 (Régimen Pleno):</strong> Para alcanzar la producción de <strong>678.514 kg PT/año</strong> (Línea A: 358.619 kg + Línea B: 319.895 kg), la planta alimenta <strong>826.820,31 kg de materias primas anuales</strong> (rendimiento global ponderado: <strong>82,06%</strong> conforme a la hoja <em>BOM y balanceo</em> de <em>Calculos vf.xlsx</em>).</p>
+          <p><strong>&bull; 1. Evaporación Total en Hornos (80.995,66 kg agua/año &bull; 9,80%):</strong> 29.597,42 kg en el horno túnel continuo de galletitas + 51.398,24 kg en los hornos rotativos de panificados. Es vapor de agua pura evacuado a la atmósfera por las chimeneas de techo. <strong>NO es residuo sólido ni scrap a retirar</strong> (no genera recipientes ni costos de disposición externa).</p>
+          <p><strong>&bull; 2. Circuito de Scrap Recuperable (34.985,87 kg/año &bull; 4,23%):</strong> Flujo 100% circular cerrado en Línea A (TR-17 masa cruda en formadora rotativa + TR-18 galletitas cocidas de cinta de enfriado trituradas en molino). <strong>Se reinyecta íntegramente a las amasadoras</strong>, reduciendo el consumo de harina virgen.</p>
+          <p><strong>&bull; 3. Mermas No Recuperables Reales (32.324,82 kg/año &bull; 3,91%):</strong> Compuesto por residuos de lavado y raspado diario POES en Línea A (8.246,72 kg) + despunte de talones no comerciales y deshidratación en Línea B (24.078,10 kg). Este es el <strong>ÚNICO residuo sólido real</strong> que se deposita en contenedores rotulados para retiro de la nave industrial.</p>
+          <p><strong>&bull; Flujo Saliente Diario Nivelado:</strong> Exactamente <strong>16 pallets diarios</strong> despachados por Heijunka en 2 camiones de distribución hacia el canal comercial.</p>
         `,
         streams: [
           { name: 'Total Insumos Secos Ingresados', type: 'Mix harinas, féc., azúcar, grasas', pct: '78,1%', calc: (s) => s.dry, dest: 'Amasadoras y Batidoras', rule: 'Plan de Compras MP' },
           { name: 'Total Agua de Receta Ingresada', type: 'Agua potable filtrada (M127)', pct: '21,9%', calc: (s) => s.water, dest: 'Amasadoras y Batidoras', rule: 'Consumo BOM Agua' },
-          { name: 'Masa Total Elaborada en Fábrica', type: 'Línea A + Línea B', pct: '100,0%', calc: (s) => s.input, dest: 'Líneas A y B', rule: '826.820,3 kg MP/año' },
-          { name: 'Evaporación Térmica Total Hornos', type: 'Vapor hornos túnel y rotativos', pct: '-9,8%', calc: (s) => -s.evap, dest: 'Extracción a Chimeneas', rule: '80.995,7 kg agua/año' },
-          { name: 'Scrap Recuperable (TR-17 + TR-18)', type: 'Circuito circular sin descarte', pct: '-4,2%', calc: (s) => -s.scrapRaw, dest: 'Retorno a Amasado Línea A', rule: '34.985,9 kg/año' },
-          { name: 'Mermas No Recuperables Proceso', type: 'Moldeado, enfriado y talones pan', pct: '-3,9%', calc: (s) => -s.scrapBaked, dest: 'Subproducto / POES', rule: '32.324,8 kg/año' },
+          { name: 'Masa Total Elaborada en Fábrica', type: 'Línea A + Línea B', pct: '100,0%', calc: (s) => s.input, dest: 'Líneas A y B', rule: '826.820,3 kg MP/año (Base 100%)' },
+          { name: 'Evaporación Térmica Total Hornos', type: 'Vapor hornos túnel y rotativos (NO scrap)', pct: '-9,8%', calc: (s) => -s.evap, dest: 'Extracción a Chimeneas', rule: '80.995,7 kg agua/año (Vapor)' },
+          { name: 'Scrap Recuperable (TR-17 + TR-18)', type: 'Circuito circular 100% reinyectado', pct: '+4,2%', calc: (s) => s.scrapRaw, dest: 'Retorno a Amasado Línea A', rule: '34.985,9 kg/año circular' },
+          { name: 'Mermas No Recuperables (POES / Talones)', type: 'ÚNICO desecho sólido a retirar de nave', pct: '-3,9%', calc: (s) => -s.scrapBaked, dest: 'Contenedores POES / Retiro nave', rule: '32.324,8 kg/año desecho' },
           { name: 'Producto Terminado Total Despachado', type: '11 SKUs en cajas palletizadas', pct: '82,1%', calc: (s) => s.output, dest: 'Depósito PT (153 Pallets)', rule: '678.514 kg PT/año' }
         ]
       }
@@ -4094,192 +4149,6 @@
           btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all flex items-center space-x-1.5";
         }
       });
-      updateMassBalanceUI();
-    }
-
-    function selectMassScale(scaleKey) {
-      currentMassScale = scaleKey;
-      ['base100', 'shift', 'day', 'year'].forEach(k => {
-        const btn = document.getElementById(`btn-mass-scale-${k}`);
-        if (!btn) return;
-        if (k === scaleKey) {
-          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-emerald-600 text-white shadow-sm transition-all";
-        } else {
-          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all";
-        }
-      });
-      updateMassBalanceUI();
-    }
-
-    function updateMassBalanceUI() {
-      const p = massBalanceData[currentMassProd];
-      if (!p) return;
-      const s = p.scales[currentMassScale];
-      if (!s) return;
-
-      const totalScrap = s.scrapRaw + s.scrapBaked + s.lossPack;
-
-      // Update KPI Cards
-      const kpiIn = document.getElementById('mass-kpi-input');
-      const kpiInSub = document.getElementById('mass-kpi-input-sub');
-      const kpiEvap = document.getElementById('mass-kpi-evap');
-      const kpiEvapSub = document.getElementById('mass-kpi-evap-sub');
-      const kpiScrap = document.getElementById('mass-kpi-scrap');
-      const kpiScrapSub = document.getElementById('mass-kpi-scrap-sub');
-      const kpiOut = document.getElementById('mass-kpi-output');
-      const kpiOutSub = document.getElementById('mass-kpi-output-sub');
-
-      if (kpiIn) kpiIn.textContent = `${s.input.toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${s.unit}`;
-      if (kpiInSub) kpiInSub.textContent = `${p.dryPct}% Insumos Secos + ${p.waterPct}% Agua/Líquidos`;
-
-      if (kpiEvap) kpiEvap.textContent = `-${s.evap.toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${s.unit}`;
-      if (kpiEvapSub) kpiEvapSub.textContent = `Evaporación Hornos (-${p.evapPct}%)`;
-
-      if (kpiScrap) kpiScrap.textContent = `-${totalScrap.toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${s.unit}`;
-      if (kpiScrapSub) kpiScrapSub.textContent = `Scrap Recup. (TR-17/18) + Mermas Empaque`;
-
-      if (kpiOut) kpiOut.textContent = `${s.output.toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${s.unit}`;
-      if (kpiOutSub) kpiOutSub.textContent = `Rendimiento: ${p.yieldPct.toFixed(1)}% • ${s.unitBoxes}`;
-
-      // Update Chart Scale Label & Table Unit
-      const chartLabel = document.getElementById('mass-chart-scale-label');
-      if (chartLabel) chartLabel.textContent = `Unidad: ${s.unit}`;
-
-      const tableUnit = document.getElementById('mass-table-unit');
-      if (tableUnit) tableUnit.textContent = s.unit;
-
-      // Update Engineering Notes
-      const notesEl = document.getElementById('mass-engineering-notes');
-      if (notesEl) notesEl.innerHTML = p.notes;
-
-      // Update Table Rows
-      const tbody = document.getElementById('mass-table-body');
-      if (tbody) {
-        tbody.innerHTML = p.streams.map(st => {
-          const val = st.calc(s);
-          const isNegative = val < 0;
-          const isPT = st.name.includes('Producto Terminado');
-          const isInput = st.name.includes('Masa') || st.name.includes('Insumos');
-          const valFormatted = (isNegative ? '' : '+') + val.toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 }) + ' ' + s.unit;
-          const rowClass = isPT ? 'bg-emerald-50/70 font-bold' : isInput ? 'bg-blue-50/40' : '';
-          const textClass = isNegative ? 'text-amber-700' : isPT ? 'text-emerald-700 font-bold' : 'text-slate-900';
-          return `
-            <tr class="${rowClass} hover:bg-slate-50 transition-colors">
-              <td class="py-2.5 px-3 font-sans font-bold text-slate-900">${st.name}</td>
-              <td class="py-2.5 px-3 font-sans text-slate-600">${st.type}</td>
-              <td class="py-2.5 px-2 text-center font-bold font-mono ${isNegative ? 'text-amber-700' : isPT ? 'text-emerald-700' : 'text-blue-700'}">${st.pct}</td>
-              <td class="py-2.5 px-3 text-right font-bold font-mono ${textClass}">${valFormatted}</td>
-              <td class="py-2.5 px-3 text-center text-xs font-mono text-slate-600">${st.dest}</td>
-              <td class="py-2.5 px-3 text-xs text-slate-500 font-sans">${st.rule}</td>
-            </tr>
-          `;
-        }).join('');
-      }
-
-      // Update Waterfall Chart
-      if (chartMassBalanceInstance) {
-        chartMassBalanceInstance.data.datasets[0].data = [
-          s.input,
-          -s.evap,
-          -(s.scrapRaw + s.scrapBaked),
-          -s.lossPack,
-          s.output
-        ];
-        if (chartMassBalanceInstance.options.scales.y) {
-          chartMassBalanceInstance.options.scales.y.title.text = `Flujo de Masa (${s.unit})`;
-        }
-        chartMassBalanceInstance.update();
-      }
-
-      // Update Doughnut Chart
-      if (chartMassDoughnutInstance) {
-        chartMassDoughnutInstance.data.datasets[0].data = [
-          s.output,
-          s.evap,
-          (s.scrapRaw + s.scrapBaked),
-          s.lossPack
-        ];
-        chartMassDoughnutInstance.update();
-      }
-    }
-
-    function initMassBalanceChart() {
-      const canvasWaterfall = document.getElementById('chartMassBalance');
-      const canvasDoughnut = document.getElementById('chartMassDoughnut');
-      if (!canvasWaterfall || !canvasDoughnut) return;
-
-      const p = massBalanceData[currentMassProd];
-      const s = p.scales[currentMassScale];
-
-      if (!chartMassBalanceInstance) {
-        chartMassBalanceInstance = new Chart(canvasWaterfall, {
-          type: 'bar',
-          data: {
-            labels: ['Masa Entrada', 'Evap. Horno', 'Scrap Recup.', 'Merma Empaque', 'PT Neto en Caja'],
-            datasets: [{
-              label: 'Flujo de Masa',
-              data: [s.input, -s.evap, -(s.scrapRaw + s.scrapBaked), -s.lossPack, s.output],
-              backgroundColor: ['#2563eb', '#f59e0b', '#8b5cf6', '#ef4444', '#10b981'],
-              borderRadius: 4
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            scales: {
-              x: {
-                grid: { display: false },
-                ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#475569' }
-              },
-              y: {
-                grid: { color: '#f1f5f9' },
-                ticks: { font: { family: 'JetBrains Mono', size: 10 }, color: '#475569' },
-                title: { display: true, text: `Flujo de Masa (${s.unit})`, color: '#475569', font: { size: 11, weight: 'bold' } }
-              }
-            },
-            plugins: {
-              legend: { display: false },
-              tooltip: {
-                callbacks: {
-                  label: ctx => ` ${ctx.label}: ${Math.abs(ctx.parsed.y).toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${s.unit} (${ctx.parsed.y < 0 ? 'Merma / Extracción' : 'Entrada / Salida'})`
-                }
-              }
-            }
-          }
-        });
-      }
-
-      if (!chartMassDoughnutInstance) {
-        chartMassDoughnutInstance = new Chart(canvasDoughnut, {
-          type: 'doughnut',
-          data: {
-            labels: ['PT Neto Empacado', 'Evaporación Horno', 'Scrap Recuperable (TR-17/18)', 'Mermas Empaque'],
-            datasets: [{
-              data: [s.output, s.evap, (s.scrapRaw + s.scrapBaked), s.lossPack],
-              backgroundColor: ['#10b981', '#f59e0b', '#8b5cf6', '#ef4444'],
-              borderWidth: 2,
-              borderColor: '#ffffff'
-            }]
-          },
-          options: {
-            responsive: true,
-            maintainAspectRatio: false,
-            cutout: '65%',
-            plugins: {
-              legend: {
-                position: 'bottom',
-                labels: { font: { family: 'Inter', size: 10 }, color: '#1e293b', boxWidth: 12 }
-              },
-              tooltip: {
-                callbacks: {
-                  label: ctx => ` ${ctx.label}: ${ctx.parsed.toLocaleString('es-AR', { minimumFractionDigits: 1, maximumFractionDigits: 1 })} ${s.unit} (${((ctx.parsed / s.input) * 100).toFixed(1)}%)`
-                }
-              }
-            }
-          }
-        });
-      }
-
       updateMassBalanceUI();
     }
 
@@ -5323,6 +5192,8 @@
         initMassBalanceChart();
         initMpCharts();
         updateParetoUI();
+        if (chartMassBalanceInstance) chartMassBalanceInstance.resize();
+        if (chartMassDoughnutInstance) chartMassDoughnutInstance.resize();
         if (chartMpCategoriesInstance) chartMpCategoriesInstance.resize();
         if (chartMpSawtoothInstance) chartMpSawtoothInstance.resize();
         if (chartParetoMpInstance) chartParetoMpInstance.resize();
