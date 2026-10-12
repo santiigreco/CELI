@@ -1,0 +1,1278 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auditoría Académica y Técnica - Proyecto Final CELI S.A. (UTN FRBA)</title>
+    <style>
+        :root {
+            --primary: #1e3a8a;
+            --primary-light: #3b82f6;
+            --primary-dark: #172554;
+            --secondary: #0f172a;
+            --accent: #0ea5e9;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #1e293b;
+            --text-muted: #64748b;
+            --border: #e2e8f0;
+            --critical: #dc2626;
+            --critical-bg: #fef2f2;
+            --critical-border: #fecaca;
+            --moderate: #d97706;
+            --moderate-bg: #fffbeb;
+            --moderate-border: #fde68a;
+            --minor: #16a34a;
+            --minor-bg: #f0fdf4;
+            --minor-border: #bbf7d0;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: var(--bg);
+            color: var(--text-main);
+            line-height: 1.6;
+            padding: 0;
+        }
+
+        .header-banner {
+            background: linear-gradient(135deg, var(--primary-dark) 0%, var(--primary) 60%, var(--accent) 100%);
+            color: #ffffff;
+            padding: 40px 24px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .institution-badge {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(8px);
+            padding: 6px 14px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            font-weight: 700;
+            margin-bottom: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .header-title {
+            font-size: 2.2rem;
+            font-weight: 800;
+            line-height: 1.2;
+            margin-bottom: 10px;
+        }
+
+        .header-subtitle {
+            font-size: 1.15rem;
+            font-weight: 400;
+            color: #cbd5e1;
+            margin-bottom: 24px;
+            max-width: 900px;
+        }
+
+        .meta-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 16px;
+            padding-top: 16px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            font-size: 0.9rem;
+        }
+
+        .meta-item strong {
+            display: block;
+            color: #93c5fd;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: -24px auto 48px auto;
+            padding: 0 24px;
+        }
+
+        .score-card {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 28px;
+            box-shadow: 0 10px 25px -5px rgba(0,0,0,0.08), 0 8px 10px -6px rgba(0,0,0,0.04);
+            border: 1px solid var(--border);
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 28px;
+            margin-bottom: 36px;
+            align-items: center;
+        }
+
+        @media (max-width: 768px) {
+            .score-card {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .dictamen-box {
+            text-align: center;
+            padding: 20px;
+            border-radius: 10px;
+            background: var(--critical-bg);
+            border: 2px solid var(--critical-border);
+        }
+
+        .dictamen-badge {
+            font-size: 0.8rem;
+            font-weight: 800;
+            color: var(--critical);
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            margin-bottom: 6px;
+        }
+
+        .dictamen-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            color: var(--critical);
+            line-height: 1.2;
+        }
+
+        .dictamen-desc {
+            font-size: 0.85rem;
+            color: #991b1b;
+            margin-top: 8px;
+        }
+
+        .kpi-row {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+        }
+
+        .kpi-tile {
+            background: var(--bg);
+            padding: 16px;
+            border-radius: 8px;
+            border: 1px solid var(--border);
+            text-align: center;
+        }
+
+        .kpi-tile.kpi-crit { border-top: 4px solid var(--critical); }
+        .kpi-tile.kpi-mod { border-top: 4px solid var(--moderate); }
+        .kpi-tile.kpi-min { border-top: 4px solid var(--minor); }
+
+        .kpi-number {
+            font-size: 2rem;
+            font-weight: 800;
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .kpi-crit .kpi-number { color: var(--critical); }
+        .kpi-mod .kpi-number { color: var(--moderate); }
+        .kpi-min .kpi-number { color: var(--minor); }
+
+        .kpi-label {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        .section-nav {
+            display: flex;
+            gap: 12px;
+            margin-bottom: 28px;
+            overflow-x: auto;
+            padding-bottom: 6px;
+        }
+
+        .nav-pill {
+            background: #ffffff;
+            border: 1px solid var(--border);
+            padding: 8px 16px;
+            border-radius: 9999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-main);
+            text-decoration: none;
+            transition: all 0.2s;
+            white-space: nowrap;
+        }
+
+        .nav-pill:hover {
+            border-color: var(--primary-light);
+            color: var(--primary);
+            background: #eff6ff;
+        }
+
+        .section-block {
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 20px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid var(--border);
+        }
+
+        .section-header h2 {
+            font-size: 1.45rem;
+            font-weight: 800;
+            color: var(--secondary);
+        }
+
+        .section-header .tag-count {
+            background: var(--border);
+            color: var(--text-main);
+            font-size: 0.8rem;
+            font-weight: 700;
+            padding: 2px 10px;
+            border-radius: 9999px;
+        }
+
+        .finding-card {
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            margin-bottom: 20px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            overflow: hidden;
+            transition: box-shadow 0.2s;
+        }
+
+        .finding-card:hover {
+            box-shadow: 0 6px 16px rgba(0,0,0,0.06);
+        }
+
+        .card-header-bar {
+            padding: 14px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 700;
+            border-bottom: 1px solid transparent;
+        }
+
+        .finding-card.crit .card-header-bar {
+            background: var(--critical-bg);
+            color: #991b1b;
+            border-bottom-color: var(--critical-border);
+        }
+
+        .finding-card.mod .card-header-bar {
+            background: var(--moderate-bg);
+            color: #92400e;
+            border-bottom-color: var(--moderate-border);
+        }
+
+        .finding-card.min .card-header-bar {
+            background: var(--minor-bg);
+            color: #166534;
+            border-bottom-color: var(--minor-border);
+        }
+
+        .badge-id {
+            display: inline-block;
+            font-size: 0.75rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 800;
+            margin-right: 8px;
+        }
+
+        .crit .badge-id { background: var(--critical); color: #fff; }
+        .mod .badge-id { background: var(--moderate); color: #fff; }
+        .min .badge-id { background: var(--minor); color: #fff; }
+
+        .card-body {
+            padding: 20px;
+        }
+
+        .card-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            color: var(--secondary);
+            margin-bottom: 12px;
+        }
+
+        .card-desc {
+            font-size: 0.95rem;
+            color: var(--text-main);
+            margin-bottom: 16px;
+        }
+
+        .diff-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.875rem;
+            margin: 16px 0;
+            background: #fff;
+            border-radius: 6px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+        }
+
+        .diff-table th {
+            background: #f1f5f9;
+            color: #475569;
+            font-weight: 700;
+            text-align: left;
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+        }
+
+        .diff-table td {
+            padding: 10px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: top;
+        }
+
+        .diff-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .diff-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .val-doc {
+            font-weight: 600;
+            color: #b91c1c;
+        }
+
+        .val-xls {
+            font-weight: 600;
+            color: #0369a1;
+        }
+
+        .val-discrepancy {
+            font-weight: 700;
+            color: #dc2626;
+            background: #fef2f2;
+            padding: 2px 6px;
+            border-radius: 4px;
+            display: inline-block;
+        }
+
+        .impact-box {
+            background: #f8fafc;
+            border-left: 4px solid var(--primary-light);
+            padding: 12px 16px;
+            margin-top: 14px;
+            font-size: 0.88rem;
+            border-radius: 0 6px 6px 0;
+        }
+
+        .impact-box strong {
+            color: var(--primary-dark);
+            display: block;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+        }
+
+        .action-box {
+            background: #eff6ff;
+            border: 1px dashed #60a5fa;
+            padding: 12px 16px;
+            margin-top: 12px;
+            font-size: 0.88rem;
+            border-radius: 6px;
+            color: #1e40af;
+        }
+
+        .action-box strong {
+            color: var(--primary);
+            display: block;
+            margin-bottom: 2px;
+            text-transform: uppercase;
+            font-size: 0.72rem;
+            letter-spacing: 0.05em;
+        }
+
+        .matrix-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.88rem;
+            background: var(--card-bg);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+            margin-bottom: 28px;
+        }
+
+        .matrix-table th {
+            background: #0f172a;
+            color: #ffffff;
+            padding: 12px 14px;
+            text-align: left;
+            font-weight: 700;
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .matrix-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .matrix-table tr:hover {
+            background: #f8fafc;
+        }
+
+        .badge-pill {
+            display: inline-block;
+            padding: 3px 8px;
+            border-radius: 9999px;
+            font-size: 0.72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+
+        .badge-pill.crit { background: var(--critical-bg); color: var(--critical); border: 1px solid var(--critical-border); }
+        .badge-pill.mod { background: var(--moderate-bg); color: var(--moderate); border: 1px solid var(--moderate-border); }
+        .badge-pill.min { background: var(--minor-bg); color: var(--minor); border: 1px solid var(--minor-border); }
+
+        footer {
+            background: var(--secondary);
+            color: #94a3b8;
+            padding: 32px 24px;
+            text-align: center;
+            font-size: 0.85rem;
+            border-top: 1px solid #334155;
+            margin-top: 60px;
+        }
+
+        footer p {
+            margin-bottom: 6px;
+        }
+    </style>
+</head>
+<body>
+
+    <header class="header-banner">
+        <div class="header-container">
+            <span class="institution-badge">UTN FRBA · Departamento de Ingeniería Industrial</span>
+            <h1 class="header-title">Informe de Auditoría Académica y Técnica</h1>
+            <p class="header-subtitle">Auditoría cruzada integral de consistencia interna, ingeniería de detalle y modelo económico-financiero para el Proyecto Final de Carrera.</p>
+            
+            <div class="meta-grid">
+                <div class="meta-item">
+                    <strong>Proyecto Evaluado</strong>
+                    CELI S.A. (Alimentos Libres de Gluten)
+                </div>
+                <div class="meta-item">
+                    <strong>Documento Rector</strong>
+                    [private] PROYECTO FINAL - CELI.docx (14 MB)
+                </div>
+                <div class="meta-item">
+                    <strong>Modelo Económico</strong>
+                    PF Economico Financiero FINAL - Celi.xlsx
+                </div>
+                <div class="meta-item">
+                    <strong>Rol del Auditor</strong>
+                    Ingeniero Industrial Senior / Auditor Académico
+                </div>
+                <div class="meta-item">
+                    <strong>Fecha de Emisión</strong>
+                    Octubre 2026
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+
+        <!-- SCORE CARD -->
+        <section class="score-card">
+            <div class="dictamen-box">
+                <div class="dictamen-badge">Dictamen del Comité Auditor</div>
+                <div class="dictamen-title">OBSERVADO CON REQUERIMIENTOS CRÍTICOS</div>
+                <div class="dictamen-desc">No apto para defensa final en el estado actual. Requiere subsanación obligatoria de inconsistencias cuantitativas, integración del capítulo financiero y saneamiento de placeholders.</div>
+            </div>
+            <div>
+                <h3 style="font-size: 1.1rem; font-weight: 800; margin-bottom: 12px; color: var(--secondary);">Resumen Cuantitativo de Hallazgos</h3>
+                <div class="kpi-row">
+                    <div class="kpi-tile kpi-crit">
+                        <div class="kpi-number">5</div>
+                        <div class="kpi-label">Hallazgos Críticos 🔴</div>
+                    </div>
+                    <div class="kpi-tile kpi-mod">
+                        <div class="kpi-number">7</div>
+                        <div class="kpi-label">Observaciones Moderadas 🟡</div>
+                    </div>
+                    <div class="kpi-tile kpi-min">
+                        <div class="kpi-number">6</div>
+                        <div class="kpi-label">Detalles Menores 🟢</div>
+                    </div>
+                </div>
+                <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 14px;">
+                    Se verificó un total de <strong>1.588 párrafos</strong>, <strong>55 tablas</strong> y <strong>27 hojas de cálculo</strong>, cruzando flujos de fondos, balances de materia, capacidades por hora, dotaciones por turno y planos de planta.
+                </p>
+            </div>
+        </section>
+
+        <!-- NAVIGATION -->
+        <nav class="section-nav">
+            <a href="#resumen" class="nav-pill">Matriz Ejecutiva</a>
+            <a href="#criticos" class="nav-pill">🔴 Hallazgos Críticos (5)</a>
+            <a href="#moderados" class="nav-pill">🟡 Observaciones Moderadas (7)</a>
+            <a href="#menores" class="nav-pill">🟢 Detalles Menores (6)</a>
+            <a href="#plan-accion" class="nav-pill">Plan de Subsanación</a>
+        </nav>
+
+        <!-- MATRIZ EJECUTIVA -->
+        <section id="resumen" class="section-block">
+            <div class="section-header">
+                <h2>Matriz Ejecutiva de Control Cruzado</h2>
+                <span class="tag-count">Visión Consolidada</span>
+            </div>
+
+            <table class="matrix-table">
+                <thead>
+                    <tr>
+                        <th style="width: 80px;">Nivel</th>
+                        <th style="width: 140px;">Área / Eje</th>
+                        <th>Descripción Sintética de la Discrepancia</th>
+                        <th>Impacto Operativo / Académico</th>
+                        <th style="width: 140px;">Urgencia</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="badge-pill crit">Crítico</span></td>
+                        <td><strong>Económico</strong></td>
+                        <td>Omisión absoluta del Capítulo de Evaluación Económico-Financiera en el informe escrito.</td>
+                        <td>El proyecto carece de justificación de rentabilidad formal (VAN, TIR, Payback) en el texto.</td>
+                        <td><strong style="color: var(--critical);">Inmediata</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill crit">Crítico</span></td>
+                        <td><strong>Comercial / Financiero</strong></td>
+                        <td>Facturación Año 1 en Word ($3.586 MM) difiere de Planilla ($4.479 MM) en un 24,9% ($893 MM).</td>
+                        <td>Ventas y flujos de fondos no reconciliados por uso de precios desactualizados en Word.</td>
+                        <td><strong style="color: var(--critical);">Inmediata</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill crit">Crítico</span></td>
+                        <td><strong>Organización / RRHH</strong></td>
+                        <td>Dotación de 64 personas (3 turnos) en Word ($2.410 MM/año) vs 48 personas (2 turnos) en Excel ($2.000 MM/año).</td>
+                        <td>Subestimación de egresos laborales en Años 1-4 en el modelo financiero por $410 MM/año.</td>
+                        <td><strong style="color: var(--critical);">Inmediata</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill crit">Crítico</span></td>
+                        <td><strong>Layout e Ingeniería</strong></td>
+                        <td>Placeholder informal "xd" en layout; hornos con 3 medidas dispares (5m, 8.6m y 12m).</td>
+                        <td>Falta de layout final integrado y desajuste geométrico en línea continua de galletas.</td>
+                        <td><strong style="color: var(--critical);">Inmediata</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill crit">Crítico</span></td>
+                        <td><strong>Logística / PCP</strong></td>
+                        <td>Capacidad de Producto Terminado trunca (párrafo con sólo "5"); 6 cifras dispares (36 a 150 pallets).</td>
+                        <td>Imposibilidad de validar la superficie y dimensionamiento del depósito de producto terminado.</td>
+                        <td><strong style="color: var(--critical);">Inmediata</strong></td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill mod">Moderado</span></td>
+                        <td><strong>Localización / Terreno</strong></td>
+                        <td>Terreno de 3.068 m² en texto vs 2.475 m² presupuestado en inversión (brecha de $61,6 MM).</td>
+                        <td>Subestimación de capital de compra del lote en el modelo de Activo Fijo.</td>
+                        <td>Media</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill mod">Moderado</span></td>
+                        <td><strong>Estrategia Comercial</strong></td>
+                        <td>Precio al Distribuidor es 20% más caro que a Cadenas de Supermercados.</td>
+                        <td>Distorsión comercial contraria a la práctica de canales mayoristas.</td>
+                        <td>Media</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill mod">Moderado</span></td>
+                        <td><strong>Ambiente / Efluentes</strong></td>
+                        <td>Caudal de efluentes de 4,3 m³/día en informe vs 11,5 m³/día en archivo de respaldo (2,7x).</td>
+                        <td>Sobredimensionamiento o subdimensionamiento de la planta de tratamiento efluentes.</td>
+                        <td>Media</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill mod">Moderado</span></td>
+                        <td><strong>Estudio del Trabajo</strong></td>
+                        <td>Puesto de envasado de pan al 20% de aprovechamiento asignado con 9 operarios en matriz de puestos.</td>
+                        <td>Incongruencia entre estudio de tiempos e ingeniería organizacional.</td>
+                        <td>Media</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill mod">Moderado</span></td>
+                        <td><strong>Infraestructura</strong></td>
+                        <td>Títulos vacíos sin desarrollo para Civil, Electricidad y Agua; cálculos de gas incompletos.</td>
+                        <td>Incompletitud formal de la ingeniería de servicios de planta.</td>
+                        <td>Media</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill min">Menor</span></td>
+                        <td><strong>Trazabilidad</strong></td>
+                        <td>Variables de fórmulas de Wilson dejadas como código: $[Cu], [Lo], [Lo / 5500].</td>
+                        <td>Deterioro de la calidad editorial del documento.</td>
+                        <td>Baja</td>
+                    </tr>
+                    <tr>
+                        <td><span class="badge-pill min">Menor</span></td>
+                        <td><strong>Referencias Cruzadas</strong></td>
+                        <td>Tablas citadas como 4, 5, 7, 9, 10, 11 en texto corresponden a Tablas 30 a 36 reales.</td>
+                        <td>Referencias rotas por copiado directo de informes sectoriales.</td>
+                        <td>Baja</td>
+                    </tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECCIÓN 1: HALLAZGOS CRÍTICOS -->
+        <section id="criticos" class="section-block">
+            <div class="section-header">
+                <h2>🔴 Hallazgos Críticos</h2>
+                <span class="tag-count" style="background: var(--critical); color: #fff;">5 Inconsistencias Graves</span>
+            </div>
+
+            <!-- CRIT 1 -->
+            <div class="finding-card crit">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">HC-01</span> OMISIÓN INTEGRAL DEL CAPÍTULO DE FACTIBILIDAD ECONÓMICO-FINANCIERA EN EL INFORME</span>
+                    <span>GRAVEDAD: BLOQUEANTE</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">El informe escrito principal finaliza sin presentar la evaluación económica y rentabilidad del proyecto</h3>
+                    <p class="card-desc">
+                        Tras el análisis exhaustivo del archivo rector <code>[private] PROYECTO FINAL - CELI.docx</code>, se constató que la obra culmina en el párrafo 1526 ("Conclusión de factibilidad administrativa y organizacional") y un Anexo Técnico trunco. No existe ningún capítulo, sección ni epígrafe formal que exponga el Estado de Resultados proyectado, el Cuadro de Fuentes y Usos, el Valor Actual Neto (VAN), la Tasa Interna de Retorno (TIR), el Período de Repago (Payback) ni el análisis de sensibilidad.
+                    </p>
+                    <table class="diff-table">
+                        <thead>
+                            <tr>
+                                <th>Parámetro Financiero</th>
+                                <th>Estado en Informe Escrito (.docx)</th>
+                                <th>Valor Real en Modelo Financiero (.xlsx)</th>
+                                <th>Discrepancia / Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Capítulo de Factibilidad Económica</td>
+                                <td class="val-doc">Inexistente (0 páginas)</td>
+                                <td class="val-xls">27 hojas de cálculo integradas</td>
+                                <td><span class="val-discrepancy">OMISIÓN TOTAL</span></td>
+                            </tr>
+                            <tr>
+                                <td>Inversión Inicial Año 0 (Total)</td>
+                                <td class="val-doc">No mencionada</td>
+                                <td class="val-xls">$3.314.276.362 ARS</td>
+                                <td>Sin respaldo en texto</td>
+                            </tr>
+                            <tr>
+                                <td>VAN del Proyecto (WACC real 11,65%)</td>
+                                <td class="val-doc">No mencionado</td>
+                                <td class="val-xls">$1.783.719.223 ARS</td>
+                                <td>Sin respaldo en texto</td>
+                            </tr>
+                            <tr>
+                                <td>TIR Modificada del Proyecto</td>
+                                <td class="val-doc">No mencionada</td>
+                                <td class="val-xls">19,90%</td>
+                                <td>Sin respaldo en texto</td>
+                            </tr>
+                            <tr>
+                                <td>Período de Recupero de la Inversión</td>
+                                <td class="val-doc">No mencionado</td>
+                                <td class="val-xls">5,53 años</td>
+                                <td>Sin respaldo en texto</td>
+                            </tr>
+                            <tr>
+                                <td>Aporte de Capital Propio (Inversor)</td>
+                                <td class="val-doc">No mencionado</td>
+                                <td class="val-xls">$3.635.289.406 ARS (Años 0 y 1)</td>
+                                <td>Sin respaldo en texto</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="impact-box">
+                        <strong>Dictamen Académico</strong>
+                        En una evaluación de Proyecto Final para la UTN, un trabajo que carece de la demostración formal de su factibilidad económica no puede ser admitido para defensa oral. Todos los cálculos existen y son metodológicamente correctos en el archivo Excel, pero no fueron volcados a la memoria técnica.
+                    </div>
+                    <div class="action-box">
+                        <strong>Acción Correctiva Requerida</strong>
+                        Redactar e incorporar de inmediato el capítulo "3.4. Factibilidad Económica y Financiera", transcribiendo los cuadros consolidados de Inversión Inicial (Activo Fijo y Capital de Trabajo), Estructura de Costos, Cuadro de Fuentes y Usos, Estado de Resultados, y las conclusiones del flujo del proyecto y del inversionista.
+                    </div>
+                </div>
+            </div>
+
+            <!-- CRIT 2 -->
+            <div class="finding-card crit">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">HC-02</span> DISCREPANCIA NUMÉRICA DEL 24,9% EN LA FACTURACIÓN PROYECTADA (AÑOS 1 A 10)</span>
+                    <span>GRAVEDAD: SEVERA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Desfase de $893 MM a $1.021 MM anuales entre la Tabla 12 del informe y el flujo de caja oficial</h3>
+                    <p class="card-desc">
+                        Al cruzar los ingresos monetarios del Plan de Ventas en la Tabla 12 del informe principal (párrafo 361) contra la hoja <code>CFyU</code> (fila 9) y <code>AUX-Ventas</code> (fila 121) del archivo económico, se detectó una brecha insalvable. El informe declara una facturación en Año 1 de $3.586 MM, mientras que el modelo que alimenta el flujo de caja proyecta $4.479 MM.
+                    </p>
+                    <table class="diff-table">
+                        <thead>
+                            <tr>
+                                <th>Período</th>
+                                <th>Ventas en Word Tabla 12 [ARS MM]</th>
+                                <th>Ventas en Excel CFyU / AUX-Ventas [ARS MM]</th>
+                                <th>Diferencia Absoluta</th>
+                                <th>Error Relativo</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Año 1</td>
+                                <td class="val-doc">$3.586 MM</td>
+                                <td class="val-xls">$4.479 MM ($4.479.173.699)</td>
+                                <td><span class="val-discrepancy">+$893 MM</span></td>
+                                <td>+24,90%</td>
+                            </tr>
+                            <tr>
+                                <td>Año 2</td>
+                                <td class="val-doc">$4.098 MM</td>
+                                <td class="val-xls">$5.119 MM ($5.119.055.898)</td>
+                                <td><span class="val-discrepancy">+$1.021 MM</span></td>
+                                <td>+24,91%</td>
+                            </tr>
+                            <tr>
+                                <td>Año 3</td>
+                                <td class="val-doc">$4.347 MM</td>
+                                <td class="val-xls">$5.430 MM ($5.430.295.024)</td>
+                                <td><span class="val-discrepancy">+$1.083 MM</span></td>
+                                <td>+24,91%</td>
+                            </tr>
+                            <tr>
+                                <td>Año 5</td>
+                                <td class="val-doc">$4.892 MM</td>
+                                <td class="val-xls">$6.111 MM ($6.110.693.287)</td>
+                                <td><span class="val-discrepancy">+$1.219 MM</span></td>
+                                <td>+24,91%</td>
+                            </tr>
+                            <tr>
+                                <td>Año 10</td>
+                                <td class="val-doc">$6.900 MM</td>
+                                <td class="val-xls">$8.618 MM ($8.617.910.871)</td>
+                                <td><span class="val-discrepancy">+$1.718 MM</span></td>
+                                <td>+24,90%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="impact-box">
+                        <strong>Causa Raíz Identificada</strong>
+                        En la Tabla 11 del Word se mantuvieron precios unitarios desactualizados (p. ej., Galletita chips a $1.440/u), mientras que el Excel económico actualizó la lista de precios a valores netos más altos ($1.600/u en supermercados y $1.920/u en distribuidores). Adicionalmente, en <code>Calculos vf.xlsx</code> existía una tercera serie de ingresos ($3.944 MM para Año 1). La memoria descriptiva comercial no fue actualizada al recalcularse las planillas financieras.
+                    </div>
+                    <div class="action-box">
+                        <strong>Acción Correctiva Requerida</strong>
+                        Actualizar la Tabla 11 y la Tabla 12 del Word con los precios definitivos y la facturación exacta de la hoja <code>AUX-Ventas</code> para que coincidan al peso con el Cuadro de Fuentes y Usos.
+                    </div>
+                </div>
+            </div>
+
+            <!-- CRIT 3 -->
+            <div class="finding-card crit">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">HC-03</span> CONTRADICCIÓN EN DOTACIÓN Y RÉGIMEN DE TURNOS: 64 VS 48 COLABORADORES</span>
+                    <span>GRAVEDAD: SEVERA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">El informe plantea 3 turnos rotativos y 64 empleados desde el inicio, pero el Excel presupuesta 2 turnos y 48 empleados</h3>
+                    <p class="card-desc">
+                        En los capítulos técnicos y organizacionales (párrafos 1277 y 1524, y Tablas 45 y 50), el proyecto declara expresamente: <em>"Operación industrial en tres turnos de trabajo para maximizar la utilización"</em> y presenta una dotación estática de <strong>64 colaboradores</strong> con un costo anual de <strong>$2.410.352.589</strong>. Sin embargo, en el modelo económico oficial (<code>AUX-Nómina</code> filas 51-52 y <code>AUX-Capacidad</code> fila 12), la planta opera los primeros cuatro años con <strong>solo 2 turnos rotativos</strong> y <strong>48 colaboradores</strong>, con un costo presupuestado de <strong>$2.000.609.335</strong>.
+                    </p>
+                    <table class="diff-table">
+                        <thead>
+                            <tr>
+                                <th>Variable</th>
+                                <th>Declaración en Word (Tablas 45 y 50)</th>
+                                <th>Modelado en Excel (Años 1 a 4)</th>
+                                <th>Modelado en Excel (Años 5 a 10)</th>
+                                <th>Desajuste</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Régimen de Turnos</td>
+                                <td class="val-doc">3 turnos continuos (24/5)</td>
+                                <td class="val-xls">2 turnos (16/5)</td>
+                                <td class="val-xls">3 turnos (24/5)</td>
+                                <td><span class="val-discrepancy">Incompatibilidad temporal</span></td>
+                            </tr>
+                            <tr>
+                                <td>Dotación Total</td>
+                                <td class="val-doc">64 colaboradores</td>
+                                <td class="val-xls">48 colaboradores</td>
+                                <td class="val-xls">62 colaboradores</td>
+                                <td><span class="val-discrepancy">-16 personas (Años 1-4)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Costo Laboral Consolidado</td>
+                                <td class="val-doc">$2.410.352.589 / año</td>
+                                <td class="val-xls">$2.000.609.335 / año</td>
+                                <td class="val-xls">$2.421.942.268 / año</td>
+                                <td><span class="val-discrepancy">-$409.743.254 / año</span></td>
+                            </tr>
+                            <tr>
+                                <td>Operarios Envasado Panes</td>
+                                <td class="val-doc">9 operarios (3 por turno)</td>
+                                <td class="val-xls">4 operarios (2 por turno)</td>
+                                <td class="val-xls">6 operarios (2 por turno)</td>
+                                <td>Diferencia de 3 operarios</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="impact-box">
+                        <strong>Impacto Económico y Operativo</strong>
+                        Si la planta realmente contratara a 64 personas desde el Año 1 como asegura el capítulo de Organización, los egresos operativos en los Años 1 a 4 aumentarían en ~$410 MM anuales, reduciendo sustancialmente el flujo neto de fondos, el VAN y la TIR del proyecto. Existe una falta de sincronización conceptual entre el redactor del capítulo organizativo y el responsable del modelo financiero.
+                    </div>
+                    <div class="action-box">
+                        <strong>Acción Correctiva Requerida</strong>
+                        Armonizar el discurso: explicar en el capítulo de Organización que el proyecto contempla un escalonamiento de turnos (arranque con 2 turnos y 48 personas durante los Años 1-4, y ampliación al 3° turno con 62 personas a partir del Año 5 conforme crece la demanda). Ajustar la Tabla 50 para reflejar la masa salarial evolutiva.
+                    </div>
+                </div>
+            </div>
+
+            <!-- CRIT 4 -->
+            <div class="finding-card crit">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">HC-04</span> TEXTO INFORMAL "XD" EN LAYOUT, AUSENCIA DE PLANO FINAL Y DISCREPANCIAS EN EQUIPOS</span>
+                    <span>GRAVEDAD: SEVERA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">El epígrafe de Primera Versión de Layout contiene literalmente el texto "xd" y no presenta planos definitivos</h3>
+                    <p class="card-desc">
+                        En el apartado 3.2.13.4 "Primera versión Layout" (párrafo 780), el texto consiste textualmente en una única palabra informal: <strong>"xd"</strong> (párrafo 781), saltando de inmediato a Productividad sin incluir diagramas ni justificación del algoritmo. Aunque en la carpeta de trabajo existen modelos avanzados de Simulated Annealing y Floorplanning convexo en Python, estos nunca fueron volcados al documento formal.
+                    </p>
+                    <table class="diff-table">
+                        <thead>
+                            <tr>
+                                <th>Equipo / Elemento</th>
+                                <th>Dimensión en Guerchet (Word Tabla 16)</th>
+                                <th>Dimensión en Ficha Técnica (.xlsx)</th>
+                                <th>Dimensión en Relevamiento Servicios (.xlsx)</th>
+                                <th>Conflicto Técnico</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Horno Túnel Continuo</td>
+                                <td class="val-doc">Largo: 8,60 m · Ancho: 2,30 m</td>
+                                <td class="val-xls">Largo: 5,00 m (Polin Cyclothermic)</td>
+                                <td class="val-xls">Largo: 12,00 m (Polin Gas 12m)</td>
+                                <td><span class="val-discrepancy">3 largos diferentes (5m vs 8.6m vs 12m)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Amasadora Galletitas</td>
+                                <td class="val-doc">2,40 m × 2,17 m (Doble Z hidráulica)</td>
+                                <td class="val-xls">0,55 m × 1,10 m (Catania HJ50B)</td>
+                                <td class="val-xls">Catania HJ25B espiral</td>
+                                <td>Discrepancia dimensional y de principio de amasado</td>
+                            </tr>
+                            <tr>
+                                <td>Rotativa Moldeadora</td>
+                                <td class="val-doc">2,50 m × 2,32 m (Ralem 600)</td>
+                                <td class="val-xls">0,80 m ancho (Rotativa Ralem R800)</td>
+                                <td class="val-xls">Ralem R800 formadora</td>
+                                <td>Inconsistencia de modelo (R600 vs R800)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="impact-box">
+                        <strong>Impacto en Ingeniería de Planta</strong>
+                        La línea de galletitas es una cadena cinemática continua rígida (moldeadora + horno + cinta de enfriamiento). Una variación en el largo del horno de 5 a 12 metros modifica radicalmente el tiempo de residencia de la masa (cuello de botella de cocción), el consumo de gas natural de los quemadores y la longitud física disponible en la nave industrial.
+                    </div>
+                    <div class="action-box">
+                        <strong>Acción Correctiva Requerida</strong>
+                        Eliminar el texto "xd". Insertar el informe completo de distribución en planta desarrollado en <code>layout/Cierre_Layout_CELI.docx</code>, incorporando los gráficos de convergencia del algoritmo SLP, la justificación de cero cruces y el plano de layout en bloques definitivo generado en AutoCAD.
+                    </div>
+                </div>
+            </div>
+
+            <!-- CRIT 5 -->
+            <div class="finding-card crit">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">HC-05</span> COLAPSO EN EL DIMENSIONAMIENTO DE ALMACENES: SECCIÓN PT TRUNCA Y 6 CRITERIOS DISPARES</span>
+                    <span>GRAVEDAD: SEVERA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">El dimensionamiento del almacén de PT contiene un "5" huérfano y oscila caóticamente entre 24 y 150 pallets</h3>
+                    <p class="card-desc">
+                        En el epígrafe 3.2.10.3 "Producto terminado" (párrafo 1038), el contenido del informe se corta abruptamente en el número <strong>"5"</strong> (párrafo 1039), pasando directamente al capítulo de Logística. No hay cálculo de superficies, rotación ni política de stock de PT en el cuerpo del informe. Al cruzar los diferentes archivos del proyecto, se encontraron hasta 6 valores mutuamente excluyentes para la capacidad del almacén.
+                    </p>
+                    <table class="diff-table">
+                        <thead>
+                            <tr>
+                                <th>Fuente del Proyecto</th>
+                                <th>Capacidad en Pallets</th>
+                                <th>Posiciones en Planta / Racks</th>
+                                <th>Superficie Asignada</th>
+                                <th>Observación del Auditor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Word Párrafo 1033</td>
+                                <td class="val-doc">36 pallets (stock mínimo)</td>
+                                <td>12 pos. planta (3 niveles)</td>
+                                <td>~56 m² mínimos</td>
+                                <td>Texto menciona 36 posiciones de rack</td>
+                            </tr>
+                            <tr>
+                                <td>Word Tabla 27 (Simulación diaria)</td>
+                                <td class="val-xls">146 a 148 pallets totales</td>
+                                <td>49 a 50 posiciones en planta</td>
+                                <td>—</td>
+                                <td>Stock dinámico con racks a 3 niveles (~150 pos.)</td>
+                            </tr>
+                            <tr>
+                                <td>Word Tabla 16 (Guerchet) y Tabla 40</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td class="val-doc">187,20 m² (12m × 15,6m)</td>
+                                <td>Superficie oficial asignada en planta</td>
+                            </tr>
+                            <tr>
+                                <td>Archivo CABOS SUELTOS.docx</td>
+                                <td class="val-doc">51 pallets</td>
+                                <td>17 pos. planta (3 niveles)</td>
+                                <td>—</td>
+                                <td>Anotado como duda de examen: 1 semana de stock</td>
+                            </tr>
+                            <tr>
+                                <td>SUPERFICIES.xlsx (Hoja Depósito PT)</td>
+                                <td class="val-doc">20 a 24 pallets</td>
+                                <td>8 pos. planta (3 niveles)</td>
+                                <td class="val-xls">64,58 m²</td>
+                                <td>Rotulado como "ESTIMACIÓN PRELIMINAR"</td>
+                            </tr>
+                            <tr>
+                                <td>AUX-Inversiones (Fila 34)</td>
+                                <td class="val-xls">89 posiciones rack PT</td>
+                                <td>—</td>
+                                <td>—</td>
+                                <td>Cotizado en inversión en equipamiento</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="impact-box">
+                        <strong>Impacto Operativo</strong>
+                        El almacén de PT es crítico para asegurar el despacho hacia 10 grandes clientes en AMBA. Una capacidad de 51 pallets solo cubre 3 días de producción pico, mientras que una capacidad de 150 pallets cubre más de 2 semanas pero requiere pasillos de autoelevador de 3,0 m y 187 m² de superficie, lo que descoloca la estimación preliminar de 64 m².
+                    </div>
+                    <div class="action-box">
+                        <strong>Acción Correctiva Requerida</strong>
+                        Completar la redacción del apartado 1038 eliminando el número "5". Adoptar una política unificada de 148 pallets (equivalente a 10 días de producción), justificando la necesidad de 50 módulos en planta a 3 niveles y consolidando la superficie final en 187,20 m² de acuerdo al layout.
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 2: OBSERVACIONES MODERADAS -->
+        <section id="moderados" class="section-block">
+            <div class="section-header">
+                <h2>🟡 Observaciones Moderadas</h2>
+                <span class="tag-count" style="background: var(--moderate); color: #fff;">7 Desajustes Técnicos</span>
+            </div>
+
+            <!-- MOD 1 -->
+            <div class="finding-card mod">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">OM-01</span> CONTRADICCIÓN EN SUPERFICIE DEL PREDIO, NAVE Y MONTO DE INVERSIÓN INMOBILIARIA</span>
+                    <span>GRAVEDAD: MODERADA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Terreno adoptado de 3.068 m² en texto vs 2.475 m² presupuestado en inversión en activos fijos</h3>
+                    <p class="card-desc">
+                        En el análisis de Microlocalización (párrafo 1134 y Tabla 34), se selecciona formalmente la parcela de <strong>3.068 m²</strong> en el Parque Industrial Pilar. Sin embargo, en la hoja de inversiones del modelo económico (<code>AUX-Superficies</code> fila 19 e <code>Inv AF</code> fila 4 / <code>AUX-Inversiones</code> fila 38), la compra de terreno se calculó sobre un lote hipotético de <strong>2.475 m²</strong> (45 m frente × 55 m fondo) a un valor unitario de USD 74,2/m² ($257.103.000 ARS).
+                    </p>
+                    <table class="diff-table">
+                        <thead>
+                            <tr>
+                                <th>Concepto</th>
+                                <th>Valor en Memoria Técnica (Word)</th>
+                                <th>Valor en Modelo Financiero (Excel)</th>
+                                <th>Diferencia / Impacto</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Superficie del Terreno</td>
+                                <td class="val-doc">3.068 m² (Parque Ind. Pilar)</td>
+                                <td class="val-xls">2.475 m² (45m × 55m)</td>
+                                <td><span class="val-discrepancy">+593 m² (+24,0%)</span></td>
+                            </tr>
+                            <tr>
+                                <td>Inversión en Terreno (USD 74,2/m²)</td>
+                                <td class="val-doc">USD 227.645 (~$318,7 MM ARS)</td>
+                                <td class="val-xls">USD 183.645 ($257.103.000 ARS)</td>
+                                <td><span class="val-discrepancy">-$61.600.840 ARS subvaluado</span></td>
+                            </tr>
+                            <tr>
+                                <td>Superficie Cubierta de Nave</td>
+                                <td class="val-doc">720 m² (Relevamiento Servicios) / 396 m² (Guerchet)</td>
+                                <td class="val-xls">900 m² (30m × 30m, AUX-Superficies)</td>
+                                <td>Divergencia entre 720 m² y 900 m²</td>
+                            </tr>
+                            <tr>
+                                <td>Ubicación en Relevamiento Gas</td>
+                                <td class="val-doc">Parque Industrial Pilar</td>
+                                <td class="val-xls">"Parque Industrial Ruta 6, Los Cardales"</td>
+                                <td>Inconsistencia de parque industrial en Hoja 3</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <div class="impact-box">
+                        <strong>Impacto Financiero</strong>
+                        El Activo Fijo inicial en el Cuadro de Fuentes y Usos está subestimado en aproximadamente $61,6 millones de pesos argentinos al omitir 593 m² de terreno.
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOD 2 -->
+            <div class="finding-card mod">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">OM-02</span> INVERSIÓN COMERCIAL ANÓMALA: DISTRIBUIDOR PAGA 20% MÁS QUE SUPERMERCADOS</span>
+                    <span>GRAVEDAD: MODERADA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">La lista de precios netos cobra un 20% de recargo al canal mayorista frente al minorista</h3>
+                    <p class="card-desc">
+                        En la hoja <code>AUX-Ventas</code> (filas 84 a 105), los precios netos de venta facturados por CELI muestran una anomalía económica: a los Distribuidores y Mayoristas se les aplica un precio unitario sistemáticamente un <strong>20% mayor</strong> que a las cadenas de supermercados (p. ej. Galletita A01: Supermercado $1.600 vs Distribuidor $1.920; Pan B01: Supermercado $4.500 vs Distribuidor $5.400).
+                    </p>
+                    <div class="impact-box">
+                        <strong>Falla de Lógica de Distribución</strong>
+                        El canal distribuidor asume la logística de última milla y la reventa a dietéticas y comercios de barrio, por lo que exige un precio de compra del fabricante inferior al canal retail para poder aplicar su propio margen comercial. El propio redactor financiero dejó asentado en la celda A19 la advertencia: <em>"Verificar: el distribuidor paga más que el supermercado"</em>, la cual no fue corregida antes del cierre.
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOD 3 -->
+            <div class="finding-card mod">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">OM-03</span> CONTRADICCIÓN EN BALANCE HÍDRICO Y EFLUENTES LÍQUIDOS (FACTOR 2,7X)</span>
+                    <span>GRAVEDAD: MODERADA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">El archivo específico dimensiona 11,5 m³/día mientras el informe maestro adopta 4,3 m³/día</h3>
+                    <p class="card-desc">
+                        En el documento principal (párrafo 1192), se detalla que el efluente líquido total es de <strong>4,3 m³/día</strong> (1,8 m³ de lavado de planta BPM y 2,5 m³ de aguas sanitarias), derivado de un consumo hídrico de 5,13 m³/día. Sin embargo, en el archivo adjunto <code>drive_proyecto_final/Técnico/Instalaciones/Efluentes liquidos (1).docx</code>, el diseño de la planta de tratamiento efluentes parte de un caudal de <strong>11,5 m³/día</strong> (6,0 m³ de lavado y 5,5 m³ cloacales).
+                    </p>
+                    <div class="impact-box">
+                        <strong>Impacto Ambiental y Regulatorio</strong>
+                        Una disparidad del 267% altera las dimensiones de la trampa de grasas (dimensionada para 1 m³), el volumen del tanque ecualizador (2,8 m³ en Word vs 5 m³ en archivo específico) y la frecuencia de retiro de barros por camión atmosférico ante la Autoridad del Agua (ADA) y el Municipio de Pilar.
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOD 4 -->
+            <div class="finding-card mod">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">OM-04</span> ASIGNACIÓN SOBREDIMENSIONADA DE PERSONAL EN ENVASADO DE PANES</span>
+                    <span>GRAVEDAD: MODERADA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Puesto con 20% de ocupación en Estudio del Trabajo recibe 9 operarios en la Matriz de Dotación</h3>
+                    <p class="card-desc">
+                        En el Estudio de Tiempos del Trabajo (párrafo 637), se concluye técnicamente que el operario de envasado y encajonado de panes tiene un tiempo de ocupación efectivo de <strong>apenas el 20%</strong> de su turno laboral (1,6 horas ocupado y 6,4 horas ociosas o disponibles para tareas menores). A pesar de esto, en la Matriz de Puestos (Tabla 45), se asignan <strong>3 operarios por turno</strong> (9 operarios totales de planta).
+                    </p>
+                    <div class="impact-box">
+                        <strong>Falla de Balance de Línea y Carga de Trabajo</strong>
+                        Asignar 3 trabajadores a una tarea que insume el 20% de un hombre-turno equivale a tener una capacidad instalada de mano de obra 15 veces superior a la requerida. Esta duda estaba registrada en <code>CABOS SUELTOS.docx</code>: <em>"¿Cuántos operarios se necesitan para el envasado de panes? Usar diagrama hombre máquina"</em>, evidenciando que el equipo nunca resolvió el cálculo antes de la entrega.
+                    </div>
+                </div>
+            </div>
+
+            <!-- MOD 5 -->
+            <div class="finding-card mod">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">OM-05</span> SECCIONES DE INGENIERÍA DE INFRAESTRUCTURA VACÍAS EN EL DOCUMENTO</span>
+                    <span>GRAVEDAD: MODERADA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Apartados Civil, Energía Eléctrica y Agua constan de títulos sin desarrollo</h3>
+                    <p class="card-desc">
+                        En los párrafos 1225, 1226 y 1227, el texto contiene únicamente las palabras aisladas <strong>"Civil"</strong>, <strong>"Energía eléctrica"</strong> y <strong>"Agua"</strong> como subtítulos huérfanos. No se incorporó el cálculo de potencia instalada (77,8 kW) ni demandada (49,7 kW), ni el cálculo de iluminación LED (93 luminarias según Decreto 351/79), pese a que estos cálculos estaban resueltos en el archivo Excel <code>Relevamiento_Instalaciones_y_Servicios_CELI.xlsx</code>. Del mismo modo, en el dimensionamiento de gas natural (p. 1238 a 1249), quedaron oraciones truncas con párrafos vacíos.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MOD 6 -->
+            <div class="finding-card mod">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">OM-06</span> INCONSISTENCIA EN CALENDARIO ANUAL: 10 VS 11 DÍAS DE PARADA DE MANTENIMIENTO</span>
+                    <span>GRAVEDAD: MODERADA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Cálculo de horas anuales difiere entre 5.736 h (239 días) y 5.712 h (238 días)</h3>
+                    <p class="card-desc">
+                        En el párrafo 892 se formula: <em>260 días laborables - 11 feriados - 10 días de parada técnica = 239 días operativos</em> (5.736 h/año a 24 h/día). No obstante, el título de la sección siguiente (p. 898) reza <em>"Parada anual técnica de 11 días hábiles"</em>. Si la parada insume 11 días hábiles, el año productivo se reduce a 238 días (5.712 horas de marcha). De hecho, en el archivo de instalaciones eléctricas y gas se utilizó la cifra de 5.712 h/año, evidenciando un desfasaje de 24 horas netas de producción.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MOD 7 -->
+            <div class="finding-card mod">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">OM-07</span> APLICACIÓN INCOMPLETA Y ENMASCARADA DEL MÉTODO DE GUERCHET</span>
+                    <span>GRAVEDAD: MODERADA</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">La Tabla 16 solo multiplica largo por ancho sin desglosar Ss, Sg, Se ni el coeficiente k</h3>
+                    <p class="card-desc">
+                        El informe desarrolla con rigor la teoría clásica de Guerchet (p. 759-763) con las componentes de superficie estática ($S_s$), gravitación ($S_g$) y evolución ($S_e$) con coeficientes $k = 0,40$ a $0,65$. Sin embargo, en la Tabla 16 se omitieron por completo estas columnas intermedias, mostrando únicamente dimensiones de cajas envolventes ($w \times h$) y área total $S_t$. Para una auditoría académica de Ingeniería Industrial, esto impide verificar si las holguras de pasillos y radio de giro de zorras y autoelevadores fueron correctamente ponderadas.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 3: DETALLES MENORES -->
+        <section id="menores" class="section-block">
+            <div class="section-header">
+                <h2>🟢 Detalles Menores</h2>
+                <span class="tag-count" style="background: var(--minor); color: #fff;">6 Observaciones Editoriales</span>
+            </div>
+
+            <!-- MIN 1 -->
+            <div class="finding-card min">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">DM-01</span> VARIABLES DE PLANTILLA SIN COMPLETAR EN TEXTO DE PACKAGING</span>
+                    <span>GRAVEDAD: MENOR</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Placeholders $[Cu], [Lo] y [Lo ÷ 5.500] en el párrafo 1027</h3>
+                    <p class="card-desc">
+                        En el cálculo del lote óptimo de cajas corrugadas, se dejaron sin reemplazar los códigos de plantilla: <em>"el costo unitario por caja es de $[Cu]. Con estos datos, el lote óptimo de Wilson resulta de [Lo] cajas, equivalente a [Lo ÷ 5.500] semanas de consumo."</em> Debe completarse con los valores numéricos calculados.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MIN 2 -->
+            <div class="finding-card min">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">DM-02</span> RUPTURA MASIVA DE REFERENCIAS CRUZADAS EN DISTRIBUCIÓN Y LOCALIZACIÓN</span>
+                    <span>GRAVEDAD: MENOR</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Tablas citadas como 4, 5, 7, 9, 10, 11 corresponden a Tablas 30 a 36 reales</h3>
+                    <p class="card-desc">
+                        En los párrafos 1109 a 1133 se hace referencia a "Tabla 4 - Puntos de entrega", "Tabla 5 - Recorridos", "Tabla 7 - Costos de flota", "Tabla 9 - Baricentro", "Tabla 10 - Alternativas" y "Tabla 11 - Matriz de ponderación". En el documento consolidado, estas tablas corresponden a las Tablas 30, 31, 32, 33, 34 y 35. Ocurrió por importar capítulos sectoriales sin renumerar las referencias en Word.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MIN 3 -->
+            <div class="finding-card min">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">DM-03</span> ANEXO TÉCNICO INCOMPLETO Y REFERENCIAS A ANEXOS INEXISTENTES</span>
+                    <span>GRAVEDAD: MENOR</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Sección de aprovechamiento por años vacía en Anexo Técnico</h3>
+                    <p class="card-desc">
+                        En el párrafo 576 se indica <em>"ver anexo técnico"</em> para el régimen de turnos y aprovechamiento por línea, pero en el Anexo Técnico (párrafo 1564), el subtítulo "Capacidades y aprovechamiento por años" no contiene texto ni tablas. Asimismo, en el párrafo 1205 se cita un <em>"Diagrama en el anexo"</em> para el circuito de efluentes que no figura en el cuerpo documental.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MIN 4 -->
+            <div class="finding-card min">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">DM-04</span> ERROR EN CABECERA DE TABLA 11 (PRECIOS DE PRODUCTO)</span>
+                    <span>GRAVEDAD: MENOR</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Columna rotulada dos veces con "Precio Supermercados[$/paquete]"</h3>
+                    <p class="card-desc">
+                        En la Tabla 11 del informe, las columnas 3 y 4 repiten el mismo encabezado ("Precio Supermercados[$/paquete]"). La cuarta columna corresponde técnicamente al precio del canal mayorista / distribuidores.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MIN 5 -->
+            <div class="finding-card min">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">DM-05</span> DESAJUSTES ARITMÉTICOS MENORES EN ESTUDIO DE MERCADO</span>
+                    <span>GRAVEDAD: MENOR</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Diferencias en Tabla 2 (312.570 vs 310.500) y Tabla 7 (23,73% vs 24,24%)</h3>
+                    <p class="card-desc">
+                        En Tabla 2: 690.000 × 45% = 310.500 personas (se reportan 312.570). En Tabla 7: Galletitas dulces representaría 191 Tn / 788 Tn = 24,24% de market share, pero la celda exhibe 23,73%.
+                    </p>
+                </div>
+            </div>
+
+            <!-- MIN 6 -->
+            <div class="finding-card min">
+                <div class="card-header-bar">
+                    <span><span class="badge-id">DM-06</span> TABLA 44 DEFORMADA EN UNA CELDA ÚNICA</span>
+                    <span>GRAVEDAD: MENOR</span>
+                </div>
+                <div class="card-body">
+                    <h3 class="card-title">Inserción de fórmula de aire comprimido como tabla de 1×1</h3>
+                    <p class="card-desc">
+                        La fórmula del factor de carga de aire comprimido (56,5%) fue tabulada erróneamente en una celda aislada que desconfigura el estilo visual del informe. Debe formatearse como texto o ecuación centrada.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECCIÓN 4: PLAN DE SUBSANACIÓN -->
+        <section id="plan-accion" class="section-block">
+            <div class="section-header">
+                <h2>Plan de Subsanación y Recomendaciones para la Defensa</h2>
+                <span class="tag-count">Guía para el Equipo</span>
+            </div>
+
+            <div class="finding-card" style="border-left: 6px solid var(--primary);">
+                <div class="card-body">
+                    <h3 class="card-title">Ruta Crítica de Corrección Previo a la Instancia de Coloquio Final</h3>
+                    <ol style="margin-left: 20px; font-size: 0.95rem; line-height: 1.8;">
+                        <li><strong>Incorporar el Capítulo Financiero Completo:</strong> Exportar los cuadros consolidados del archivo <code>PF Economico Financiero FINAL - Celi.xlsx</code> (Inv AF, Inv AT, CostoPROD, CostoAdmComFin, CTV y CResult, CFyU, Balance y DF-Form). Explicitar con claridad el VAN ($1.783 MM), la TIR (19,90%), el WACC (11,65%) y el Payback (5,53 años).</li>
+                        <li><strong>Reconciliar Ventas e Ingresos:</strong> Actualizar la Tabla 11 y 12 del Word con los precios unitarios y facturación neta definitivos ($4.479 MM en Año 1), eliminando el error del 24,9% y corrigiendo la cabecera repetida de supermercados.</li>
+                        <li><strong>Armonizar la Transición de Turnos y Dotación:</strong> Ajustar la redacción del capítulo de Organización explicando que la dotación de 64 personas corresponde al régimen pleno de 3 turnos (Año 5 en adelante), y presentar la tabla de dotación inicial para los Años 1-4 (48 colaboradores y 2 turnos), coincidente con el flujo financiero.</li>
+                        <li><strong>Sustituir el Placeholder "xd" e Integrar el Layout Definitivo:</strong> Volcar el texto de <code>layout/Cierre_Layout_CELI.docx</code>, incorporando el plano de planta v24 con cotas definitivas, las imágenes de convergencia algorítmica y la justificación del flujo unidireccional sin cruces. Unificar el largo del horno túnel en una medida técnica coherente en todos los documentos.</li>
+                        <li><strong>Cerrar el Dimensionamiento del Almacén de PT:</strong> Eliminar el "5" solitario en el párrafo 1039 y redactar la justificación técnica de los 148 pallets (50 módulos en planta a 3 niveles, 187,20 m² de superficie).</li>
+                        <li><strong>Corregir Terreno en Inversión:</strong> Ajustar en el modelo de Activo Fijo la superficie del lote de 2.475 m² a 3.068 m² (o justificar que 2.475 m² es la superficie neta edificable y el resto área común del parque industrial).</li>
+                        <li><strong>Completar las Secciones de Servicios y Limpiar Referencias:</strong> Pegar el resumen ejecutivo de instalaciones eléctricas y agua, reemplazar los placeholders <code>$[Cu]</code> y renumerar las referencias a tablas en el capítulo de transporte.</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+    </div>
+
+    <footer>
+        <p><strong>Auditoría Académica y Técnica Externa · Proyecto Final de Ingeniería Industrial</strong></p>
+        <p>Universidad Tecnológica Nacional - Facultad Regional Buenos Aires (UTN FRBA) · Ciclo Lectivo 2026</p>
+        <p style="font-size: 0.75rem; color: #64748b; margin-top: 8px;">Documento generado para fines de control de calidad, aseguramiento de trazabilidad y preparación de defensa final.</p>
+    </footer>
+
+</body>
+</html>

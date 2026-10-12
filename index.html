@@ -483,6 +483,12 @@
             <i data-lucide="pie-chart" class="w-4 h-4"></i>
             <span>Factibilidad Económica</span>
           </button>
+          
+          <button id="tab-btn-auditoria" onclick="switchTab('auditoria')" class="flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-200 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 border border-rose-200 whitespace-nowrap shadow-xs">
+            <span class="w-2 h-2 rounded-full bg-rose-500 animate-pulse shrink-0"></span>
+            <i data-lucide="shield-alert" class="w-4 h-4 text-rose-600"></i>
+            <span>auditoria 13/10 _</span>
+          </button>
         </div>
 
         <!-- Botón Rápido: Colapsar / Expandir Todo -->
@@ -2575,6 +2581,114 @@
 
         </section>
 
+      
+        <!-- 4. MATRIZ DE GESTIÓN DE REPUESTOS CRÍTICOS & PAÑOL TÉCNICO -->
+        <section class="card p-5 sm:p-6 space-y-5 mb-0 border-t-4 border-t-blue-600">
+          <div onclick="toggleCard(this)" class="card-header cursor-pointer select-none group flex items-center justify-between">
+            <div class="card-title text-base sm:text-lg">
+              <i data-lucide="package-check" class="w-5 h-5 text-blue-600"></i>
+              <span>4. Matriz de Repuestos Críticos &amp; Gestión de Pañol Técnico (Stock de Seguridad &amp; Lead Time)</span>
+            </div>
+            <div class="flex items-center space-x-2">
+              <span class="source-tag">35 Ítems &bull; RCM &bull; POES-CA-048</span>
+              <i data-lucide="chevron-down" class="w-4 h-4 text-slate-400 group-hover:text-slate-700 transition-transform duration-200 collapse-icon"></i>
+            </div>
+          </div>
+
+          <div class="card-body space-y-4">
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Catálogo oficial de <strong>repuestos críticos de planta</strong> catalogados bajo metodología RCM (Reliability-Centered Maintenance) para operación continua 24/5. Define los <strong>stocks mínimos de seguridad en pañol</strong>, tiempos de reposición (<strong>lead time</strong>), proveedores y condiciones de almacenamiento higiénico según <strong>POES-CA-048</strong>:
+            </p>
+
+            <!-- 4 KPIs del Pañol de Repuestos -->
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-3">
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">Total Ítems Críticos</div>
+                <div class="text-xl sm:text-2xl font-black font-mono text-slate-900">35 Repuestos</div>
+                <div class="text-[11px] text-emerald-700 font-medium">100% Cobertura M01 a M12</div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">Valorización en Pañol</div>
+                <div class="text-xl sm:text-2xl font-black font-mono text-slate-900">$25,65 MM <span class="text-xs font-normal text-slate-600">ARS</span></div>
+                <div class="text-[11px] text-blue-700 font-medium">Stock mínimo inmovilizado</div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">Alto Lead Time (&gt;20 d)</div>
+                <div class="text-xl sm:text-2xl font-black font-mono text-slate-900">11 Ítems</div>
+                <div class="text-[11px] text-amber-700 font-medium">Importados (Italia, China, Alem.)</div>
+              </div>
+              <div class="p-3.5 rounded-xl bg-slate-50 border border-slate-200 space-y-1">
+                <div class="text-[10px] sm:text-[11px] uppercase font-mono tracking-wider text-slate-500 font-bold">Inocuidad Sin Gluten</div>
+                <div class="text-xl sm:text-2xl font-black font-mono text-emerald-700">POES-CA-048</div>
+                <div class="text-[11px] text-slate-500 font-medium">Pañol Verde &bull; Grado FDA</div>
+              </div>
+            </div>
+
+            <!-- Barra de Controles y Filtros de Repuestos -->
+            <div class="flex flex-col md:flex-row items-stretch md:items-center justify-between gap-3 p-3 bg-slate-100/80 rounded-xl border border-slate-200">
+              <!-- Filtro de Línea -->
+              <div class="flex flex-wrap items-center gap-1.5 text-xs">
+                <span class="font-bold text-slate-700 font-mono uppercase text-[11px] mr-1">Línea:</span>
+                <button onclick="filterSparesLine('all')" id="spares-line-all" class="px-2.5 py-1.5 rounded-lg font-bold bg-slate-800 text-white shadow-sm transition-all text-xs">Todas (35)</button>
+                <button onclick="filterSparesLine('linea_a')" id="spares-line-linea_a" class="px-2.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-200 transition-all text-xs flex items-center space-x-1">
+                  <span>🍪</span><span>Línea A (18)</span>
+                </button>
+                <button onclick="filterSparesLine('linea_b')" id="spares-line-linea_b" class="px-2.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-200 transition-all text-xs flex items-center space-x-1">
+                  <span>🍞</span><span>Línea B (11)</span>
+                </button>
+                <button onclick="filterSparesLine('servicios')" id="spares-line-servicios" class="px-2.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-200 transition-all text-xs flex items-center space-x-1">
+                  <span>⚙️</span><span>Servicios (6)</span>
+                </button>
+              </div>
+
+              <!-- Filtro de Criticidad y Buscador -->
+              <div class="flex flex-wrap items-center gap-2 text-xs">
+                <div class="flex items-center space-x-1">
+                  <button onclick="filterSparesCrit('all')" id="spares-crit-all" class="px-2 py-1 rounded bg-slate-800 text-white font-bold text-[11px]">Todos</button>
+                  <button onclick="filterSparesCrit('Nivel A')" id="spares-crit-a" class="px-2 py-1 rounded bg-rose-50 text-rose-800 border border-rose-200 font-bold text-[11px]">🚨 Nivel A (Parada)</button>
+                  <button onclick="filterSparesCrit('Nivel B')" id="spares-crit-b" class="px-2 py-1 rounded bg-amber-50 text-amber-800 border border-amber-200 font-bold text-[11px]">⚠️ Nivel B</button>
+                </div>
+
+                <div class="relative min-w-[200px]">
+                  <input type="text" id="sparesSearchInput" oninput="searchSparesTable(this.value)" placeholder="Buscar repuesto, máquina o código..." class="w-full pl-8 pr-3 py-1.5 rounded-lg border border-slate-300 bg-white text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-blue-500 font-sans" />
+                  <i data-lucide="search" class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 top-2.5"></i>
+                </div>
+              </div>
+            </div>
+
+            <!-- Tabla de Repuestos Críticos -->
+            <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white shadow-inner max-h-[460px] overflow-y-auto">
+              <table class="w-full text-[11px] text-left border-collapse">
+                <thead class="bg-slate-100 text-slate-700 font-mono sticky top-0 z-20 border-b border-slate-200">
+                  <tr>
+                    <th class="py-2.5 px-3 sticky left-0 bg-slate-100 z-30 min-w-[100px] border-r border-slate-200">Código</th>
+                    <th class="py-2.5 px-3 min-w-[220px] border-r border-slate-200">Repuesto / Especificación Técnica</th>
+                    <th class="py-2.5 px-3 min-w-[180px] border-r border-slate-200">Máquina Asignada</th>
+                    <th class="py-2.5 px-2 text-center border-r border-slate-200 min-w-[110px]">Criticidad</th>
+                    <th class="py-2.5 px-2 text-center border-r border-slate-200 min-w-[90px]">Stock Mín.</th>
+                    <th class="py-2.5 px-3 border-r border-slate-200 min-w-[140px]">Lead Time / Origen</th>
+                    <th class="py-2.5 px-3 border-r border-slate-200 min-w-[120px]">Ubicación Pañol</th>
+                    <th class="py-2.5 px-3 min-w-[200px]">Impacto / Protocolo POES</th>
+                  </tr>
+                </thead>
+                <tbody id="sparesTableBody" class="divide-y divide-slate-100 font-sans">
+                  <!-- Rendered dynamically via JS -->
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Footer Resumen -->
+            <div class="flex flex-wrap items-center justify-between text-xs text-slate-500 font-mono pt-1">
+              <div id="sparesCountDisplay">Mostrando 35 de 35 repuestos críticos</div>
+              <div class="flex items-center space-x-3">
+                <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-rose-500 inline-block"></span> <span>Nivel A: Parada Inmediata</span></span>
+                <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded-full bg-amber-500 inline-block"></span> <span>Nivel B: Degradación de Proceso</span></span>
+              </div>
+            </div>
+
+          </div>
+        </section>
+
       </div>
 
 
@@ -3282,6 +3396,100 @@
           </div>
         </div>
       </section>
+
+    </div>
+
+    <!-- ========================================== -->
+    <!-- MASTER TAB 4: AUDITORÍA 13/10              -->
+    <!-- ========================================== -->
+    <div id="view-auditoria" class="hidden space-y-6 animate-fade-in">
+      
+      <!-- Executive Alert & Action Banner -->
+      <div class="bg-gradient-to-r from-rose-950 via-rose-900 to-slate-900 rounded-2xl p-6 text-white shadow-lg border border-rose-800/60">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-6">
+          <div class="space-y-2.5">
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider bg-rose-500/20 text-rose-200 border border-rose-400/40">
+                <span class="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
+                Auditoría Académica y Técnica
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-white/10 text-white border border-white/20">
+                13/10 _
+              </span>
+              <span class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-rose-600 text-white shadow-xs">
+                OBSERVADO CON REQUERIMIENTOS CRÍTICOS
+              </span>
+            </div>
+            <h2 class="text-2xl sm:text-3xl font-black tracking-tight text-white">
+              Informe de Auditoría Académica y Técnica — UTN FRBA
+            </h2>
+            <p class="text-sm text-rose-100/80 max-w-3xl leading-relaxed">
+              Auditoría cruzada integral de consistencia interna, ingeniería de detalle y modelo económico-financiero para el Proyecto Final de Carrera (CELI S.A.).
+            </p>
+          </div>
+
+          <!-- Quick Actions -->
+          <div class="flex flex-wrap sm:flex-nowrap items-center gap-2.5 shrink-0">
+            <a href="Auditoria_Academica_Proyecto_Final_CELI_UTN.html" target="_blank" class="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-white text-rose-950 hover:bg-rose-50 shadow-md transition-all">
+              <i data-lucide="external-link" class="w-4 h-4 text-rose-700"></i>
+              <span>Abrir en Pestaña Independiente</span>
+            </a>
+            <button type="button" onclick="toggleAuditFullscreen()" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all">
+              <i data-lucide="maximize" class="w-4 h-4"></i>
+              <span>Pantalla Completa</span>
+            </button>
+            <button type="button" onclick="printAuditIframe()" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl text-xs sm:text-sm font-semibold bg-white/10 hover:bg-white/20 text-white border border-white/20 transition-all">
+              <i data-lucide="printer" class="w-4 h-4"></i>
+              <span>Imprimir</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Metric Badges Row -->
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-6 pt-5 border-t border-rose-800/60 text-xs">
+          <div class="bg-black/20 backdrop-blur-xs rounded-xl p-3 border border-rose-500/20">
+            <span class="text-rose-300 block font-semibold text-[11px] uppercase tracking-wider">Dictamen Auditor</span>
+            <span class="text-base sm:text-lg font-black text-rose-100">Observado</span>
+          </div>
+          <div class="bg-black/20 backdrop-blur-xs rounded-xl p-3 border border-rose-500/20">
+            <span class="text-rose-300 block font-semibold text-[11px] uppercase tracking-wider">Hallazgos Críticos</span>
+            <span class="text-base sm:text-lg font-black text-white">5 🔴</span>
+          </div>
+          <div class="bg-black/20 backdrop-blur-xs rounded-xl p-3 border border-rose-500/20">
+            <span class="text-rose-300 block font-semibold text-[11px] uppercase tracking-wider">Hallazgos Moderados</span>
+            <span class="text-base sm:text-lg font-black text-amber-300">6 ⚠️</span>
+          </div>
+          <div class="bg-black/20 backdrop-blur-xs rounded-xl p-3 border border-rose-500/20">
+            <span class="text-rose-300 block font-semibold text-[11px] uppercase tracking-wider">Observaciones Menores</span>
+            <span class="text-base sm:text-lg font-black text-emerald-300">3 🟢</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Viewer Iframe Card -->
+      <div id="auditContainer" class="card p-0 overflow-hidden border border-slate-300 shadow-md rounded-2xl bg-white transition-all">
+        <div class="bg-slate-100/90 px-4 py-2.5 border-b border-slate-200 flex items-center justify-between text-xs text-slate-700">
+          <div class="flex items-center gap-2 font-semibold">
+            <i data-lucide="file-text" class="w-4 h-4 text-rose-600"></i>
+            <span class="font-mono text-xs">Auditoria_Academica_Proyecto_Final_CELI_UTN.html</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <button onclick="reloadAuditIframe()" class="hover:text-rose-600 flex items-center gap-1 text-[11px] text-slate-500 font-medium">
+              <i data-lucide="rotate-cw" class="w-3 h-3"></i> Recargar
+            </button>
+            <span class="text-slate-300">|</span>
+            <span class="text-[11px] text-slate-500 font-medium">Renderizado en tiempo real</span>
+          </div>
+        </div>
+        <iframe 
+          id="auditIframe"
+          src="Auditoria_Academica_Proyecto_Final_CELI_UTN.html" 
+          class="w-full border-0" 
+          style="min-height: 85vh; height: 1200px; display: block;"
+          title="Auditoría Académica y Técnica - Proyecto Final CELI UTN"
+          loading="lazy">
+        </iframe>
+      </div>
 
     </div>
 
@@ -5465,6 +5673,77 @@
         "tools": "Bomba de trasvase de aceite, extractor hidráulico de rodamientos, kit de tintas penetrantes lavables.",
         "acceptance": "Ensayo de tintas 100% conforme sin microfisuras; nivel de vibración en marcha < 1,2 mm/s RMS (norma ISO 10816)."
       }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M01-01",
+        "name": "Kit de Retenes Sanitarios de Eje PTFE/Vitón FDA (Kit 4 un.)",
+        "machine_id": "M01-PL1",
+        "machine_name": "Amasadora Doble Z",
+        "machine_tag": "M01",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Amasado Galletitas [Sector 4]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Sanitario / Retenes",
+        "stock_min": 2,
+        "stock_unit": "kits",
+        "lead_time_days": 10,
+        "lead_time_label": "10 días (Mecanizado bajo plano)",
+        "origin": "Nacional",
+        "location": "Pañol Estante A1",
+        "supplier": "Polímeros Industriales S.A.",
+        "cost_ars": 185000,
+        "impact": "Evita contaminación por fuga de lubricante hacia la masa cruda sin TACC.",
+        "protocol_poes": "POES-CA-048 • Apto Contacto Alimentos FDA 21 CFR 177.1550"
+      },
+      {
+        "id": "REP-M01-02",
+        "name": "Rodamiento de Rodillos Cónicos SKF Explorer 32212 J2/Q",
+        "machine_id": "M01-PL1",
+        "machine_name": "Amasadora Doble Z",
+        "machine_tag": "M01",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Amasado Galletitas [Sector 4]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Mecánico / Rodamientos",
+        "stock_min": 2,
+        "stock_unit": "unidades",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (SKF Argentina)",
+        "origin": "Importado",
+        "location": "Pañol Estante A2",
+        "supplier": "SKF Rodamientos",
+        "cost_ars": 240000,
+        "impact": "Soporta carga axial/radial del brazo helicoidal principal. Falla bloquea el amasado.",
+        "protocol_poes": "Lavado con solvente dieléctrico y relubricación previa con grasa NSF-H1"
+      },
+      {
+        "id": "REP-M01-03",
+        "name": "Aceite Sintético PAO VG 220 Klüberfood NH1 (Balde 20 L)",
+        "machine_id": "M01-PL1",
+        "machine_name": "Amasadora Doble Z",
+        "machine_tag": "M01",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Amasado Galletitas [Sector 4]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "alta",
+        "category": "Lubricantes Especiales",
+        "stock_min": 2,
+        "stock_unit": "baldes (40 L)",
+        "lead_time_days": 7,
+        "lead_time_label": "7 días (Klüber Lubrication)",
+        "origin": "Nacional",
+        "location": "Pañol Químicos Q1",
+        "supplier": "Klüber Lubrication Arg.",
+        "cost_ars": 420000,
+        "impact": "Lubricación del reductor epicicloidal primario. Certificado NSF-H1 para contacto accidental.",
+        "protocol_poes": "Almacenamiento en batea antiderrame segregada y rotulada"
+      }
     ]
   },
   "M02-PL1": {
@@ -5541,6 +5820,77 @@
         "protocol": "Desmontaje completo de cilindros grabadores, pulido espejo de cavidades con pasta diamantada de 3 micrones, sustitución de rodamientos de bolas de contacto angular y sellos de labio.",
         "tools": "Pulidora rotativa de precisión, extractor de rodamientos, pasta diamantada.",
         "acceptance": "Rugosidad superficial Ra < 0,4 µm en alvéolos; giro libre sin juego radial ni axial."
+      }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M02-01",
+        "name": "Juego de Rasquetas Raspadoras de Polímero Sanitario FDA / Bronce (400 mm)",
+        "machine_id": "M02-PL1",
+        "machine_name": "Moldeadora Rotativa",
+        "machine_tag": "M02",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Moldeado Galletitas [Sector 5]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Corte y Moldeo",
+        "stock_min": 3,
+        "stock_unit": "juegos",
+        "lead_time_days": 5,
+        "lead_time_label": "5 días (Mecanizado CNC)",
+        "origin": "Nacional",
+        "location": "Pañol Estante B1",
+        "supplier": "Mecanizados de Precisión S.R.L.",
+        "cost_ars": 145000,
+        "impact": "Desprende la galleta del cilindro formador. Desgaste altera peso de masa y espesor.",
+        "protocol_poes": "Empaque sellado con código verde de inocuidad POES-CA-048"
+      },
+      {
+        "id": "REP-M02-02",
+        "name": "Banda Sin Fin de Lona de Extracción Sanitaria Habasit / Chiorino (Ancho 400 mm)",
+        "machine_id": "M02-PL1",
+        "machine_name": "Moldeadora Rotativa",
+        "machine_tag": "M02",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Moldeado Galletitas [Sector 5]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Bandas / Cintas",
+        "stock_min": 2,
+        "stock_unit": "bandas",
+        "lead_time_days": 20,
+        "lead_time_label": "20 días (Habasit Argentina)",
+        "origin": "Importado",
+        "location": "Pañol Estante B2",
+        "supplier": "Habasit Sudamericana",
+        "cost_ars": 380000,
+        "impact": "Corte de banda detiene instantáneamente la salida de galletas crudas a horno.",
+        "protocol_poes": "Material antimicrobiano bio-resistente certificado FDA/SENASA"
+      },
+      {
+        "id": "REP-M02-03",
+        "name": "Rodillo de Presión Engomado Sanitario Dureza 55 Shore A",
+        "machine_id": "M02-PL1",
+        "machine_name": "Moldeadora Rotativa",
+        "machine_tag": "M02",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Moldeado Galletitas [Sector 5]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "alta",
+        "category": "Mecánico / Rodillos",
+        "stock_min": 1,
+        "stock_unit": "unidad",
+        "lead_time_days": 25,
+        "lead_time_label": "25 días (Engomados Industriales)",
+        "origin": "Nacional",
+        "location": "Pañol Estante B3",
+        "supplier": "Vulcanizados Técnicos",
+        "cost_ars": 520000,
+        "impact": "Asegura la adherencia uniforme de la masa en los moldes metálicos del cilindro grabador.",
+        "protocol_poes": "Caucho nitrilo NBR grado alimentario atóxico"
       }
     ]
   },
@@ -5628,6 +5978,100 @@
         "tools": "Equipo de proyección criogénica CO2, cizalla neumática, cordón cerámico bio-soluble.",
         "acceptance": "Pérdidas térmicas superficiales del horno < 45°C en chapa exterior; banda metálica nueva alineada."
       }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M03-01",
+        "name": "Malla Metálica Espiralada de Alambre Refractario AISI 314 (Tramo 5m x 1,3m)",
+        "machine_id": "M03-PL1",
+        "machine_name": "Horno Túnel Continuo",
+        "machine_tag": "M03",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Horno Túnel Galletitas [Sector 6]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Térmico / Mecánico",
+        "stock_min": 1,
+        "stock_unit": "tramo (5m)",
+        "lead_time_days": 45,
+        "lead_time_label": "45 días (Polin Industrial Line Italia)",
+        "origin": "Importado (Italia)",
+        "location": "Pañol Racks Pesados R1",
+        "supplier": "Ing. Polin e C. S.p.A.",
+        "cost_ars": 3850000,
+        "impact": "Componente más crítico de Línea A. Una rotura catastrófica paraliza el 100% de la cocción.",
+        "protocol_poes": "Acero inoxidable refractario resistente a 300°C continuos sin deformación"
+      },
+      {
+        "id": "REP-M03-02",
+        "name": "Fotocélula de Detección de Llama UV Siemens QRA2 + Chispero Piezoeléctrico",
+        "machine_id": "M03-PL1",
+        "machine_name": "Horno Túnel Continuo",
+        "machine_tag": "M03",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Horno Túnel Galletitas [Sector 6]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Combustión / Seguridad",
+        "stock_min": 2,
+        "stock_unit": "kits completos",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (Siemens Combustion)",
+        "origin": "Importado (Alemania)",
+        "location": "Pañol Estante C1",
+        "supplier": "Siemens Argentina",
+        "cost_ars": 320000,
+        "impact": "El quemador bloquea la entrada de gas si el sensor no detecta radiación UV de llama.",
+        "protocol_poes": "Sensor de seguridad LOTO intrínseco EN 298"
+      },
+      {
+        "id": "REP-M03-03",
+        "name": "Termocupla Tipo K Encamisada Inconel 600 Cabezal DIN B (L=350 mm)",
+        "machine_id": "M03-PL1",
+        "machine_name": "Horno Túnel Continuo",
+        "machine_tag": "M03",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Horno Túnel Galletitas [Sector 6]",
+        "crit": "Nivel A (PCC-2 Inocuidad)",
+        "critLevel": "critica",
+        "category": "Instrumentación / PCC",
+        "stock_min": 4,
+        "stock_unit": "unidades",
+        "lead_time_days": 7,
+        "lead_time_label": "7 días (Instrumentación Patrón)",
+        "origin": "Nacional",
+        "location": "Pañol Estante C2",
+        "supplier": "Termometría Industrial",
+        "cost_ars": 95000,
+        "impact": "Control crítico del perfil térmico a 250°C. PCC-2 de inocuidad microbiológica.",
+        "protocol_poes": "Certificado de calibración de fábrica con trazabilidad INTI"
+      },
+      {
+        "id": "REP-M03-04",
+        "name": "Electroválvula de Seguridad de Gas de Rearme Manual Kromschröder DN 40",
+        "machine_id": "M03-PL1",
+        "machine_name": "Horno Túnel Continuo",
+        "machine_tag": "M03",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Horno Túnel Galletitas [Sector 6]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Combustión / Gas",
+        "stock_min": 1,
+        "stock_unit": "unidad",
+        "lead_time_days": 20,
+        "lead_time_label": "20 días (Dungs / Kromschröder)",
+        "origin": "Importado",
+        "location": "Pañol Estante C3",
+        "supplier": "Kromschröder Sudamérica",
+        "cost_ars": 890000,
+        "impact": "Corte general ante sobrepresión o fuga de gas natural. Exigencia ENERGAS / NAG-201.",
+        "protocol_poes": "Aprobación IGA (Instituto del Gas Argentino)"
+      }
     ]
   },
   "M04-PL1": {
@@ -5697,6 +6141,54 @@
         "protocol": "Reemplazo de la lona vulcanizada de enfriamiento por lote nuevo con certificación FDA/SENASA. Cambio de rodamientos de acero inoxidable en rodillos motrices y tensores.",
         "tools": "Soldadora por termofusión de poliuretano, kit de rodamientos SKF Inox.",
         "acceptance": "Vulcanizado con empalme plano sin resalto; rodamiento nuevo verificado."
+      }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M04-01",
+        "name": "Banda Transportadora Sanitaria Poliuretano Azul Monolítica FDA (500mm x 12m)",
+        "machine_id": "M04-PL1",
+        "machine_name": "Cinta Enfriadora",
+        "machine_tag": "M04",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Cinta Enfriado [Sector 7]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Bandas / Cintas",
+        "stock_min": 1,
+        "stock_unit": "banda con grapas",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (Ammeraal Beltech)",
+        "origin": "Importado",
+        "location": "Pañol Estante D1",
+        "supplier": "Ammeraal Beltech Arg.",
+        "cost_ars": 680000,
+        "impact": "Transporta la galleta caliente desde el horno hacia envasado. Higiene absoluta.",
+        "protocol_poes": "Cero porosidad superficial, lavable con desinfectantes amonio cuaternario"
+      },
+      {
+        "id": "REP-M04-02",
+        "name": "Chumaceras de Acero Inoxidable AISI 304 con Rodamiento Insertable SUC205",
+        "machine_id": "M04-PL1",
+        "machine_name": "Cinta Enfriadora",
+        "machine_tag": "M04",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Cinta Enfriado [Sector 7]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "media",
+        "category": "Mecánico / Rodamientos",
+        "stock_min": 2,
+        "stock_unit": "kits (8 un.)",
+        "lead_time_days": 10,
+        "lead_time_label": "10 días (Rodamientos Inox)",
+        "origin": "Nacional",
+        "location": "Pañol Estante D2",
+        "supplier": "Transmisiones Pilar S.A.",
+        "cost_ars": 210000,
+        "impact": "Soporte de ejes de reenvío y tambores motrices sin corrosión ni desprendimientos.",
+        "protocol_poes": "Sello laberíntico hermético apto lavado a presión"
       }
     ]
   },
@@ -5775,6 +6267,77 @@
         "tools": "Extractor mecánico de rodamientos, prensa de montaje hidráulica.",
         "acceptance": "Giro silencioso en las 3 velocidades; ensayo de carga nominal 100% superado."
       }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M05-01",
+        "name": "Retén Sanitario de Cabezal Planetario Doble Labio Vitón FDA (Ø 65 mm)",
+        "machine_id": "M05-PL1",
+        "machine_name": "Batidora Planetaria Moretti 80L",
+        "machine_tag": "M05",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Batido Panificados [Sector 9]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Sanitario / Retenes",
+        "stock_min": 3,
+        "stock_unit": "unidades",
+        "lead_time_days": 10,
+        "lead_time_label": "10 días (ByEG Repuestos)",
+        "origin": "Importado (China)",
+        "location": "Pañol Estante E1",
+        "supplier": "ByEG Equipamientos",
+        "cost_ars": 125000,
+        "impact": "Barrera física que previene el ingreso de grasa mecánica a las masas de budín y pan.",
+        "protocol_poes": "Caucho fluorado Vitón atóxico resistente a grasas y calor"
+      },
+      {
+        "id": "REP-M05-02",
+        "name": "Batidor de Alambre Sanitario de Acero Inox AISI 304 Reforzado (Para bacha 80 L)",
+        "machine_id": "M05-PL1",
+        "machine_name": "Batidora Planetaria Moretti 80L",
+        "machine_tag": "M05",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Batido Panificados [Sector 9]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Utillaje / Batidores",
+        "stock_min": 1,
+        "stock_unit": "unidad completa",
+        "lead_time_days": 30,
+        "lead_time_label": "30 días (ByEG Moretti Oficial)",
+        "origin": "Importado (China)",
+        "location": "Pañol Estante E2",
+        "supplier": "ByEG Equipamientos",
+        "cost_ars": 780000,
+        "impact": "Varillas expuestas a fatiga por emulsión de masas viscosas sin gluten. Rotura contamina producto.",
+        "protocol_poes": "Inspección de soldaduras sanitarias TIG electropulidas"
+      },
+      {
+        "id": "REP-M05-03",
+        "name": "Juego de Correas Dentadas Sincronizadas HTD 8M de Transmisión Motriz",
+        "machine_id": "M05-PL1",
+        "machine_name": "Batidora Planetaria Moretti 80L",
+        "machine_tag": "M05",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Batido Panificados [Sector 9]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "alta",
+        "category": "Transmisión / Correas",
+        "stock_min": 2,
+        "stock_unit": "juegos",
+        "lead_time_days": 7,
+        "lead_time_label": "7 días (Gates / Optibelt)",
+        "origin": "Nacional",
+        "location": "Pañol Estante E3",
+        "supplier": "Transmisiones Industriales",
+        "cost_ars": 165000,
+        "impact": "Transmite los 2,5 kW de potencia del motorreductor al cabezal planetario en 3 velocidades.",
+        "protocol_poes": "Goma cloropreno de alta resistencia con alma de fibra de vidrio"
+      }
     ]
   },
   "M06-PL1": {
@@ -5851,6 +6414,77 @@
         "protocol": "Reemplazo preventivo de sellos de pistón de teflón grafitado, cambio del bloque de electroválvulas 5/2 biestables Festo y recalibración de posición cero del encoder del servomotor.",
         "tools": "Software de diagnóstico de servomotores, kit de sellos Festo/SMC.",
         "acceptance": "Repetibilidad metrológica certificada con Cp y Cpk > 1,67."
+      }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M06-01",
+        "name": "Juego de Sellos y Rascadores de Pistón de PTFE con Carga Sanitaria (Ø 80 mm)",
+        "machine_id": "M06-PL1",
+        "machine_name": "Dosificadora Volumétrica",
+        "machine_tag": "M06",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Dosificado Panificados [Sector 10]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Sellos Neumáticos",
+        "stock_min": 4,
+        "stock_unit": "juegos",
+        "lead_time_days": 10,
+        "lead_time_label": "10 días (Mecanizado CNC)",
+        "origin": "Nacional",
+        "location": "Pañol Estante F1",
+        "supplier": "Sellos Hidráulicos & Neumáticos",
+        "cost_ars": 140000,
+        "impact": "Garantiza repetibilidad de gramaje (500g pan, 200g budín) y cero goteo entre carreras.",
+        "protocol_poes": "PTFE virgen apto uso alimentario FDA"
+      },
+      {
+        "id": "REP-M06-02",
+        "name": "Guillotina Neumática Antigoteo de Corte Sanitario con Actuador Compacto",
+        "machine_id": "M06-PL1",
+        "machine_name": "Dosificadora Volumétrica",
+        "machine_tag": "M06",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Dosificado Panificados [Sector 10]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Corte / Neumática",
+        "stock_min": 2,
+        "stock_unit": "unidades",
+        "lead_time_days": 20,
+        "lead_time_label": "20 días (Covetech / Dosimat)",
+        "origin": "Nacional",
+        "location": "Pañol Estante F2",
+        "supplier": "Covetech Dosificadoras",
+        "cost_ars": 410000,
+        "impact": "Corta la masa densa al finalizar la inyección. Desgaste ensucia moldes y altera peso.",
+        "protocol_poes": "Acero inoxidable quirúrgico AISI 316L pulido espejo"
+      },
+      {
+        "id": "REP-M06-03",
+        "name": "Electroválvula Neumática Biestable 5/2 Festo Tiger Classic (24V DC)",
+        "machine_id": "M06-PL1",
+        "machine_name": "Dosificadora Volumétrica",
+        "machine_tag": "M06",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Dosificado Panificados [Sector 10]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "alta",
+        "category": "Neumática / Válvulas",
+        "stock_min": 2,
+        "stock_unit": "unidades",
+        "lead_time_days": 5,
+        "lead_time_label": "5 días (Festo Argentina)",
+        "origin": "Importado (Alemania)",
+        "location": "Pañol Estante F3",
+        "supplier": "Festo Argentina S.A.",
+        "cost_ars": 195000,
+        "impact": "Controla el ciclo de carrera de aspiración y dosificación rápida.",
+        "protocol_poes": "Grado de protección IP65, bobina encapsulada"
       }
     ]
   },
@@ -5929,6 +6563,77 @@
         "tools": "Cepillos de cerda metálica, bomba de recirculación química, rodamientos C3 de alta temperatura.",
         "acceptance": "Intercambiador libre de hollín sin fisuras en soldaduras; turbina balanceada dinámicamente."
       }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M07-01",
+        "name": "Juego de Burletes de Silicona Perfil D Alta Temperatura 280°C (Marco 16 bandejas)",
+        "machine_id": "M07-PL1",
+        "machine_name": "Hornos Rotativos Pauna",
+        "machine_tag": "M07",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Horno Panificados [Sector 12]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Térmico / Sellos",
+        "stock_min": 3,
+        "stock_unit": "marcos (18 m)",
+        "lead_time_days": 7,
+        "lead_time_label": "7 días (Siliconas Industriales)",
+        "origin": "Nacional",
+        "location": "Pañol Estante G1",
+        "supplier": "Silicongom Argentina",
+        "cost_ars": 175000,
+        "impact": "La fuga de calor por puerta altera la humedad de cocción y la expansión del pan de molde.",
+        "protocol_poes": "Silicona roja alimentaria atóxica resistente a 280°C"
+      },
+      {
+        "id": "REP-M07-02",
+        "name": "Buje de Alta Temperatura de Grafito Autolubricante para Suspensión de Carro",
+        "machine_id": "M07-PL1",
+        "machine_name": "Hornos Rotativos Pauna",
+        "machine_tag": "M07",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Horno Panificados [Sector 12]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Mecánico / Térmico",
+        "stock_min": 2,
+        "stock_unit": "unidades",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (Mecanizado Carbón/Grafito)",
+        "origin": "Nacional",
+        "location": "Pañol Estante G2",
+        "supplier": "Grafitos Especiales S.A.",
+        "cost_ars": 230000,
+        "impact": "Traba en rotación provoca quemado disparejo y descarte de las 16 bandejas del carro.",
+        "protocol_poes": "Grafito de alta pureza impregnado en resina fenólica"
+      },
+      {
+        "id": "REP-M07-03",
+        "name": "Turbina Centrífuga de Convección Forzada en Acero Inox Equilibrada",
+        "machine_id": "M07-PL1",
+        "machine_name": "Hornos Rotativos Pauna",
+        "machine_tag": "M07",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Horno Panificados [Sector 12]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "alta",
+        "category": "Ventilación / Flujo",
+        "stock_min": 1,
+        "stock_unit": "unidad",
+        "lead_time_days": 25,
+        "lead_time_label": "25 días (Pauna Repuestos)",
+        "origin": "Nacional",
+        "location": "Pañol Estante G3",
+        "supplier": "Pauna Equipamientos",
+        "cost_ars": 620000,
+        "impact": "Distribución uniforme del aire caliente convectivo en todas las alturas del carro.",
+        "protocol_poes": "Balanceo dinámico ISO 1940 Grado G 2.5"
+      }
     ]
   },
   "M08-PL1": {
@@ -5998,6 +6703,54 @@
         "protocol": "Sustitución de todas las cuchillas de corte (juego de 32 hojas) por juego nuevo afilado de fábrica. Cambio de bujes oscilantes de bronce al estaño y correas sincronizadas de arrastre.",
         "tools": "Kit completo de cuchillas nuevas, llaves dinamométricas.",
         "acceptance": "Prueba de corte de 50 panes de molde con espesor constante de 12 mm sin roturas ni desgarro de corteza."
+      }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M08-01",
+        "name": "Juego de Cuchillas Dentadas Continuas de Acero Quirúrgico (Kit 32 hojas)",
+        "machine_id": "M08-PL1",
+        "machine_name": "Rebanadora de Pan",
+        "machine_tag": "M08",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Envasado Panificados [Sector 14]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Corte / Cuchillas",
+        "stock_min": 2,
+        "stock_unit": "kits (64 hojas)",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (Cuchillas Industriales)",
+        "origin": "Nacional",
+        "location": "Pañol Estante H1",
+        "supplier": "Filos Industriales S.A.",
+        "cost_ars": 390000,
+        "impact": "Corte de pan de molde 500g sin desmoronamiento. Diente mellado rompe la miga.",
+        "protocol_poes": "Acero inoxidable martensítico AISI 420 tratado térmicamente (54 HRC)"
+      },
+      {
+        "id": "REP-M08-02",
+        "name": "Patines Guía de Bronce Fosforoso para Bastidor Oscilante",
+        "machine_id": "M08-PL1",
+        "machine_name": "Rebanadora de Pan",
+        "machine_tag": "M08",
+        "line": "linea_b",
+        "lineLabel": "Línea Discontinua Panificados",
+        "sector": "Envasado Panificados [Sector 14]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "media",
+        "category": "Mecánico / Guías",
+        "stock_min": 4,
+        "stock_unit": "unidades",
+        "lead_time_days": 7,
+        "lead_time_label": "7 días (Mecanizado Bronce)",
+        "origin": "Nacional",
+        "location": "Pañol Estante H2",
+        "supplier": "Mecanizados Generales",
+        "cost_ars": 135000,
+        "impact": "Alineación del vaivén de cuchillas. Desgaste produce desvío de espesor.",
+        "protocol_poes": "Bronce SAE 64 autolubricante"
       }
     ]
   },
@@ -6076,6 +6829,77 @@
         "tools": "Kit de resistencias nuevas, resistencias cartucho 800W, informe metrológico oficial.",
         "acceptance": "Resistencias nuevas con aislamiento > 50 MΩ; contraste legal verificado."
       }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M09-01",
+        "name": "Celda de Carga de Flexión de Alta Precisión HBM PW4C3 (3 kg, IP67)",
+        "machine_id": "M09-PL1",
+        "machine_name": "Envasadora Multicabezal",
+        "machine_tag": "M09",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Envasado Galletitas [Sector 8]",
+        "crit": "Nivel A (PCC-1 Sellado & Peso)",
+        "critLevel": "critica",
+        "category": "Electrónica / Metrología",
+        "stock_min": 2,
+        "stock_unit": "celdas calibradas",
+        "lead_time_days": 30,
+        "lead_time_label": "30 días (HBM Alemania)",
+        "origin": "Importado (Alemania)",
+        "location": "Pañol Instrumental I1",
+        "supplier": "HBM Sudamérica",
+        "cost_ars": 890000,
+        "impact": "Corazón de la pesadora multicabezal combinatoria. Celda averiada deja fuera de servicio 1 de las 10 tolvas.",
+        "protocol_poes": "Grado IP67 con cable apantallado y certificado OIML R60"
+      },
+      {
+        "id": "REP-M09-02",
+        "name": "Juego de Resistencias Cartucho Blindadas (800W - 220V - Ø 12 mm x 250 mm)",
+        "machine_id": "M09-PL1",
+        "machine_name": "Envasadora Multicabezal",
+        "machine_tag": "M09",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Envasado Galletitas [Sector 8]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Térmico / Sellado",
+        "stock_min": 6,
+        "stock_unit": "unidades",
+        "lead_time_days": 7,
+        "lead_time_label": "7 días (Resistencias Eléctricas)",
+        "origin": "Nacional",
+        "location": "Pañol Estante I2",
+        "supplier": "Resistencias Pilar",
+        "cost_ars": 85000,
+        "impact": "Termosellado vertical y horizontal del paquete. Falla provoca bolsas abiertas y pérdida de hermeticidad.",
+        "protocol_poes": "Aislación dieléctrica > 50 MΩ y termocupla incorporada"
+      },
+      {
+        "id": "REP-M09-03",
+        "name": "Cuchilla de Corte Transversal Dentada en Zig-Zag Templada (Acero Bohler K110)",
+        "machine_id": "M09-PL1",
+        "machine_name": "Envasadora Multicabezal",
+        "machine_tag": "M09",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Envasado Galletitas [Sector 8]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Corte / Mecánico",
+        "stock_min": 3,
+        "stock_unit": "unidades",
+        "lead_time_days": 10,
+        "lead_time_label": "10 días (Filos de Precisión)",
+        "origin": "Nacional",
+        "location": "Pañol Estante I3",
+        "supplier": "Herramentales Industriales",
+        "cost_ars": 190000,
+        "impact": "Corte limpio entre paquetes sucesivos. Desgaste dobla o desgarra el film BOPP.",
+        "protocol_poes": "Acero D2 templado al vacío (60 HRC)"
+      }
     ]
   },
   "M10-PL1": {
@@ -6145,6 +6969,77 @@
         "protocol": "Desmontaje completo del cabezal rotativo, reemplazo de las cuchillas en zig-zag de acero templado, cambio de colectores de escobillas de alimentación eléctrica giratoria y renovación del collarín conformador de acero inox.",
         "tools": "Kit de recambio original de cabezal rotativo, juego de escobillas de grafito/cobre.",
         "acceptance": "Prueba de hermeticidad en cámara de vacío ASTM D3078 con cero fugas a 0,5 bar de depresión."
+      }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M10-01",
+        "name": "Juego de Mordazas Rotativas Transversales de Sellado Térmico Antifricción",
+        "machine_id": "M10-PL1",
+        "machine_name": "Envasadora Flow-Pack",
+        "machine_tag": "M10",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Envasado Galletitas [Sector 8]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Sellado / Mecánico",
+        "stock_min": 1,
+        "stock_unit": "juego completo",
+        "lead_time_days": 35,
+        "lead_time_label": "35 días (Flow-Pack Repuestos)",
+        "origin": "Importado",
+        "location": "Pañol Estante J1",
+        "supplier": "Packaging Solutions S.A.",
+        "cost_ars": 1450000,
+        "impact": "Garantiza hermeticidad y atmósfera protectora (N2). Falla detiene el flujo continuo de salida.",
+        "protocol_poes": "Recubrimiento antiadherente de teflón cerámico apto 200°C"
+      },
+      {
+        "id": "REP-M10-02",
+        "name": "Sensor Lector de Fototrama / Mácula Óptica SICK KT5W-2P1116 (Luz Blanca)",
+        "machine_id": "M10-PL1",
+        "machine_name": "Envasadora Flow-Pack",
+        "machine_tag": "M10",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Envasado Galletitas [Sector 8]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Óptica / Sensores",
+        "stock_min": 2,
+        "stock_unit": "sensores",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (SICK Argentina)",
+        "origin": "Importado (Alemania)",
+        "location": "Pañol Instrumental J2",
+        "supplier": "SICK Sensor Intelligence",
+        "cost_ars": 410000,
+        "impact": "Sincroniza el corte con la impresión gráfica de la bobina. Desfasaje corta el texto de marca.",
+        "protocol_poes": "Frecuencia de conmutación 10 kHz con autoaprendizaje teach-in"
+      },
+      {
+        "id": "REP-M10-03",
+        "name": "Resistencias Planas de Mica para Discos Soldadores Longitudinales (500W)",
+        "machine_id": "M10-PL1",
+        "machine_name": "Envasadora Flow-Pack",
+        "machine_tag": "M10",
+        "line": "linea_a",
+        "lineLabel": "Línea Continua Galletitas",
+        "sector": "Envasado Galletitas [Sector 8]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "alta",
+        "category": "Térmico / Sellado",
+        "stock_min": 4,
+        "stock_unit": "unidades",
+        "lead_time_days": 7,
+        "lead_time_label": "7 días (Resistencias Eléctricas)",
+        "origin": "Nacional",
+        "location": "Pañol Estante J3",
+        "supplier": "Térmica Industrial",
+        "cost_ars": 95000,
+        "impact": "Sellado tipo aleta longitudinal inferior continuo del paquete flowpack.",
+        "protocol_poes": "Aislamiento de mica para servicio continuo 24/5"
       }
     ]
   },
@@ -6216,6 +7111,77 @@
         "tools": "Kit oficial Atlas Copco 4.000 h, banco de prueba de válvulas de seguridad.",
         "acceptance": "Calidad de aire comprimido certificada bajo norma ISO 8573-1 Clase 1.4.1 (contacto alimentario)."
       }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M11-01",
+        "name": "Kit de Filtros Coalescentes Grado 0,01 µm + Carbón Activado Grado Alimentario",
+        "machine_id": "M11-PL1",
+        "machine_name": "Compresor y Secador G2 FF",
+        "machine_tag": "M11",
+        "line": "servicios",
+        "lineLabel": "Servicios Industriales & Auxiliares",
+        "sector": "Sala de Máquinas [Servicios]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Filtración / Calidad Aire",
+        "stock_min": 2,
+        "stock_unit": "kits completos",
+        "lead_time_days": 10,
+        "lead_time_label": "10 días (Atlas Copco Arg.)",
+        "origin": "Importado (Bélgica)",
+        "location": "Pañol Estante K1",
+        "supplier": "Atlas Copco Argentina",
+        "cost_ars": 580000,
+        "impact": "Vital para cumplir norma ISO 8573-1 Clase 1.4.1 de aire en contacto con alimentos sin gluten.",
+        "protocol_poes": "Retención de aerosoles de aceite < 0,003 mg/m³"
+      },
+      {
+        "id": "REP-M11-02",
+        "name": "Válvula de Purga Automática Capacitiva Bekomat 31 sin Pérdida de Aire",
+        "machine_id": "M11-PL1",
+        "machine_name": "Compresor y Secador G2 FF",
+        "machine_tag": "M11",
+        "line": "servicios",
+        "lineLabel": "Servicios Industriales & Auxiliares",
+        "sector": "Sala de Máquinas [Servicios]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Neumática / Purgas",
+        "stock_min": 1,
+        "stock_unit": "unidad",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (Beko Technologies)",
+        "origin": "Importado (Alemania)",
+        "location": "Pañol Estante K2",
+        "supplier": "Beko Technologies Arg.",
+        "cost_ars": 470000,
+        "impact": "Evacua agua condensada del secador frigorífico. Falla inunda de agua las válvulas de planta.",
+        "protocol_poes": "Sensor capacitivo de nivel sin fugas de aire comprimido"
+      },
+      {
+        "id": "REP-M11-03",
+        "name": "Kit Termostático y Válvula de Presión Mínima MPV Atlas Copco",
+        "machine_id": "M11-PL1",
+        "machine_name": "Compresor y Secador G2 FF",
+        "machine_tag": "M11",
+        "line": "servicios",
+        "lineLabel": "Servicios Industriales & Auxiliares",
+        "sector": "Sala de Máquinas [Servicios]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "alta",
+        "category": "Mecánico / Neumático",
+        "stock_min": 1,
+        "stock_unit": "kit oficial",
+        "lead_time_days": 15,
+        "lead_time_label": "15 días (Atlas Copco)",
+        "origin": "Importado",
+        "location": "Pañol Estante K3",
+        "supplier": "Atlas Copco Argentina",
+        "cost_ars": 360000,
+        "impact": "Mantiene presión interna mínima de lubricación y circulación en el tornillo rotativo.",
+        "protocol_poes": "Piezas genuinas OEM para evitar pérdida de garantía"
+      }
     ]
   },
   "M12-PL1": {
@@ -6286,13 +7252,898 @@
         "tools": "Cámara termográfica Fluke Ti400, telurímetro de 4 picas, equipo criogénico CO2.",
         "acceptance": "Resistencia de puesta a tierra < 2,0 Ω (exige ley < 5 Ω); delta térmico en bornes < 5°C respecto a temperatura ambiente; protocolo oficial firmado por ingeniero matriculado."
       }
+    ],
+    "repuestos": [
+      {
+        "id": "REP-M12-01",
+        "name": "Interruptor Automático de Caja Moldeada Schneider Compact NSX160F (160A 36kA)",
+        "machine_id": "M12-PL1",
+        "machine_name": "Subestación y Tableros CCM",
+        "machine_tag": "M12",
+        "line": "servicios",
+        "lineLabel": "Servicios Industriales & Auxiliares",
+        "sector": "Subestación Eléctrica [Servicios]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Eléctrico / Protección",
+        "stock_min": 1,
+        "stock_unit": "unidad",
+        "lead_time_days": 10,
+        "lead_time_label": "10 días (Schneider Electric)",
+        "origin": "Importado (Francia)",
+        "location": "Pañol Eléctrico L1",
+        "supplier": "Schneider Electric Arg.",
+        "cost_ars": 1150000,
+        "impact": "Protección de alimentador principal de fuerza motriz de planta. Cortocircuito = blackout general.",
+        "protocol_poes": "Unidad de control electrónico Micrologic 2.2 con ajuste L/S/I"
+      },
+      {
+        "id": "REP-M12-02",
+        "name": "Contactor Tripolar TeSys D Schneider LC1D32 (32A - Bobina 220V AC)",
+        "machine_id": "M12-PL1",
+        "machine_name": "Subestación y Tableros CCM",
+        "machine_tag": "M12",
+        "line": "servicios",
+        "lineLabel": "Servicios Industriales & Auxiliares",
+        "sector": "Subestación Eléctrica [Servicios]",
+        "crit": "Nivel A (Parada Inmediata)",
+        "critLevel": "critica",
+        "category": "Eléctrico / Maniobra",
+        "stock_min": 3,
+        "stock_unit": "unidades",
+        "lead_time_days": 3,
+        "lead_time_label": "3 días (Distribuidor Local)",
+        "origin": "Nacional/Importado",
+        "location": "Pañol Eléctrico L2",
+        "supplier": "Electro Pilar Materiales",
+        "cost_ars": 115000,
+        "impact": "Arranque y marcha de motores principales (amasadoras, ventiladores de horno, compresores).",
+        "protocol_poes": "Resistencia a 2 millones de maniobras mecánicas bajo carga AC-3"
+      },
+      {
+        "id": "REP-M12-03",
+        "name": "Juego de Fusibles de Alta Capacidad de Ruptura NH-00 (63A y 100A gG)",
+        "machine_id": "M12-PL1",
+        "machine_name": "Subestación y Tableros CCM",
+        "machine_tag": "M12",
+        "line": "servicios",
+        "lineLabel": "Servicios Industriales & Auxiliares",
+        "sector": "Subestación Eléctrica [Servicios]",
+        "crit": "Nivel B (Degradación / Alerta)",
+        "critLevel": "media",
+        "category": "Eléctrico / Fusibles",
+        "stock_min": 6,
+        "stock_unit": "unidades x calibre",
+        "lead_time_days": 2,
+        "lead_time_label": "2 días (Distribuidor Local)",
+        "origin": "Nacional",
+        "location": "Pañol Eléctrico L3",
+        "supplier": "Electro Pilar Materiales",
+        "cost_ars": 35000,
+        "impact": "Protección de respaldo ultra-rápida contra cortocircuitos severos en barras CCM.",
+        "protocol_poes": "Poder de corte 120 kA a 500V según norma IEC 60269"
+      }
     ]
   }
 };
 
+    // MATRIZ DE REPUESTOS CRÍTICOS (RCM & PAÑOL POES-CA-048)
+    const criticalSpares = [
+  {
+    "id": "REP-M01-01",
+    "name": "Kit de Retenes Sanitarios de Eje PTFE/Vitón FDA (Kit 4 un.)",
+    "machine_id": "M01-PL1",
+    "machine_name": "Amasadora Doble Z",
+    "machine_tag": "M01",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Amasado Galletitas [Sector 4]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Sanitario / Retenes",
+    "stock_min": 2,
+    "stock_unit": "kits",
+    "lead_time_days": 10,
+    "lead_time_label": "10 días (Mecanizado bajo plano)",
+    "origin": "Nacional",
+    "location": "Pañol Estante A1",
+    "supplier": "Polímeros Industriales S.A.",
+    "cost_ars": 185000,
+    "impact": "Evita contaminación por fuga de lubricante hacia la masa cruda sin TACC.",
+    "protocol_poes": "POES-CA-048 • Apto Contacto Alimentos FDA 21 CFR 177.1550"
+  },
+  {
+    "id": "REP-M01-02",
+    "name": "Rodamiento de Rodillos Cónicos SKF Explorer 32212 J2/Q",
+    "machine_id": "M01-PL1",
+    "machine_name": "Amasadora Doble Z",
+    "machine_tag": "M01",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Amasado Galletitas [Sector 4]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Mecánico / Rodamientos",
+    "stock_min": 2,
+    "stock_unit": "unidades",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (SKF Argentina)",
+    "origin": "Importado",
+    "location": "Pañol Estante A2",
+    "supplier": "SKF Rodamientos",
+    "cost_ars": 240000,
+    "impact": "Soporta carga axial/radial del brazo helicoidal principal. Falla bloquea el amasado.",
+    "protocol_poes": "Lavado con solvente dieléctrico y relubricación previa con grasa NSF-H1"
+  },
+  {
+    "id": "REP-M01-03",
+    "name": "Aceite Sintético PAO VG 220 Klüberfood NH1 (Balde 20 L)",
+    "machine_id": "M01-PL1",
+    "machine_name": "Amasadora Doble Z",
+    "machine_tag": "M01",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Amasado Galletitas [Sector 4]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "alta",
+    "category": "Lubricantes Especiales",
+    "stock_min": 2,
+    "stock_unit": "baldes (40 L)",
+    "lead_time_days": 7,
+    "lead_time_label": "7 días (Klüber Lubrication)",
+    "origin": "Nacional",
+    "location": "Pañol Químicos Q1",
+    "supplier": "Klüber Lubrication Arg.",
+    "cost_ars": 420000,
+    "impact": "Lubricación del reductor epicicloidal primario. Certificado NSF-H1 para contacto accidental.",
+    "protocol_poes": "Almacenamiento en batea antiderrame segregada y rotulada"
+  },
+  {
+    "id": "REP-M02-01",
+    "name": "Juego de Rasquetas Raspadoras de Polímero Sanitario FDA / Bronce (400 mm)",
+    "machine_id": "M02-PL1",
+    "machine_name": "Moldeadora Rotativa",
+    "machine_tag": "M02",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Moldeado Galletitas [Sector 5]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Corte y Moldeo",
+    "stock_min": 3,
+    "stock_unit": "juegos",
+    "lead_time_days": 5,
+    "lead_time_label": "5 días (Mecanizado CNC)",
+    "origin": "Nacional",
+    "location": "Pañol Estante B1",
+    "supplier": "Mecanizados de Precisión S.R.L.",
+    "cost_ars": 145000,
+    "impact": "Desprende la galleta del cilindro formador. Desgaste altera peso de masa y espesor.",
+    "protocol_poes": "Empaque sellado con código verde de inocuidad POES-CA-048"
+  },
+  {
+    "id": "REP-M02-02",
+    "name": "Banda Sin Fin de Lona de Extracción Sanitaria Habasit / Chiorino (Ancho 400 mm)",
+    "machine_id": "M02-PL1",
+    "machine_name": "Moldeadora Rotativa",
+    "machine_tag": "M02",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Moldeado Galletitas [Sector 5]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Bandas / Cintas",
+    "stock_min": 2,
+    "stock_unit": "bandas",
+    "lead_time_days": 20,
+    "lead_time_label": "20 días (Habasit Argentina)",
+    "origin": "Importado",
+    "location": "Pañol Estante B2",
+    "supplier": "Habasit Sudamericana",
+    "cost_ars": 380000,
+    "impact": "Corte de banda detiene instantáneamente la salida de galletas crudas a horno.",
+    "protocol_poes": "Material antimicrobiano bio-resistente certificado FDA/SENASA"
+  },
+  {
+    "id": "REP-M02-03",
+    "name": "Rodillo de Presión Engomado Sanitario Dureza 55 Shore A",
+    "machine_id": "M02-PL1",
+    "machine_name": "Moldeadora Rotativa",
+    "machine_tag": "M02",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Moldeado Galletitas [Sector 5]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "alta",
+    "category": "Mecánico / Rodillos",
+    "stock_min": 1,
+    "stock_unit": "unidad",
+    "lead_time_days": 25,
+    "lead_time_label": "25 días (Engomados Industriales)",
+    "origin": "Nacional",
+    "location": "Pañol Estante B3",
+    "supplier": "Vulcanizados Técnicos",
+    "cost_ars": 520000,
+    "impact": "Asegura la adherencia uniforme de la masa en los moldes metálicos del cilindro grabador.",
+    "protocol_poes": "Caucho nitrilo NBR grado alimentario atóxico"
+  },
+  {
+    "id": "REP-M03-01",
+    "name": "Malla Metálica Espiralada de Alambre Refractario AISI 314 (Tramo 5m x 1,3m)",
+    "machine_id": "M03-PL1",
+    "machine_name": "Horno Túnel Continuo",
+    "machine_tag": "M03",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Horno Túnel Galletitas [Sector 6]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Térmico / Mecánico",
+    "stock_min": 1,
+    "stock_unit": "tramo (5m)",
+    "lead_time_days": 45,
+    "lead_time_label": "45 días (Polin Industrial Line Italia)",
+    "origin": "Importado (Italia)",
+    "location": "Pañol Racks Pesados R1",
+    "supplier": "Ing. Polin e C. S.p.A.",
+    "cost_ars": 3850000,
+    "impact": "Componente más crítico de Línea A. Una rotura catastrófica paraliza el 100% de la cocción.",
+    "protocol_poes": "Acero inoxidable refractario resistente a 300°C continuos sin deformación"
+  },
+  {
+    "id": "REP-M03-02",
+    "name": "Fotocélula de Detección de Llama UV Siemens QRA2 + Chispero Piezoeléctrico",
+    "machine_id": "M03-PL1",
+    "machine_name": "Horno Túnel Continuo",
+    "machine_tag": "M03",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Horno Túnel Galletitas [Sector 6]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Combustión / Seguridad",
+    "stock_min": 2,
+    "stock_unit": "kits completos",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (Siemens Combustion)",
+    "origin": "Importado (Alemania)",
+    "location": "Pañol Estante C1",
+    "supplier": "Siemens Argentina",
+    "cost_ars": 320000,
+    "impact": "El quemador bloquea la entrada de gas si el sensor no detecta radiación UV de llama.",
+    "protocol_poes": "Sensor de seguridad LOTO intrínseco EN 298"
+  },
+  {
+    "id": "REP-M03-03",
+    "name": "Termocupla Tipo K Encamisada Inconel 600 Cabezal DIN B (L=350 mm)",
+    "machine_id": "M03-PL1",
+    "machine_name": "Horno Túnel Continuo",
+    "machine_tag": "M03",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Horno Túnel Galletitas [Sector 6]",
+    "crit": "Nivel A (PCC-2 Inocuidad)",
+    "critLevel": "critica",
+    "category": "Instrumentación / PCC",
+    "stock_min": 4,
+    "stock_unit": "unidades",
+    "lead_time_days": 7,
+    "lead_time_label": "7 días (Instrumentación Patrón)",
+    "origin": "Nacional",
+    "location": "Pañol Estante C2",
+    "supplier": "Termometría Industrial",
+    "cost_ars": 95000,
+    "impact": "Control crítico del perfil térmico a 250°C. PCC-2 de inocuidad microbiológica.",
+    "protocol_poes": "Certificado de calibración de fábrica con trazabilidad INTI"
+  },
+  {
+    "id": "REP-M03-04",
+    "name": "Electroválvula de Seguridad de Gas de Rearme Manual Kromschröder DN 40",
+    "machine_id": "M03-PL1",
+    "machine_name": "Horno Túnel Continuo",
+    "machine_tag": "M03",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Horno Túnel Galletitas [Sector 6]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Combustión / Gas",
+    "stock_min": 1,
+    "stock_unit": "unidad",
+    "lead_time_days": 20,
+    "lead_time_label": "20 días (Dungs / Kromschröder)",
+    "origin": "Importado",
+    "location": "Pañol Estante C3",
+    "supplier": "Kromschröder Sudamérica",
+    "cost_ars": 890000,
+    "impact": "Corte general ante sobrepresión o fuga de gas natural. Exigencia ENERGAS / NAG-201.",
+    "protocol_poes": "Aprobación IGA (Instituto del Gas Argentino)"
+  },
+  {
+    "id": "REP-M04-01",
+    "name": "Banda Transportadora Sanitaria Poliuretano Azul Monolítica FDA (500mm x 12m)",
+    "machine_id": "M04-PL1",
+    "machine_name": "Cinta Enfriadora",
+    "machine_tag": "M04",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Cinta Enfriado [Sector 7]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Bandas / Cintas",
+    "stock_min": 1,
+    "stock_unit": "banda con grapas",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (Ammeraal Beltech)",
+    "origin": "Importado",
+    "location": "Pañol Estante D1",
+    "supplier": "Ammeraal Beltech Arg.",
+    "cost_ars": 680000,
+    "impact": "Transporta la galleta caliente desde el horno hacia envasado. Higiene absoluta.",
+    "protocol_poes": "Cero porosidad superficial, lavable con desinfectantes amonio cuaternario"
+  },
+  {
+    "id": "REP-M04-02",
+    "name": "Chumaceras de Acero Inoxidable AISI 304 con Rodamiento Insertable SUC205",
+    "machine_id": "M04-PL1",
+    "machine_name": "Cinta Enfriadora",
+    "machine_tag": "M04",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Cinta Enfriado [Sector 7]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "media",
+    "category": "Mecánico / Rodamientos",
+    "stock_min": 2,
+    "stock_unit": "kits (8 un.)",
+    "lead_time_days": 10,
+    "lead_time_label": "10 días (Rodamientos Inox)",
+    "origin": "Nacional",
+    "location": "Pañol Estante D2",
+    "supplier": "Transmisiones Pilar S.A.",
+    "cost_ars": 210000,
+    "impact": "Soporte de ejes de reenvío y tambores motrices sin corrosión ni desprendimientos.",
+    "protocol_poes": "Sello laberíntico hermético apto lavado a presión"
+  },
+  {
+    "id": "REP-M05-01",
+    "name": "Retén Sanitario de Cabezal Planetario Doble Labio Vitón FDA (Ø 65 mm)",
+    "machine_id": "M05-PL1",
+    "machine_name": "Batidora Planetaria Moretti 80L",
+    "machine_tag": "M05",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Batido Panificados [Sector 9]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Sanitario / Retenes",
+    "stock_min": 3,
+    "stock_unit": "unidades",
+    "lead_time_days": 10,
+    "lead_time_label": "10 días (ByEG Repuestos)",
+    "origin": "Importado (China)",
+    "location": "Pañol Estante E1",
+    "supplier": "ByEG Equipamientos",
+    "cost_ars": 125000,
+    "impact": "Barrera física que previene el ingreso de grasa mecánica a las masas de budín y pan.",
+    "protocol_poes": "Caucho fluorado Vitón atóxico resistente a grasas y calor"
+  },
+  {
+    "id": "REP-M05-02",
+    "name": "Batidor de Alambre Sanitario de Acero Inox AISI 304 Reforzado (Para bacha 80 L)",
+    "machine_id": "M05-PL1",
+    "machine_name": "Batidora Planetaria Moretti 80L",
+    "machine_tag": "M05",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Batido Panificados [Sector 9]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Utillaje / Batidores",
+    "stock_min": 1,
+    "stock_unit": "unidad completa",
+    "lead_time_days": 30,
+    "lead_time_label": "30 días (ByEG Moretti Oficial)",
+    "origin": "Importado (China)",
+    "location": "Pañol Estante E2",
+    "supplier": "ByEG Equipamientos",
+    "cost_ars": 780000,
+    "impact": "Varillas expuestas a fatiga por emulsión de masas viscosas sin gluten. Rotura contamina producto.",
+    "protocol_poes": "Inspección de soldaduras sanitarias TIG electropulidas"
+  },
+  {
+    "id": "REP-M05-03",
+    "name": "Juego de Correas Dentadas Sincronizadas HTD 8M de Transmisión Motriz",
+    "machine_id": "M05-PL1",
+    "machine_name": "Batidora Planetaria Moretti 80L",
+    "machine_tag": "M05",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Batido Panificados [Sector 9]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "alta",
+    "category": "Transmisión / Correas",
+    "stock_min": 2,
+    "stock_unit": "juegos",
+    "lead_time_days": 7,
+    "lead_time_label": "7 días (Gates / Optibelt)",
+    "origin": "Nacional",
+    "location": "Pañol Estante E3",
+    "supplier": "Transmisiones Industriales",
+    "cost_ars": 165000,
+    "impact": "Transmite los 2,5 kW de potencia del motorreductor al cabezal planetario en 3 velocidades.",
+    "protocol_poes": "Goma cloropreno de alta resistencia con alma de fibra de vidrio"
+  },
+  {
+    "id": "REP-M06-01",
+    "name": "Juego de Sellos y Rascadores de Pistón de PTFE con Carga Sanitaria (Ø 80 mm)",
+    "machine_id": "M06-PL1",
+    "machine_name": "Dosificadora Volumétrica",
+    "machine_tag": "M06",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Dosificado Panificados [Sector 10]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Sellos Neumáticos",
+    "stock_min": 4,
+    "stock_unit": "juegos",
+    "lead_time_days": 10,
+    "lead_time_label": "10 días (Mecanizado CNC)",
+    "origin": "Nacional",
+    "location": "Pañol Estante F1",
+    "supplier": "Sellos Hidráulicos & Neumáticos",
+    "cost_ars": 140000,
+    "impact": "Garantiza repetibilidad de gramaje (500g pan, 200g budín) y cero goteo entre carreras.",
+    "protocol_poes": "PTFE virgen apto uso alimentario FDA"
+  },
+  {
+    "id": "REP-M06-02",
+    "name": "Guillotina Neumática Antigoteo de Corte Sanitario con Actuador Compacto",
+    "machine_id": "M06-PL1",
+    "machine_name": "Dosificadora Volumétrica",
+    "machine_tag": "M06",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Dosificado Panificados [Sector 10]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Corte / Neumática",
+    "stock_min": 2,
+    "stock_unit": "unidades",
+    "lead_time_days": 20,
+    "lead_time_label": "20 días (Covetech / Dosimat)",
+    "origin": "Nacional",
+    "location": "Pañol Estante F2",
+    "supplier": "Covetech Dosificadoras",
+    "cost_ars": 410000,
+    "impact": "Corta la masa densa al finalizar la inyección. Desgaste ensucia moldes y altera peso.",
+    "protocol_poes": "Acero inoxidable quirúrgico AISI 316L pulido espejo"
+  },
+  {
+    "id": "REP-M06-03",
+    "name": "Electroválvula Neumática Biestable 5/2 Festo Tiger Classic (24V DC)",
+    "machine_id": "M06-PL1",
+    "machine_name": "Dosificadora Volumétrica",
+    "machine_tag": "M06",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Dosificado Panificados [Sector 10]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "alta",
+    "category": "Neumática / Válvulas",
+    "stock_min": 2,
+    "stock_unit": "unidades",
+    "lead_time_days": 5,
+    "lead_time_label": "5 días (Festo Argentina)",
+    "origin": "Importado (Alemania)",
+    "location": "Pañol Estante F3",
+    "supplier": "Festo Argentina S.A.",
+    "cost_ars": 195000,
+    "impact": "Controla el ciclo de carrera de aspiración y dosificación rápida.",
+    "protocol_poes": "Grado de protección IP65, bobina encapsulada"
+  },
+  {
+    "id": "REP-M07-01",
+    "name": "Juego de Burletes de Silicona Perfil D Alta Temperatura 280°C (Marco 16 bandejas)",
+    "machine_id": "M07-PL1",
+    "machine_name": "Hornos Rotativos Pauna",
+    "machine_tag": "M07",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Horno Panificados [Sector 12]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Térmico / Sellos",
+    "stock_min": 3,
+    "stock_unit": "marcos (18 m)",
+    "lead_time_days": 7,
+    "lead_time_label": "7 días (Siliconas Industriales)",
+    "origin": "Nacional",
+    "location": "Pañol Estante G1",
+    "supplier": "Silicongom Argentina",
+    "cost_ars": 175000,
+    "impact": "La fuga de calor por puerta altera la humedad de cocción y la expansión del pan de molde.",
+    "protocol_poes": "Silicona roja alimentaria atóxica resistente a 280°C"
+  },
+  {
+    "id": "REP-M07-02",
+    "name": "Buje de Alta Temperatura de Grafito Autolubricante para Suspensión de Carro",
+    "machine_id": "M07-PL1",
+    "machine_name": "Hornos Rotativos Pauna",
+    "machine_tag": "M07",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Horno Panificados [Sector 12]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Mecánico / Térmico",
+    "stock_min": 2,
+    "stock_unit": "unidades",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (Mecanizado Carbón/Grafito)",
+    "origin": "Nacional",
+    "location": "Pañol Estante G2",
+    "supplier": "Grafitos Especiales S.A.",
+    "cost_ars": 230000,
+    "impact": "Traba en rotación provoca quemado disparejo y descarte de las 16 bandejas del carro.",
+    "protocol_poes": "Grafito de alta pureza impregnado en resina fenólica"
+  },
+  {
+    "id": "REP-M07-03",
+    "name": "Turbina Centrífuga de Convección Forzada en Acero Inox Equilibrada",
+    "machine_id": "M07-PL1",
+    "machine_name": "Hornos Rotativos Pauna",
+    "machine_tag": "M07",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Horno Panificados [Sector 12]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "alta",
+    "category": "Ventilación / Flujo",
+    "stock_min": 1,
+    "stock_unit": "unidad",
+    "lead_time_days": 25,
+    "lead_time_label": "25 días (Pauna Repuestos)",
+    "origin": "Nacional",
+    "location": "Pañol Estante G3",
+    "supplier": "Pauna Equipamientos",
+    "cost_ars": 620000,
+    "impact": "Distribución uniforme del aire caliente convectivo en todas las alturas del carro.",
+    "protocol_poes": "Balanceo dinámico ISO 1940 Grado G 2.5"
+  },
+  {
+    "id": "REP-M08-01",
+    "name": "Juego de Cuchillas Dentadas Continuas de Acero Quirúrgico (Kit 32 hojas)",
+    "machine_id": "M08-PL1",
+    "machine_name": "Rebanadora de Pan",
+    "machine_tag": "M08",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Envasado Panificados [Sector 14]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Corte / Cuchillas",
+    "stock_min": 2,
+    "stock_unit": "kits (64 hojas)",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (Cuchillas Industriales)",
+    "origin": "Nacional",
+    "location": "Pañol Estante H1",
+    "supplier": "Filos Industriales S.A.",
+    "cost_ars": 390000,
+    "impact": "Corte de pan de molde 500g sin desmoronamiento. Diente mellado rompe la miga.",
+    "protocol_poes": "Acero inoxidable martensítico AISI 420 tratado térmicamente (54 HRC)"
+  },
+  {
+    "id": "REP-M08-02",
+    "name": "Patines Guía de Bronce Fosforoso para Bastidor Oscilante",
+    "machine_id": "M08-PL1",
+    "machine_name": "Rebanadora de Pan",
+    "machine_tag": "M08",
+    "line": "linea_b",
+    "lineLabel": "Línea Discontinua Panificados",
+    "sector": "Envasado Panificados [Sector 14]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "media",
+    "category": "Mecánico / Guías",
+    "stock_min": 4,
+    "stock_unit": "unidades",
+    "lead_time_days": 7,
+    "lead_time_label": "7 días (Mecanizado Bronce)",
+    "origin": "Nacional",
+    "location": "Pañol Estante H2",
+    "supplier": "Mecanizados Generales",
+    "cost_ars": 135000,
+    "impact": "Alineación del vaivén de cuchillas. Desgaste produce desvío de espesor.",
+    "protocol_poes": "Bronce SAE 64 autolubricante"
+  },
+  {
+    "id": "REP-M09-01",
+    "name": "Celda de Carga de Flexión de Alta Precisión HBM PW4C3 (3 kg, IP67)",
+    "machine_id": "M09-PL1",
+    "machine_name": "Envasadora Multicabezal",
+    "machine_tag": "M09",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Envasado Galletitas [Sector 8]",
+    "crit": "Nivel A (PCC-1 Sellado & Peso)",
+    "critLevel": "critica",
+    "category": "Electrónica / Metrología",
+    "stock_min": 2,
+    "stock_unit": "celdas calibradas",
+    "lead_time_days": 30,
+    "lead_time_label": "30 días (HBM Alemania)",
+    "origin": "Importado (Alemania)",
+    "location": "Pañol Instrumental I1",
+    "supplier": "HBM Sudamérica",
+    "cost_ars": 890000,
+    "impact": "Corazón de la pesadora multicabezal combinatoria. Celda averiada deja fuera de servicio 1 de las 10 tolvas.",
+    "protocol_poes": "Grado IP67 con cable apantallado y certificado OIML R60"
+  },
+  {
+    "id": "REP-M09-02",
+    "name": "Juego de Resistencias Cartucho Blindadas (800W - 220V - Ø 12 mm x 250 mm)",
+    "machine_id": "M09-PL1",
+    "machine_name": "Envasadora Multicabezal",
+    "machine_tag": "M09",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Envasado Galletitas [Sector 8]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Térmico / Sellado",
+    "stock_min": 6,
+    "stock_unit": "unidades",
+    "lead_time_days": 7,
+    "lead_time_label": "7 días (Resistencias Eléctricas)",
+    "origin": "Nacional",
+    "location": "Pañol Estante I2",
+    "supplier": "Resistencias Pilar",
+    "cost_ars": 85000,
+    "impact": "Termosellado vertical y horizontal del paquete. Falla provoca bolsas abiertas y pérdida de hermeticidad.",
+    "protocol_poes": "Aislación dieléctrica > 50 MΩ y termocupla incorporada"
+  },
+  {
+    "id": "REP-M09-03",
+    "name": "Cuchilla de Corte Transversal Dentada en Zig-Zag Templada (Acero Bohler K110)",
+    "machine_id": "M09-PL1",
+    "machine_name": "Envasadora Multicabezal",
+    "machine_tag": "M09",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Envasado Galletitas [Sector 8]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Corte / Mecánico",
+    "stock_min": 3,
+    "stock_unit": "unidades",
+    "lead_time_days": 10,
+    "lead_time_label": "10 días (Filos de Precisión)",
+    "origin": "Nacional",
+    "location": "Pañol Estante I3",
+    "supplier": "Herramentales Industriales",
+    "cost_ars": 190000,
+    "impact": "Corte limpio entre paquetes sucesivos. Desgaste dobla o desgarra el film BOPP.",
+    "protocol_poes": "Acero D2 templado al vacío (60 HRC)"
+  },
+  {
+    "id": "REP-M10-01",
+    "name": "Juego de Mordazas Rotativas Transversales de Sellado Térmico Antifricción",
+    "machine_id": "M10-PL1",
+    "machine_name": "Envasadora Flow-Pack",
+    "machine_tag": "M10",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Envasado Galletitas [Sector 8]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Sellado / Mecánico",
+    "stock_min": 1,
+    "stock_unit": "juego completo",
+    "lead_time_days": 35,
+    "lead_time_label": "35 días (Flow-Pack Repuestos)",
+    "origin": "Importado",
+    "location": "Pañol Estante J1",
+    "supplier": "Packaging Solutions S.A.",
+    "cost_ars": 1450000,
+    "impact": "Garantiza hermeticidad y atmósfera protectora (N2). Falla detiene el flujo continuo de salida.",
+    "protocol_poes": "Recubrimiento antiadherente de teflón cerámico apto 200°C"
+  },
+  {
+    "id": "REP-M10-02",
+    "name": "Sensor Lector de Fototrama / Mácula Óptica SICK KT5W-2P1116 (Luz Blanca)",
+    "machine_id": "M10-PL1",
+    "machine_name": "Envasadora Flow-Pack",
+    "machine_tag": "M10",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Envasado Galletitas [Sector 8]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Óptica / Sensores",
+    "stock_min": 2,
+    "stock_unit": "sensores",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (SICK Argentina)",
+    "origin": "Importado (Alemania)",
+    "location": "Pañol Instrumental J2",
+    "supplier": "SICK Sensor Intelligence",
+    "cost_ars": 410000,
+    "impact": "Sincroniza el corte con la impresión gráfica de la bobina. Desfasaje corta el texto de marca.",
+    "protocol_poes": "Frecuencia de conmutación 10 kHz con autoaprendizaje teach-in"
+  },
+  {
+    "id": "REP-M10-03",
+    "name": "Resistencias Planas de Mica para Discos Soldadores Longitudinales (500W)",
+    "machine_id": "M10-PL1",
+    "machine_name": "Envasadora Flow-Pack",
+    "machine_tag": "M10",
+    "line": "linea_a",
+    "lineLabel": "Línea Continua Galletitas",
+    "sector": "Envasado Galletitas [Sector 8]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "alta",
+    "category": "Térmico / Sellado",
+    "stock_min": 4,
+    "stock_unit": "unidades",
+    "lead_time_days": 7,
+    "lead_time_label": "7 días (Resistencias Eléctricas)",
+    "origin": "Nacional",
+    "location": "Pañol Estante J3",
+    "supplier": "Térmica Industrial",
+    "cost_ars": 95000,
+    "impact": "Sellado tipo aleta longitudinal inferior continuo del paquete flowpack.",
+    "protocol_poes": "Aislamiento de mica para servicio continuo 24/5"
+  },
+  {
+    "id": "REP-M11-01",
+    "name": "Kit de Filtros Coalescentes Grado 0,01 µm + Carbón Activado Grado Alimentario",
+    "machine_id": "M11-PL1",
+    "machine_name": "Compresor y Secador G2 FF",
+    "machine_tag": "M11",
+    "line": "servicios",
+    "lineLabel": "Servicios Industriales & Auxiliares",
+    "sector": "Sala de Máquinas [Servicios]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Filtración / Calidad Aire",
+    "stock_min": 2,
+    "stock_unit": "kits completos",
+    "lead_time_days": 10,
+    "lead_time_label": "10 días (Atlas Copco Arg.)",
+    "origin": "Importado (Bélgica)",
+    "location": "Pañol Estante K1",
+    "supplier": "Atlas Copco Argentina",
+    "cost_ars": 580000,
+    "impact": "Vital para cumplir norma ISO 8573-1 Clase 1.4.1 de aire en contacto con alimentos sin gluten.",
+    "protocol_poes": "Retención de aerosoles de aceite < 0,003 mg/m³"
+  },
+  {
+    "id": "REP-M11-02",
+    "name": "Válvula de Purga Automática Capacitiva Bekomat 31 sin Pérdida de Aire",
+    "machine_id": "M11-PL1",
+    "machine_name": "Compresor y Secador G2 FF",
+    "machine_tag": "M11",
+    "line": "servicios",
+    "lineLabel": "Servicios Industriales & Auxiliares",
+    "sector": "Sala de Máquinas [Servicios]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Neumática / Purgas",
+    "stock_min": 1,
+    "stock_unit": "unidad",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (Beko Technologies)",
+    "origin": "Importado (Alemania)",
+    "location": "Pañol Estante K2",
+    "supplier": "Beko Technologies Arg.",
+    "cost_ars": 470000,
+    "impact": "Evacua agua condensada del secador frigorífico. Falla inunda de agua las válvulas de planta.",
+    "protocol_poes": "Sensor capacitivo de nivel sin fugas de aire comprimido"
+  },
+  {
+    "id": "REP-M11-03",
+    "name": "Kit Termostático y Válvula de Presión Mínima MPV Atlas Copco",
+    "machine_id": "M11-PL1",
+    "machine_name": "Compresor y Secador G2 FF",
+    "machine_tag": "M11",
+    "line": "servicios",
+    "lineLabel": "Servicios Industriales & Auxiliares",
+    "sector": "Sala de Máquinas [Servicios]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "alta",
+    "category": "Mecánico / Neumático",
+    "stock_min": 1,
+    "stock_unit": "kit oficial",
+    "lead_time_days": 15,
+    "lead_time_label": "15 días (Atlas Copco)",
+    "origin": "Importado",
+    "location": "Pañol Estante K3",
+    "supplier": "Atlas Copco Argentina",
+    "cost_ars": 360000,
+    "impact": "Mantiene presión interna mínima de lubricación y circulación en el tornillo rotativo.",
+    "protocol_poes": "Piezas genuinas OEM para evitar pérdida de garantía"
+  },
+  {
+    "id": "REP-M12-01",
+    "name": "Interruptor Automático de Caja Moldeada Schneider Compact NSX160F (160A 36kA)",
+    "machine_id": "M12-PL1",
+    "machine_name": "Subestación y Tableros CCM",
+    "machine_tag": "M12",
+    "line": "servicios",
+    "lineLabel": "Servicios Industriales & Auxiliares",
+    "sector": "Subestación Eléctrica [Servicios]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Eléctrico / Protección",
+    "stock_min": 1,
+    "stock_unit": "unidad",
+    "lead_time_days": 10,
+    "lead_time_label": "10 días (Schneider Electric)",
+    "origin": "Importado (Francia)",
+    "location": "Pañol Eléctrico L1",
+    "supplier": "Schneider Electric Arg.",
+    "cost_ars": 1150000,
+    "impact": "Protección de alimentador principal de fuerza motriz de planta. Cortocircuito = blackout general.",
+    "protocol_poes": "Unidad de control electrónico Micrologic 2.2 con ajuste L/S/I"
+  },
+  {
+    "id": "REP-M12-02",
+    "name": "Contactor Tripolar TeSys D Schneider LC1D32 (32A - Bobina 220V AC)",
+    "machine_id": "M12-PL1",
+    "machine_name": "Subestación y Tableros CCM",
+    "machine_tag": "M12",
+    "line": "servicios",
+    "lineLabel": "Servicios Industriales & Auxiliares",
+    "sector": "Subestación Eléctrica [Servicios]",
+    "crit": "Nivel A (Parada Inmediata)",
+    "critLevel": "critica",
+    "category": "Eléctrico / Maniobra",
+    "stock_min": 3,
+    "stock_unit": "unidades",
+    "lead_time_days": 3,
+    "lead_time_label": "3 días (Distribuidor Local)",
+    "origin": "Nacional/Importado",
+    "location": "Pañol Eléctrico L2",
+    "supplier": "Electro Pilar Materiales",
+    "cost_ars": 115000,
+    "impact": "Arranque y marcha de motores principales (amasadoras, ventiladores de horno, compresores).",
+    "protocol_poes": "Resistencia a 2 millones de maniobras mecánicas bajo carga AC-3"
+  },
+  {
+    "id": "REP-M12-03",
+    "name": "Juego de Fusibles de Alta Capacidad de Ruptura NH-00 (63A y 100A gG)",
+    "machine_id": "M12-PL1",
+    "machine_name": "Subestación y Tableros CCM",
+    "machine_tag": "M12",
+    "line": "servicios",
+    "lineLabel": "Servicios Industriales & Auxiliares",
+    "sector": "Subestación Eléctrica [Servicios]",
+    "crit": "Nivel B (Degradación / Alerta)",
+    "critLevel": "media",
+    "category": "Eléctrico / Fusibles",
+    "stock_min": 6,
+    "stock_unit": "unidades x calibre",
+    "lead_time_days": 2,
+    "lead_time_label": "2 días (Distribuidor Local)",
+    "origin": "Nacional",
+    "location": "Pañol Eléctrico L3",
+    "supplier": "Electro Pilar Materiales",
+    "cost_ars": 35000,
+    "impact": "Protección de respaldo ultra-rápida contra cortocircuitos severos en barras CCM.",
+    "protocol_poes": "Poder de corte 120 kA a 500V según norma IEC 60269"
+  }
+];
+
     let currentSelectedMachineLine = 'all';
     let currentSelectedMachineId = 'M01-PL1';
     let currentMachineMomentTab = 'all_moments';
+
+    // Estado de filtros del pañol de repuestos
+    let sparesFilterLine = 'all';
+    let sparesFilterCrit = 'all';
+    let sparesSearchText = '';
 
     function filterMantMachineLine(lineKey) {
       currentSelectedMachineLine = lineKey;
@@ -6311,7 +8162,6 @@
       // Check if current machine belongs to the selected line
       const currentMachine = mantMachines[currentSelectedMachineId];
       if (lineKey !== 'all' && currentMachine && currentMachine.line !== lineKey) {
-        // Find first machine in this line
         const firstInLine = Object.keys(mantMachines).find(mid => mantMachines[mid].line === lineKey);
         if (firstInLine) {
           currentSelectedMachineId = firstInLine;
@@ -6334,10 +8184,6 @@
         const m = mantMachines[mid];
         const isSelected = mid === currentSelectedMachineId;
         
-        let critBadgeColor = 'bg-blue-100 text-blue-800 border-blue-200';
-        if (m.critLevel === 'critica') critBadgeColor = 'bg-rose-100 text-rose-800 border-rose-200';
-        else if (m.critLevel === 'alta') critBadgeColor = 'bg-amber-100 text-amber-800 border-amber-200';
-
         const activeClass = isSelected ?
           "bg-emerald-700 text-white shadow-md border-emerald-800 ring-2 ring-emerald-500/50" :
           "bg-white border-slate-200 text-slate-700 hover:bg-slate-50 hover:border-slate-300";
@@ -6382,6 +8228,7 @@
       if (!m) return;
 
       const mTasks = mantTasks.filter(t => t.machine_id === mid);
+      const mSpares = m.repuestos || [];
 
       // Criticality styling
       let critColor = 'bg-blue-100 text-blue-800 border-blue-200';
@@ -6399,6 +8246,8 @@
         momentContentHtml = renderAnualSection(m);
       } else if (currentMachineMomentTab === 'gantt') {
         momentContentHtml = renderMachineParticularGantt(m, mTasks);
+      } else if (currentMachineMomentTab === 'repuestos') {
+        momentContentHtml = renderRepuestosMachineSection(m);
       } else {
         // 'all_moments': Show all structured in full glory!
         momentContentHtml = `
@@ -6406,6 +8255,7 @@
             ${renderPreTurnoSection(m)}
             ${renderSabadosSection(m)}
             ${renderAnualSection(m)}
+            ${renderRepuestosMachineSection(m)}
             ${renderMachineParticularGantt(m, mTasks)}
           </div>
         `;
@@ -6441,24 +8291,28 @@
           </div>
         </div>
 
-        <!-- Pestañas de Momento Operativo -->
+        <!-- Pestañas de Momento Operativo & Repuestos -->
         <div class="flex flex-wrap items-center gap-1.5 p-1.5 bg-slate-100 rounded-xl border border-slate-200 text-xs">
           <button onclick="setMachineMomentTab('all_moments')" class="px-3 py-1.5 rounded-lg font-bold transition-all ${currentMachineMomentTab === 'all_moments' ? 'bg-slate-800 text-white shadow-sm' : 'text-slate-700 hover:bg-white'}">
             📋 Ficha Integral Completa
           </button>
           <button onclick="setMachineMomentTab('pre_turno')" class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center space-x-1.5 ${currentMachineMomentTab === 'pre_turno' ? 'bg-amber-600 text-white shadow-sm' : 'text-slate-700 hover:bg-white'}">
             <span>🌅</span>
-            <span>1. Antes del Turno (${m.pre_turno.length} rutinas)</span>
+            <span>1. Antes del Turno (${m.pre_turno.length})</span>
           </button>
           <button onclick="setMachineMomentTab('sabados')" class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center space-x-1.5 ${currentMachineMomentTab === 'sabados' ? 'bg-emerald-700 text-white shadow-sm' : 'text-slate-700 hover:bg-white'}">
             <span>🛠️</span>
-            <span>2. Los Sábados (${m.sabados.length} tareas)</span>
+            <span>2. Los Sábados (${m.sabados.length})</span>
           </button>
           <button onclick="setMachineMomentTab('anual')" class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center space-x-1.5 ${currentMachineMomentTab === 'anual' ? 'bg-[#c55a11] text-white shadow-sm' : 'text-slate-700 hover:bg-white'}">
             <span>📅</span>
-            <span>3. Parada Anual (${m.anual.length} overhaul)</span>
+            <span>3. Parada Anual (${m.anual.length})</span>
           </button>
-          <button onclick="setMachineMomentTab('gantt')" class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center space-x-1.5 ${currentMachineMomentTab === 'gantt' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-700 hover:bg-white'}">
+          <button onclick="setMachineMomentTab('repuestos')" class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center space-x-1.5 ${currentMachineMomentTab === 'repuestos' ? 'bg-blue-600 text-white shadow-sm' : 'text-slate-700 hover:bg-white'}">
+            <span>🔩</span>
+            <span>4. Repuestos Críticos (${mSpares.length})</span>
+          </button>
+          <button onclick="setMachineMomentTab('gantt')" class="px-3 py-1.5 rounded-lg font-bold transition-all flex items-center space-x-1.5 ${currentMachineMomentTab === 'gantt' ? 'bg-indigo-600 text-white shadow-sm' : 'text-slate-700 hover:bg-white'}">
             <span>📊</span>
             <span>Gantt Individual (52 Sem)</span>
           </button>
@@ -6598,12 +8452,77 @@
       `;
     }
 
+    function renderRepuestosMachineSection(m) {
+      const spares = m.repuestos || [];
+      if (spares.length === 0) {
+        return `<div class="p-4 text-xs text-slate-500 font-mono">No hay repuestos críticos asociados a este equipo.</div>`;
+      }
+
+      return `
+        <div class="space-y-3">
+          <div class="flex items-center justify-between pb-1 border-b border-blue-200">
+            <div class="flex items-center space-x-2">
+              <span class="p-1 rounded bg-blue-100 text-blue-800 font-bold text-sm">🔩</span>
+              <h5 class="text-sm font-bold text-slate-900 uppercase font-mono tracking-wider">
+                4. Repuestos Críticos Asignados &bull; Pañol Técnico &bull; Stock de Seguridad
+              </h5>
+            </div>
+            <span class="source-tag bg-blue-50 text-blue-900 border-blue-200 font-mono text-[10px]">${spares.length} Ítems Catalogados</span>
+          </div>
+
+          <p class="text-xs text-slate-600 leading-relaxed">
+            Componentes con stock mínimo de seguridad custodiados en el pañol para evitar paradas no programadas en <strong>${m.name}</strong>:
+          </p>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-${spares.length >= 3 ? '3' : '2'} gap-3">
+            ${spares.map(s => {
+              const critBadge = s.critLevel === 'critica' ?
+                'bg-rose-100 text-rose-800 border-rose-300' :
+                'bg-amber-100 text-amber-800 border-amber-300';
+
+              return `
+                <div class="p-3.5 rounded-xl border border-slate-200 bg-slate-50/50 space-y-2.5 hover:border-blue-300 transition-colors shadow-sm">
+                  <div class="flex items-start justify-between gap-1.5">
+                    <span class="px-2 py-0.5 rounded bg-blue-100 text-blue-800 font-mono font-bold text-[11px]">${s.id}</span>
+                    <span class="px-2 py-0.5 rounded border text-[10px] font-bold font-mono ${critBadge}">${s.crit.split(' ')[0] + ' ' + s.crit.split(' ')[1]}</span>
+                  </div>
+                  <div>
+                    <div class="font-bold text-xs text-slate-900 leading-tight">${s.name}</div>
+                    <div class="text-[11px] text-slate-500 font-mono mt-0.5">${s.category}</div>
+                  </div>
+                  <div class="p-2 rounded bg-white border border-slate-200 text-[11px] font-mono space-y-1">
+                    <div class="flex justify-between">
+                      <span class="text-slate-500">Stock Mínimo:</span>
+                      <span class="font-bold text-slate-900">${s.stock_min} ${s.stock_unit}</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-slate-500">Lead Time:</span>
+                      <span class="font-bold text-amber-800">${s.lead_time_days} días (${s.origin})</span>
+                    </div>
+                    <div class="flex justify-between">
+                      <span class="text-slate-500">Ubicación:</span>
+                      <span class="font-bold text-emerald-800">${s.location}</span>
+                    </div>
+                  </div>
+                  <div class="text-[10px] text-slate-600 font-sans leading-relaxed">
+                    <strong>Impacto:</strong> ${s.impact}
+                  </div>
+                  <div class="text-[10px] text-slate-500 font-mono pt-1 border-t border-slate-200">
+                    🔒 ${s.protocol_poes}
+                  </div>
+                </div>
+              `;
+            }).join('')}
+          </div>
+        </div>
+      `;
+    }
+
     function renderMachineParticularGantt(m, mTasks) {
       if (!mTasks || mTasks.length === 0) {
         return `<div class="p-4 text-xs text-slate-500 font-mono">No hay tareas programadas en el plan anual para este equipo.</div>`;
       }
 
-      // Generate week cells
       const rowsHtml = mTasks.map(t => {
         let weekCells = '';
         for (let w = 1; w <= 48; w++) {
@@ -6631,7 +8550,6 @@
         `;
       }).join('');
 
-      // Statistical summary for this machine
       const totalTasks = mTasks.length;
       const weeklyTasks = mTasks.filter(t => t.freq_type === 'semanal').length;
       const biweeklyTasks = mTasks.filter(t => t.freq_type === 'quincenal').length;
@@ -6640,14 +8558,14 @@
 
       return `
         <div class="space-y-3">
-          <div class="flex items-center justify-between pb-1 border-b border-blue-200">
+          <div class="flex items-center justify-between pb-1 border-b border-indigo-200">
             <div class="flex items-center space-x-2">
-              <span class="p-1 rounded bg-blue-100 text-blue-800 font-bold text-sm">📊</span>
+              <span class="p-1 rounded bg-indigo-100 text-indigo-800 font-bold text-sm">📊</span>
               <h5 class="text-sm font-bold text-slate-900 uppercase font-mono tracking-wider">
                 Diagrama de Gantt Anual Exclusivo &bull; ${m.name} (#${m.tag})
               </h5>
             </div>
-            <span class="source-tag bg-blue-50 text-blue-900 border-blue-200 font-mono text-[10px]">${totalTasks} Tareas Preventivas</span>
+            <span class="source-tag bg-indigo-50 text-indigo-900 border-indigo-200 font-mono text-[10px]">${totalTasks} Tareas Preventivas</span>
           </div>
 
           <p class="text-xs text-slate-600 leading-relaxed">
@@ -6701,6 +8619,147 @@
           </div>
         </div>
       `;
+    }
+
+    // ==============================================================
+    // SECCIÓN 4: MATRIZ GLOBAL DE REPUESTOS CRÍTICOS & PAÑOL
+    // ==============================================================
+    function filterSparesLine(lineKey) {
+      sparesFilterLine = lineKey;
+      ['all', 'linea_a', 'linea_b', 'servicios'].forEach(key => {
+        const btn = document.getElementById('spares-line-' + key);
+        if (!btn) return;
+        if (key === lineKey) {
+          btn.className = "px-2.5 py-1.5 rounded-lg font-bold bg-slate-800 text-white shadow-sm transition-all text-xs";
+        } else {
+          btn.className = "px-2.5 py-1.5 rounded-lg font-semibold bg-white border border-slate-200 text-slate-700 hover:bg-slate-200 transition-all text-xs flex items-center space-x-1";
+        }
+      });
+      renderSparesTable();
+    }
+
+    function filterSparesCrit(critKey) {
+      sparesFilterCrit = critKey;
+      const btnAll = document.getElementById('spares-crit-all');
+      const btnA = document.getElementById('spares-crit-a');
+      const btnB = document.getElementById('spares-crit-b');
+      if (btnAll) btnAll.className = critKey === 'all' ? "px-2 py-1 rounded bg-slate-800 text-white font-bold text-[11px]" : "px-2 py-1 rounded bg-white text-slate-700 border border-slate-300 font-bold text-[11px]";
+      if (btnA) btnA.className = critKey === 'Nivel A' ? "px-2 py-1 rounded bg-rose-700 text-white font-bold text-[11px] shadow-sm" : "px-2 py-1 rounded bg-rose-50 text-rose-800 border border-rose-200 font-bold text-[11px]";
+      if (btnB) btnB.className = critKey === 'Nivel B' ? "px-2 py-1 rounded bg-amber-600 text-white font-bold text-[11px] shadow-sm" : "px-2 py-1 rounded bg-amber-50 text-amber-800 border border-amber-200 font-bold text-[11px]";
+      renderSparesTable();
+    }
+
+    function searchSparesTable(text) {
+      sparesSearchText = (text || '').toLowerCase().trim();
+      renderSparesTable();
+    }
+
+    function renderSparesTable() {
+      const tbody = document.getElementById('sparesTableBody');
+      const countEl = document.getElementById('sparesCountDisplay');
+      if (!tbody) return;
+
+      const filtered = criticalSpares.filter(s => {
+        if (sparesFilterLine !== 'all' && s.line !== sparesFilterLine) return false;
+        if (sparesFilterCrit !== 'all' && !s.crit.includes(sparesFilterCrit)) return false;
+        if (sparesSearchText) {
+          const hay = (s.id + ' ' + s.name + ' ' + s.machine_name + ' ' + s.machine_tag + ' ' + s.category + ' ' + s.location + ' ' + s.supplier).toLowerCase();
+          if (!hay.includes(sparesSearchText)) return false;
+        }
+        return true;
+      });
+
+      if (countEl) {
+        countEl.textContent = `Mostrando ${filtered.length} de ${criticalSpares.length} repuestos críticos`;
+      }
+
+      if (filtered.length === 0) {
+        tbody.innerHTML = `
+          <tr>
+            <td colspan="8" class="py-8 text-center text-xs text-slate-500 font-mono">
+              No se encontraron repuestos con los filtros aplicados.
+            </td>
+          </tr>
+        `;
+        return;
+      }
+
+      tbody.innerHTML = filtered.map(s => {
+        const critClass = s.critLevel === 'critica' ?
+          'bg-rose-100 text-rose-800 border-rose-200 font-bold' :
+          'bg-amber-100 text-amber-800 border-amber-200 font-bold';
+
+        return `
+          <tr class="hover:bg-slate-50 transition-colors">
+            <!-- Código -->
+            <td class="py-2.5 px-3 font-mono font-bold text-xs sticky left-0 bg-white z-10 border-r border-slate-200 text-blue-700 whitespace-nowrap">
+              ${s.id}
+            </td>
+
+            <!-- Repuesto / Especificación -->
+            <td class="py-2.5 px-3 border-r border-slate-200">
+              <div class="font-bold text-slate-900 text-xs">${s.name}</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">${s.category} &bull; ${s.supplier}</div>
+            </td>
+
+            <!-- Máquina Asignada -->
+            <td class="py-2.5 px-3 border-r border-slate-200">
+              <button onclick="quickJumpToMachine('${s.machine_id}')" class="text-left group flex items-center space-x-1.5 hover:text-emerald-700 transition-colors">
+                <span class="px-1.5 py-0.5 rounded bg-slate-100 group-hover:bg-emerald-100 text-slate-700 group-hover:text-emerald-800 font-mono text-[10px] font-bold">#${s.machine_tag}</span>
+                <span class="font-bold text-xs text-slate-800 group-hover:text-emerald-700 underline decoration-dotted decoration-slate-300">${s.machine_name}</span>
+              </button>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">${s.sector}</div>
+            </td>
+
+            <!-- Criticidad -->
+            <td class="py-2 px-2 text-center border-r border-slate-200 whitespace-nowrap">
+              <span class="px-2 py-0.5 rounded text-[10px] border ${critClass}">
+                ${s.critLevel === 'critica' ? '🚨 Nivel A' : '⚠️ Nivel B'}
+              </span>
+            </td>
+
+            <!-- Stock Mínimo -->
+            <td class="py-2 px-2 text-center border-r border-slate-200 whitespace-nowrap font-mono font-bold text-slate-900 text-xs">
+              ${s.stock_min} <span class="text-[10px] text-slate-500 font-normal">${s.stock_unit.split(' ')[0]}</span>
+            </td>
+
+            <!-- Lead Time -->
+            <td class="py-2 px-3 border-r border-slate-200 text-xs font-mono">
+              <div class="font-bold text-slate-800">${s.lead_time_days} días</div>
+              <div class="text-[10px] ${s.origin.includes('Importado') ? 'text-amber-700' : 'text-slate-500'}">${s.origin}</div>
+            </td>
+
+            <!-- Ubicación Pañol -->
+            <td class="py-2 px-3 border-r border-slate-200 text-xs font-mono">
+              <span class="px-1.5 py-0.5 rounded bg-emerald-50 text-emerald-800 border border-emerald-200 font-bold text-[10px]">
+                📍 ${s.location}
+              </span>
+            </td>
+
+            <!-- Impacto / Protocolo POES -->
+            <td class="py-2.5 px-3 text-[11px] leading-relaxed text-slate-600">
+              <div class="font-medium text-slate-800">${s.impact}</div>
+              <div class="text-[10px] text-slate-500 font-mono mt-0.5">🔒 ${s.protocol_poes}</div>
+            </td>
+          </tr>
+        `;
+      }).join('');
+    }
+
+    function quickJumpToMachine(mid) {
+      if (!mantMachines[mid]) return;
+      const m = mantMachines[mid];
+      // Set line filter to all or matching line
+      if (currentSelectedMachineLine !== 'all' && currentSelectedMachineLine !== m.line) {
+        filterMantMachineLine('all');
+      }
+      selectMantMachine(mid);
+      setMachineMomentTab('repuestos');
+      
+      const targetEl = document.getElementById('mantMachineDetailCard');
+      if (targetEl) {
+        targetEl.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
     }
 
     // Switch Master Tabs
@@ -6835,6 +8894,7 @@
     function initMantenimientoCharts() {
       renderMantGantt('all');
       renderMantMachineSelector();
+      renderSparesTable();
 
       // Chart: Distribución Preventiva
       const canvasEl = document.getElementById('chartMantDistribution');
@@ -6907,16 +8967,26 @@
     }
 
     function switchTab(tabId) {
-      const views = ['comercial', 'tecnica', 'economica'];
+      const views = ['comercial', 'tecnica', 'economica', 'auditoria'];
       views.forEach(v => {
         const viewEl = document.getElementById(`view-${v}`);
         const btnEl = document.getElementById(`tab-btn-${v}`);
+        if (!viewEl || !btnEl) return;
+
         if (v === tabId) {
           viewEl.classList.remove('hidden');
-          btnEl.className = "flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-200 bg-emerald-600 text-white shadow-sm";
+          if (v === 'auditoria') {
+            btnEl.className = "flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-200 bg-rose-600 text-white shadow-md ring-2 ring-rose-400 whitespace-nowrap";
+          } else {
+            btnEl.className = "flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-200 bg-emerald-600 text-white shadow-sm whitespace-nowrap";
+          }
         } else {
           viewEl.classList.add('hidden');
-          btnEl.className = "flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-200/60";
+          if (v === 'auditoria') {
+            btnEl.className = "flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs md:text-sm font-bold transition-all duration-200 bg-rose-50 text-rose-600 hover:bg-rose-100 hover:text-rose-700 border border-rose-200 whitespace-nowrap shadow-xs";
+          } else {
+            btnEl.className = "flex items-center space-x-2 px-3.5 py-2 rounded-lg text-xs md:text-sm font-semibold transition-all duration-200 text-slate-600 hover:text-slate-900 hover:bg-slate-200/60 whitespace-nowrap";
+          }
         }
       });
       window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -6930,6 +9000,41 @@
         renderedTabs.economica = true;
       }
       if (window.lucide) lucide.createIcons();
+    }
+
+    function toggleAuditFullscreen() {
+      const container = document.getElementById('auditContainer');
+      if (!container) return;
+      if (!document.fullscreenElement) {
+        if (container.requestFullscreen) {
+          container.requestFullscreen().catch(() => {
+            window.open('Auditoria_Academica_Proyecto_Final_CELI_UTN.html', '_blank');
+          });
+        }
+      } else {
+        if (document.exitFullscreen) document.exitFullscreen();
+      }
+    }
+
+    function printAuditIframe() {
+      const iframe = document.getElementById('auditIframe');
+      if (iframe && iframe.contentWindow) {
+        try {
+          iframe.contentWindow.focus();
+          iframe.contentWindow.print();
+          return;
+        } catch(e) {
+          console.warn('Iframe print fallback triggered:', e);
+        }
+      }
+      window.open('Auditoria_Academica_Proyecto_Final_CELI_UTN.html', '_blank');
+    }
+
+    function reloadAuditIframe() {
+      const iframe = document.getElementById('auditIframe');
+      if (iframe) {
+        iframe.src = iframe.src;
+      }
     }
 
     // ÚNICA DEFINICIÓN DE initTecnicaCharts (SIN DUPLICADOS)
@@ -7545,6 +9650,14 @@
           plugins: { legend: { display: false } }
         }
       });
+
+      // Chequeo de hash en URL para navegación directa (ej. #auditoria)
+      if (window.location.hash) {
+        const hash = window.location.hash.replace('#', '');
+        if (['comercial', 'tecnica', 'economica', 'auditoria'].includes(hash)) {
+          switchTab(hash);
+        }
+      }
 
     });
   </script>
