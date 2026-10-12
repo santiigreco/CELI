@@ -1498,6 +1498,109 @@
               </div>
             </div>
 
+            <!-- 3.1 ANÁLISIS DE PARETO ABC: PROVEEDORES DE MATERIA PRIMA -->
+            <div class="mt-6 pt-5 border-t border-slate-200 space-y-4">
+              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                <div>
+                  <div class="flex items-center space-x-2">
+                    <span class="px-2 py-0.5 rounded bg-amber-100 text-amber-800 font-mono text-[11px] font-bold">Herramienta de Gestión Estratégica</span>
+                    <span class="text-xs font-mono text-slate-500 font-semibold">Ley 80/20 &bull; Matriz Kraljic</span>
+                  </div>
+                  <h4 class="text-base sm:text-lg font-black text-slate-900 mt-1 flex items-center space-x-2">
+                    <i data-lucide="bar-chart-2" class="w-5 h-5 text-amber-600"></i>
+                    <span>Análisis de Pareto ABC: Clasificación y Gestión de Proveedores MP</span>
+                  </h4>
+                  <p class="text-xs text-slate-600 mt-0.5 leading-relaxed">
+                    Identificación de insumos críticos para focalizar auditorías de calidad en origen, convenios de abastecimiento y dimensionamiento de inventario.
+                  </p>
+                </div>
+                <!-- Selector de Criterio -->
+                <div class="flex flex-wrap items-center bg-slate-100 p-1 rounded-xl border border-slate-200 text-xs font-semibold self-start sm:self-auto gap-1">
+                  <button onclick="switchParetoCriterion('volumen')" id="btn-pareto-volumen" class="px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-white transition-all shadow-xs">Volumen Físico (kg)</button>
+                  <button onclick="switchParetoCriterion('gasto')" id="btn-pareto-gasto" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all">Presupuesto ($ MM)</button>
+                  <button onclick="switchParetoCriterion('logistica')" id="btn-pareto-logistica" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all">Logística (Pallets)</button>
+                </div>
+              </div>
+
+              <!-- Top KPIs del Pareto Actual -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-3 text-xs font-mono" id="paretoKpiCards">
+                <!-- Rendered dynamically -->
+              </div>
+
+              <!-- Gráfico de Pareto (Barras + Curva Acumulada 80/20) -->
+              <div class="p-4 rounded-xl bg-white border border-slate-200 space-y-3">
+                <div class="flex flex-col sm:flex-row justify-between sm:items-center gap-1 pb-2 border-b border-slate-100">
+                  <div class="flex items-center space-x-2">
+                    <span class="font-bold text-slate-900 text-xs sm:text-sm" id="paretoChartTitle">Curva de Lorentz &amp; Distribución ABC por Proveedor</span>
+                    <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-800 border border-emerald-200" id="paretoThresholdBadge">Línea de Corte 80% (Pareto)</span>
+                  </div>
+                  <div class="text-[11px] text-slate-500 font-mono flex items-center space-x-3">
+                    <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded bg-emerald-600 inline-block"></span><span>Clase A (Estratégico)</span></span>
+                    <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded bg-blue-600 inline-block"></span><span>Clase B (Táctico)</span></span>
+                    <span class="flex items-center space-x-1"><span class="w-2.5 h-2.5 rounded bg-amber-600 inline-block"></span><span>Clase C (Micro-insumo)</span></span>
+                  </div>
+                </div>
+                <div class="h-80 w-full relative">
+                  <canvas id="chartParetoMp"></canvas>
+                </div>
+              </div>
+
+              <!-- Tabla de Proveedores Pareto ABC -->
+              <div class="overflow-x-auto rounded-xl border border-slate-200 bg-white">
+                <table class="w-full text-left text-xs border-collapse">
+                  <thead class="bg-slate-50 text-slate-700 font-mono text-[11px] uppercase border-b border-slate-200">
+                    <tr>
+                      <th class="py-2.5 px-3 font-bold text-center w-10">#</th>
+                      <th class="py-2.5 px-3 font-bold">Proveedor Homologado</th>
+                      <th class="py-2.5 px-3 font-bold">Rubro / Insumos Principales</th>
+                      <th class="py-2.5 px-3 text-center">Frecuencia</th>
+                      <th class="py-2.5 px-3 text-right font-bold" id="paretoTableColVal">Valor Anual</th>
+                      <th class="py-2.5 px-2 text-center">% Rel.</th>
+                      <th class="py-2.5 px-2 text-center">% Acum.</th>
+                      <th class="py-2.5 px-3 text-center font-bold">Clase ABC</th>
+                      <th class="py-2.5 px-3">Estrategia de Abastecimiento &amp; Calidad</th>
+                    </tr>
+                  </thead>
+                  <tbody id="paretoTableBody" class="divide-y divide-slate-100 font-mono">
+                    <!-- Rendered dynamically -->
+                  </tbody>
+                </table>
+              </div>
+
+              <!-- Conclusiones de Ingeniería y Gestión Estratégica (Kraljic) -->
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-3 text-xs pt-1">
+                <div class="p-3 bg-emerald-50/60 rounded-xl border border-emerald-200 space-y-1.5">
+                  <div class="flex items-center space-x-1.5 font-bold text-emerald-900">
+                    <span class="w-2.5 h-2.5 rounded-full bg-emerald-600"></span>
+                    <span>Clase A: Concentración &amp; Auditorías</span>
+                  </div>
+                  <p class="text-slate-600 leading-relaxed font-sans">
+                    El <strong>81,2% del tonelaje físico</strong> recae en sólo 4 proveedores (Bernesa, Bahiense, Cooperativa y Marjuanc). Se establecen contratos de volumen anual con fijación de precio, entregas quincenales obligatorias y <strong>auditorías de planta bimestrales</strong> para asegurar inocuidad en origen.
+                  </p>
+                </div>
+
+                <div class="p-3 bg-blue-50/60 rounded-xl border border-blue-200 space-y-1.5">
+                  <div class="flex items-center space-x-1.5 font-bold text-blue-900">
+                    <span class="w-2.5 h-2.5 rounded-full bg-blue-600"></span>
+                    <span>Clase B: Sensibilidad de Costo &amp; Cadena Fría</span>
+                  </div>
+                  <p class="text-slate-600 leading-relaxed font-sans">
+                    Insumos como huevo en polvo (Ovoalda), chocolate (Lodiser) y lácteos (Vacalin). Aunque representan menos del 15% del volumen físico, saltan al <strong>Pareto de Gasto (Clase A/B)</strong> por su alto valor unitario. Requieren transporte climatizado y control estricto de mermas.
+                  </p>
+                </div>
+
+                <div class="p-3 bg-amber-50/60 rounded-xl border border-amber-200 space-y-1.5">
+                  <div class="flex items-center space-x-1.5 font-bold text-amber-900">
+                    <span class="w-2.5 h-2.5 rounded-full bg-amber-600"></span>
+                    <span>Clase C: Lotes Espaciados &amp; Matriz Sin TACC</span>
+                  </div>
+                  <p class="text-slate-600 leading-relaxed font-sans">
+                    Micro-ingredientes (esencias, psyllium, levadura Calsa, fibra Brenntag) representan menos del 5% del volumen. Para evitar sobrecostos logísticos, se reciben cada <strong>3 a 9 semanas</strong>. <em>Regla de Inocuidad:</em> Tienen <strong>criticidad Clase A en Calidad</strong> (ELISA R5 obligatorio por lote).
+                  </p>
+                </div>
+              </div>
+            </div>
+
           </div>
         </section>
 
@@ -4561,6 +4664,350 @@
       }
     }
 
+    // ==========================================
+    // ANÁLISIS DE PARETO ABC: PROVEEDORES DE MATERIA PRIMA (Cronograma proveedores CELI.xlsx)
+    // ==========================================
+    const paretoProvidersData = [
+      { id: 'P01', name: 'Bernesa S.A.', short: 'Bernesa', cat: 'Harinas y Almidones', origin: 'Baradero, Bs. As.', icon: '🌾', items: 'Fécula de Maíz (156 tn) + Fécula de Mandioca (39 tn)', kg_year: 195000, spend_mm: 178.5, pallets_year: 208, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Impar)', strat: 'Alianza Estratégica & Auditoría ELISA en Origen' },
+      { id: 'P02', name: 'Distribuidora Bahiense', short: 'Bahiense', cat: 'Azúcar y Químicos', origin: 'Bahía Blanca / CABA', icon: '🧪', items: 'Azúcar (104 tn), Jarabes, Goma Xántica, Sal, Polvo (17 MP)', kg_year: 186800, spend_mm: 214.2, pallets_year: 208, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Par)', strat: 'Consolidador Multirrubro & Monitoreo de Precios' },
+      { id: 'P03', name: 'Cooperativa Arrocera San Salvador', short: 'Cooperativa', cat: 'Harinas y Almidones', origin: 'San Salvador, Entre Ríos', icon: '🌾', items: 'Harina de Arroz Fina Sin TACC (M030)', kg_year: 156000, spend_mm: 112.4, pallets_year: 156, deliveries_year: 26, lead_time: '72 hs', freq: 'Quincenal (Par)', strat: 'Convenio de Abastecimiento Cerealero & Cero TACC' },
+      { id: 'P04', name: 'Marjuanc Grasas Industriales', short: 'Marjuanc', cat: 'Grasas y Aceites', origin: 'Lanús, Bs. As.', icon: '🧈', items: 'Aceite vegetal interesterificado, Margarina vegetal, Grasa vacuna', kg_year: 96200, spend_mm: 148.6, pallets_year: 104, deliveries_year: 26, lead_time: '24 hs', freq: 'Quincenal (Impar)', strat: 'Cadena de Frío / Térmica & Control Punto de Fusión' },
+      { id: 'P05', name: 'Lodiser S.A.', short: 'Lodiser', cat: 'Chocolates y Rellenos', origin: 'CABA', icon: '🍫', items: 'Chips de chocolate semiamargo + Cacao en polvo alcalino', kg_year: 36400, spend_mm: 88.5, pallets_year: 52, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Impar)', strat: 'Insumo Crítico Diferencial & Ausencia de Alérgenos' },
+      { id: 'P06', name: 'Ernesto Rodríguez e Hijos (Vacalin)', short: 'Vacalin', cat: 'Lácteos y Ovoproductos', origin: 'Magdalena, Bs. As.', icon: '🥛', items: 'Leche en polvo descremada + Queso sardo rallado y en polvo', kg_year: 26000, spend_mm: 68.2, pallets_year: 26, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Par)', strat: 'Control Microbiológico Lote a Lote & Almacén Seco' },
+      { id: 'P07', name: 'Dulces Arco de Oro', short: 'Arco de Oro', cat: 'Chocolates y Rellenos', origin: 'San Martín, Bs. As.', icon: '🍯', items: 'Mermelada de batata repostera para galletitas pepas (M113)', kg_year: 23400, spend_mm: 42.1, pallets_year: 26, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Impar)', strat: 'Parámetros Brix/pH Constantes & Just-in-Time' },
+      { id: 'P08', name: 'Ovoalda Ovoproductos', short: 'Ovoalda', cat: 'Lácteos y Ovoproductos', origin: 'Pilar, Bs. As.', icon: '🥚', items: 'Huevo entero deshidratado en polvo + Clara en polvo', kg_year: 21800, spend_mm: 76.8, pallets_year: 26, deliveries_year: 26, lead_time: '24 hs', freq: 'Quincenal (Par)', strat: 'Alto Valor Específico & Ausencia de Salmonella' },
+      { id: 'P09', name: 'Villares Nutrición Natural', short: 'Villares', cat: 'Esencias y Aditivos', origin: 'Tigre, Bs. As.', icon: '🥥', items: 'Pasta de pasas, Psyllium en polvo, Aceite de coco, Jalapeño', kg_year: 14350, spend_mm: 45.4, pallets_year: 26, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Impar)', strat: 'Especialidades Nutricionales & Micropesaje' },
+      { id: 'P10', name: 'Robertet Argentina', short: 'Robertet', cat: 'Esencias y Aditivos', origin: 'San Isidro, Bs. As.', icon: '✨', items: 'Aditivo mejorador de textura y frescura Panacea (M125)', kg_year: 7800, spend_mm: 28.5, pallets_year: 26, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Impar)', strat: 'Tecnología de Panificación Sin Gluten' },
+      { id: 'P11', name: 'Ensoolfood Argentina', short: 'Ensoolfood', cat: 'Esencias y Aditivos', origin: 'Pilar, Bs. As.', icon: '🌿', items: 'Fibra vegetal insoluble C 200 + Propionato de calcio', kg_year: 7200, spend_mm: 18.2, pallets_year: 18, deliveries_year: 18, lead_time: '48 hs', freq: 'Cada 3 semanas', strat: 'Pedidos Agrupados Cíclicos (S1, S4, S7...)' },
+      { id: 'P12', name: 'Harmony Aromas y Sabores', short: 'Harmony', cat: 'Esencias y Aditivos', origin: 'Vicente López, Bs. As.', icon: '🍋', items: 'Esencias líquidas: vainilla, naranja, limón, chocolate', kg_year: 4700, spend_mm: 16.5, pallets_year: 26, deliveries_year: 26, lead_time: '48 hs', freq: 'Quincenal (Impar)', strat: 'Bajo Volumen / Alta Potencia Aromática & Sin TACC' },
+      { id: 'P13', name: 'Compañía Argentina de Levaduras (CALSA)', short: 'Calsa', cat: 'Esencias y Aditivos', origin: 'Lanús, Bs. As.', icon: '🥖', items: 'Levadura seca instantánea de alta actividad', kg_year: 3200, spend_mm: 14.8, pallets_year: 8, deliveries_year: 8, lead_time: '72 hs', freq: 'Cada 8 semanas', strat: 'Lotes Bimensuales al Vacío & Máxima Vida Útil' },
+      { id: 'P14', name: 'Brenntag Argentina', short: 'Brenntag', cat: 'Esencias y Aditivos', origin: 'Pacheco, Bs. As.', icon: '🎋', items: 'Fibra vegetal purificada de bambú Sanacel (M106)', kg_year: 2400, spend_mm: 12.3, pallets_year: 6, deliveries_year: 6, lead_time: '96 hs', freq: 'Cada 9 semanas', strat: 'Importación Especial & Cobertura Bimestral' },
+      { id: 'P15', name: 'Corrugadora RAINAP S.A.', short: 'RAINAP', cat: 'Packaging', origin: 'Tortuguitas, Bs. As.', icon: '📦', items: 'Cajas máster estándar corrugado B (520.000 un/año)', kg_year: 0, units_year: 520000, spend_mm: 145.0, pallets_year: 208, deliveries_year: 52, lead_time: '24 hs', freq: 'Semanal (Viernes)', strat: 'Flujo Continuo JIT & Resistencia BCT Compresión' }
+    ];
+
+    let currentParetoCriterion = 'volumen';
+    let chartParetoMpInstance = null;
+
+    function switchParetoCriterion(crit) {
+      currentParetoCriterion = crit;
+      ['volumen', 'gasto', 'logistica'].forEach(c => {
+        const btn = document.getElementById(`btn-pareto-${c}`);
+        if (!btn) return;
+        if (c === crit) {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-bold bg-slate-800 text-white transition-all shadow-xs";
+        } else {
+          btn.className = "px-3 py-1.5 rounded-lg text-xs font-semibold bg-white text-slate-700 hover:bg-slate-100 border border-slate-200 transition-all";
+        }
+      });
+      updateParetoUI();
+    }
+
+    function updateParetoUI() {
+      let list = [...paretoProvidersData];
+      let valueGetter, unitLabel, chartAxisTitle, tableColTitle;
+
+      if (currentParetoCriterion === 'volumen') {
+        list = list.filter(p => p.kg_year > 0);
+        valueGetter = p => p.kg_year;
+        unitLabel = 'kg';
+        chartAxisTitle = 'Volumen de Insumos (kg/año)';
+        tableColTitle = 'Volumen Anual (kg)';
+      } else if (currentParetoCriterion === 'gasto') {
+        valueGetter = p => p.spend_mm;
+        unitLabel = '$ MM';
+        chartAxisTitle = 'Gasto Presupuestado ($ MM/año)';
+        tableColTitle = 'Presupuesto Anual ($ MM)';
+      } else {
+        valueGetter = p => p.pallets_year;
+        unitLabel = 'pallets';
+        chartAxisTitle = 'Pallets Recibidos en Dársena (pal/año)';
+        tableColTitle = 'Pallets Anuales';
+      }
+
+      list.sort((a, b) => valueGetter(b) - valueGetter(a));
+      const totalVal = list.reduce((acc, p) => acc + valueGetter(p), 0);
+
+      let acum = 0;
+      let countA = 0, countB = 0, countC = 0;
+      let valA = 0, valB = 0, valC = 0;
+
+      const processed = list.map((p, idx) => {
+        const val = valueGetter(p);
+        acum += val;
+        const relPct = (val / totalVal) * 100;
+        const acumPct = (acum / totalVal) * 100;
+
+        let abc = 'C';
+        if (acumPct <= 81.5 || idx === 0) {
+          abc = 'A';
+          countA++;
+          valA += val;
+        } else if (acumPct <= 95.5) {
+          abc = 'B';
+          countB++;
+          valB += val;
+        } else {
+          abc = 'C';
+          countC++;
+          valC += val;
+        }
+
+        return {
+          ...p,
+          rank: idx + 1,
+          val,
+          relPct,
+          acumPct,
+          abc
+        };
+      });
+
+      const colTitleEl = document.getElementById('paretoTableColVal');
+      if (colTitleEl) colTitleEl.textContent = tableColTitle;
+
+      const kpisEl = document.getElementById('paretoKpiCards');
+      if (kpisEl) {
+        const pctA = ((valA / totalVal) * 100).toFixed(1);
+        const pctB = ((valB / totalVal) * 100).toFixed(1);
+        const pctC = ((valC / totalVal) * 100).toFixed(1);
+
+        let totalFormatted = '';
+        if (currentParetoCriterion === 'volumen') totalFormatted = `${(totalVal / 1000).toFixed(1)} tn/año`;
+        else if (currentParetoCriterion === 'gasto') totalFormatted = `$${totalVal.toFixed(1)} MM/año`;
+        else totalFormatted = `${totalVal} pal/año`;
+
+        kpisEl.innerHTML = `
+          <div class="p-3 bg-white rounded-xl border border-slate-200">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase text-emerald-700 font-bold">Clase A &bull; Estratégicos</span>
+              <span class="px-1.5 py-0.2 rounded bg-emerald-100 text-emerald-800 text-[9px] font-bold">80% Impacto</span>
+            </div>
+            <div class="text-base sm:text-lg font-black text-slate-900 mt-1">${countA} Proveedores</div>
+            <div class="text-[11px] text-emerald-700 font-bold">${pctA}% del total acumulado</div>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase text-blue-700 font-bold">Clase B &bull; Tácticos</span>
+              <span class="px-1.5 py-0.2 rounded bg-blue-100 text-blue-800 text-[9px] font-bold">15% Impacto</span>
+            </div>
+            <div class="text-base sm:text-lg font-black text-slate-900 mt-1">${countB} Proveedores</div>
+            <div class="text-[11px] text-blue-700 font-bold">${pctB}% del total acumulado</div>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase text-amber-700 font-bold">Clase C &bull; Micro-Insumos</span>
+              <span class="px-1.5 py-0.2 rounded bg-amber-100 text-amber-800 text-[9px] font-bold">5% Impacto</span>
+            </div>
+            <div class="text-base sm:text-lg font-black text-slate-900 mt-1">${countC} Proveedores</div>
+            <div class="text-[11px] text-amber-700 font-bold">${pctC}% del total acumulado</div>
+          </div>
+
+          <div class="p-3 bg-white rounded-xl border border-slate-200">
+            <div class="flex items-center justify-between">
+              <span class="text-[10px] uppercase text-slate-500 font-bold">Total Analizado</span>
+              <span class="px-1.5 py-0.2 rounded bg-slate-100 text-slate-600 text-[9px] font-bold">${list.length} Prov.</span>
+            </div>
+            <div class="text-base sm:text-lg font-black text-slate-900 mt-1">${totalFormatted}</div>
+            <div class="text-[11px] text-slate-500 font-medium">100% Homologado Sin TACC</div>
+          </div>
+        `;
+      }
+
+      const tbody = document.getElementById('paretoTableBody');
+      if (tbody) {
+        tbody.innerHTML = processed.map(p => {
+          let badgeCls = 'bg-slate-100 text-slate-700 border-slate-300';
+          let rowBg = '';
+          if (p.abc === 'A') {
+            badgeCls = 'bg-emerald-100 text-emerald-800 border border-emerald-300';
+            rowBg = 'bg-emerald-50/20';
+          } else if (p.abc === 'B') {
+            badgeCls = 'bg-blue-100 text-blue-800 border border-blue-300';
+          } else if (p.abc === 'C') {
+            badgeCls = 'bg-amber-100 text-amber-800 border border-amber-300';
+          }
+
+          let valDisplay = '';
+          if (currentParetoCriterion === 'volumen') {
+            valDisplay = `${p.val.toLocaleString('es-AR')} kg`;
+          } else if (currentParetoCriterion === 'gasto') {
+            valDisplay = `$${p.val.toFixed(1)} MM`;
+          } else {
+            valDisplay = `${p.val} pal (${p.deliveries_year} cam)`;
+          }
+
+          return `
+            <tr class="${rowBg} hover:bg-slate-50 transition-colors">
+              <td class="py-2.5 px-3 text-center font-bold font-mono text-slate-500">${p.rank}</td>
+              <td class="py-2.5 px-3 font-sans">
+                <div class="flex items-center space-x-1.5">
+                  <span>${p.icon}</span>
+                  <span class="font-bold text-slate-900">${p.short}</span>
+                </div>
+                <div class="text-[10px] text-slate-500 font-mono">📍 ${p.origin}</div>
+              </td>
+              <td class="py-2.5 px-3 font-sans text-slate-600">
+                <div class="font-medium text-slate-800">${p.cat}</div>
+                <div class="text-[10px] text-slate-500 leading-tight">${p.items}</div>
+              </td>
+              <td class="py-2.5 px-3 text-center text-xs font-mono text-slate-600">${p.freq}</td>
+              <td class="py-2.5 px-3 text-right font-bold font-mono text-slate-900">${valDisplay}</td>
+              <td class="py-2.5 px-2 text-center font-mono font-medium text-slate-700">${p.relPct.toFixed(1)}%</td>
+              <td class="py-2.5 px-2 text-center font-mono font-bold ${p.abc === 'A' ? 'text-emerald-700' : p.abc === 'B' ? 'text-blue-700' : 'text-amber-700'}">${p.acumPct.toFixed(1)}%</td>
+              <td class="py-2.5 px-3 text-center">
+                <span class="px-2 py-0.5 rounded text-[11px] font-bold font-mono ${badgeCls}">Clase ${p.abc}</span>
+              </td>
+              <td class="py-2.5 px-3 font-sans text-[11px] text-slate-600">${p.strat}</td>
+            </tr>
+          `;
+        }).join('');
+      }
+
+      initParetoChart(processed, chartAxisTitle, unitLabel);
+    }
+
+    function initParetoChart(processedData, chartAxisTitle = 'Volumen de Insumos (kg/año)', unitLabel = 'kg') {
+      const canvas = document.getElementById('chartParetoMp');
+      if (!canvas) return;
+
+      if (!processedData) {
+        updateParetoUI();
+        return;
+      }
+
+      const labels = processedData.map(p => p.short);
+      const barData = processedData.map(p => p.val);
+      const lineData = processedData.map(p => Number(p.acumPct.toFixed(1)));
+      const thresholdLine = processedData.map(() => 80);
+
+      const barColors = processedData.map(p => {
+        if (p.abc === 'A') return '#059669';
+        if (p.abc === 'B') return '#2563eb';
+        return '#d97706';
+      });
+
+      if (!chartParetoMpInstance) {
+        chartParetoMpInstance = new Chart(canvas, {
+          type: 'bar',
+          data: {
+            labels,
+            datasets: [
+              {
+                type: 'line',
+                label: '% Acumulado (Lorentz)',
+                data: lineData,
+                borderColor: '#7c3aed',
+                backgroundColor: 'rgba(124, 58, 237, 0.08)',
+                borderWidth: 2.5,
+                pointBackgroundColor: '#7c3aed',
+                pointRadius: 4,
+                pointHoverRadius: 6,
+                yAxisID: 'yPct',
+                tension: 0.15,
+                order: 1
+              },
+              {
+                type: 'line',
+                label: 'Corte 80% (Pareto)',
+                data: thresholdLine,
+                borderColor: '#ef4444',
+                borderDash: [5, 4],
+                borderWidth: 1.5,
+                pointRadius: 0,
+                fill: false,
+                yAxisID: 'yPct',
+                order: 2
+              },
+              {
+                type: 'bar',
+                label: `Valor (${unitLabel})`,
+                data: barData,
+                backgroundColor: barColors,
+                borderRadius: 4,
+                yAxisID: 'yVal',
+                order: 3
+              }
+            ]
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+              x: {
+                grid: { display: false },
+                ticks: {
+                  font: { family: 'JetBrains Mono', size: 9 },
+                  color: '#475569',
+                  maxRotation: 45,
+                  minRotation: 30
+                }
+              },
+              yVal: {
+                type: 'linear',
+                position: 'left',
+                grid: { color: '#f1f5f9' },
+                ticks: {
+                  font: { family: 'JetBrains Mono', size: 9 },
+                  color: '#475569',
+                  callback: v => {
+                    if (currentParetoCriterion === 'volumen') return `${(v / 1000).toFixed(0)} tn`;
+                    if (currentParetoCriterion === 'gasto') return `$${v} M`;
+                    return `${v} p`;
+                  }
+                },
+                title: { display: true, text: chartAxisTitle, color: '#475569', font: { size: 10, weight: 'bold' } }
+              },
+              yPct: {
+                type: 'linear',
+                position: 'right',
+                min: 0,
+                max: 105,
+                grid: { display: false },
+                ticks: {
+                  font: { family: 'JetBrains Mono', size: 9 },
+                  color: '#7c3aed',
+                  callback: v => `${v}%`
+                },
+                title: { display: true, text: '% Acumulado', color: '#7c3aed', font: { size: 10, weight: 'bold' } }
+              }
+            },
+            plugins: {
+              legend: {
+                position: 'top',
+                labels: { font: { family: 'Inter', size: 10 }, color: '#1e293b', boxWidth: 12 }
+              },
+              tooltip: {
+                callbacks: {
+                  label: ctx => {
+                    if (ctx.dataset.type === 'line' && ctx.dataset.label.includes('Acumulado')) {
+                      return ` % Acumulado: ${ctx.parsed.y}%`;
+                    }
+                    if (ctx.dataset.type === 'line' && ctx.dataset.label.includes('Corte')) {
+                      return ` Umbral 80% (Ley de Pareto)`;
+                    }
+                    return ` Aporte: ${ctx.parsed.y.toLocaleString('es-AR')} ${unitLabel}`;
+                  }
+                }
+              }
+            }
+          }
+        });
+      } else {
+        chartParetoMpInstance.data.labels = labels;
+        chartParetoMpInstance.data.datasets[0].data = lineData;
+        chartParetoMpInstance.data.datasets[1].data = thresholdLine;
+        chartParetoMpInstance.data.datasets[2].data = barData;
+        chartParetoMpInstance.data.datasets[2].backgroundColor = barColors;
+        chartParetoMpInstance.data.datasets[2].label = `Valor (${unitLabel})`;
+        if (chartParetoMpInstance.options.scales.yVal) {
+          chartParetoMpInstance.options.scales.yVal.title.text = chartAxisTitle;
+        }
+        chartParetoMpInstance.update();
+      }
+    }
+
     // Render Day Cards (PCP Heijunka)
     function renderDayCards(filter = 'all') {
       const container = document.getElementById('days-container');
@@ -4875,8 +5322,10 @@
       if (subtabId === 'pcp') {
         initMassBalanceChart();
         initMpCharts();
+        updateParetoUI();
         if (chartMpCategoriesInstance) chartMpCategoriesInstance.resize();
         if (chartMpSawtoothInstance) chartMpSawtoothInstance.resize();
+        if (chartParetoMpInstance) chartParetoMpInstance.resize();
       }
       if (window.lucide) lucide.createIcons();
     }
@@ -5063,6 +5512,7 @@
       renderMpCategoryFilters();
       renderMpDeliveries();
       initMpCharts();
+      updateParetoUI();
       renderDayCards('all');
       renderSim();
       renderDapTable();
