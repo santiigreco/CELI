@@ -2091,30 +2091,8 @@ document.addEventListener('keydown', e => { if (e.key === 'Escape') showCard(nul
 if (document.fonts) document.fonts.ready.then(() => V.touch());
 setViewMode('plano', null, false);
 V.start();
-
-(function(){
-  const params = new URLSearchParams(window.location.search);
-  const modal = document.getElementById('auditModal');
-  if (!modal) return;
-  if (params.get('from') === 'auditoria') {
-    modal.hidden = true;
-    if (window.history && window.history.replaceState) {
-      window.history.replaceState({}, document.title, window.location.pathname);
-    }
-  }
-  const ignoreBtn = document.getElementById('auditIgnoreBtn');
-  if (ignoreBtn) {
-    ignoreBtn.addEventListener('click', () => { modal.hidden = true; });
-  }
-  modal.addEventListener('click', e => {
-    if (e.target === modal) modal.hidden = true;
-  });
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape' && !modal.hidden) modal.hidden = true;
-  });
-})();
 </script>
-<div id="auditModal" class="audit-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auditModalTitle">
+<div id="auditModal" class="audit-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auditModalTitle" onclick="if(event.target===this)window.closeAuditModal()">
   <div class="audit-modal">
     <div class="audit-modal-badge">
       <span class="audit-modal-dot"></span>
@@ -2123,7 +2101,7 @@ V.start();
     <h3 id="auditModalTitle">Auditoría Económico-Financiera Disponible</h3>
     <p>Ya está disponible el <strong>Informe de Auditoría Económico-Financiera Integral</strong> del Proyecto CELI (semáforo ejecutivo, cuadraturas contables, hallazgos críticos y respuestas de defensa). ¿Deseás abrirlo ahora o continuar en el simulador?</p>
     <div class="audit-modal-actions">
-      <button type="button" id="auditIgnoreBtn" class="audit-btn-ignore">Ignorar</button>
+      <button type="button" id="auditIgnoreBtn" class="audit-btn-ignore" onclick="window.closeAuditModal()">Ignorar</button>
       <a href="Informe_Auditoria_Economico_Financiera_CELI.html" class="audit-btn-open">
         <span>Abrir</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
@@ -2131,5 +2109,26 @@ V.start();
     </div>
   </div>
 </div>
+<script>
+window.closeAuditModal = function() {
+  const modal = document.getElementById('auditModal');
+  if (modal) {
+    modal.hidden = true;
+    modal.style.display = 'none';
+  }
+};
+(function(){
+  const params = new URLSearchParams(window.location.search);
+  if (params.get('from') === 'auditoria') {
+    window.closeAuditModal();
+    if (window.history && window.history.replaceState) {
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
+  }
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') window.closeAuditModal();
+  });
+})();
+</script>
 </body>
 </html>
