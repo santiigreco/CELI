@@ -3,7 +3,8 @@
   "rewrites": [
     { "source": "/simulador", "destination": "/index.html" },
     { "source": "/principal", "destination": "/plataforma.html" },
-    { "source": "/plataforma", "destination": "/plataforma.html" }
+    { "source": "/plataforma", "destination": "/plataforma.html" },
+    { "source": "/auditoria", "destination": "/Informe_Auditoria_Economico_Financiera_CELI.html" }
   ],
   "headers": [
     {

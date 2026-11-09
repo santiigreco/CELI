@@ -1,0 +1,980 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Informe de Auditoría Económico-Financiera — Proyecto CELI (UTN)</title>
+  <style>
+    :root {
+      --bg: #f8fafc;
+      --card: #ffffff;
+      --text: #0f172a;
+      --muted: #475569;
+      --border: #e2e8f0;
+      --primary: #1e3a8a;
+      --primary-light: #eff6ff;
+      --high-bg: #fef2f2;
+      --high-border: #ef4444;
+      --high-text: #991b1b;
+      --med-bg: #fffbeb;
+      --med-border: #f59e0b;
+      --med-text: #92400e;
+      --low-bg: #f0f9ff;
+      --low-border: #0ea5e9;
+      --low-text: #075985;
+      --ok-bg: #f0fdf4;
+      --ok-border: #22c55e;
+      --ok-text: #166534;
+    }
+    * { box-sizing: border-box; }
+    body {
+      font-family: 'Segoe UI', -apple-system, BlinkMacSystemFont, Roboto, Helvetica, Arial, sans-serif;
+      background-color: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+      margin: 0;
+      padding: 32px 20px;
+    }
+    .container {
+      max-width: 1320px;
+      margin: 0 auto;
+    }
+    header {
+      background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 100%);
+      color: #ffffff;
+      padding: 32px 36px;
+      border-radius: 14px;
+      margin-bottom: 28px;
+      box-shadow: 0 10px 25px rgba(15, 23, 42, 0.12);
+    }
+    header .badge-top {
+      display: inline-block;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      padding: 4px 12px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+    header h1 {
+      margin: 0 0 10px 0;
+      font-size: 28px;
+      font-weight: 700;
+    }
+    header p {
+      margin: 4px 0;
+      color: #cbd5e1;
+      font-size: 14.5px;
+    }
+    .meta-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+      margin-top: 20px;
+      padding-top: 18px;
+      border-top: 1px solid rgba(255, 255, 255, 0.15);
+      font-size: 13.5px;
+    }
+    .meta-item strong {
+      color: #93c5fd;
+      display: block;
+      font-size: 11.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px 30px;
+      margin-bottom: 26px;
+      box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+    }
+    h2 {
+      margin-top: 0;
+      font-size: 20px;
+      color: var(--primary);
+      border-bottom: 2px solid var(--border);
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    h3 {
+      font-size: 16.5px;
+      color: #1e293b;
+      margin-top: 22px;
+      margin-bottom: 10px;
+    }
+    .semaforo-box {
+      display: flex;
+      align-items: flex-start;
+      gap: 22px;
+      background: var(--med-bg);
+      border: 2px solid var(--med-border);
+      border-radius: 12px;
+      padding: 22px 26px;
+      margin-bottom: 22px;
+    }
+    .semaforo-lights {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      background: #1e293b;
+      padding: 12px;
+      border-radius: 999px;
+      flex-shrink: 0;
+    }
+    .light {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      opacity: 0.22;
+    }
+    .light.red { background: #ef4444; }
+    .light.amber { background: #f59e0b; opacity: 1; box-shadow: 0 0 14px #f59e0b; }
+    .light.green { background: #22c55e; }
+    .semaforo-content h3 {
+      margin: 0 0 8px 0;
+      color: var(--med-text);
+      font-size: 20px;
+    }
+    .semaforo-content p {
+      margin: 0 0 10px 0;
+      color: #334155;
+      font-size: 14.5px;
+    }
+    .pill-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+      margin-top: 16px;
+    }
+    .stat-card {
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 14px 16px;
+      background: #f8fafc;
+    }
+    .stat-card.ok { border-left: 4px solid #22c55e; }
+    .stat-card.warn { border-left: 4px solid #f59e0b; }
+    .stat-card.err { border-left: 4px solid #ef4444; }
+    .stat-card .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--muted);
+      font-weight: 600;
+    }
+    .stat-card .val {
+      font-size: 20px;
+      font-weight: 700;
+      color: var(--text);
+      margin: 4px 0;
+    }
+    .stat-card .sub {
+      font-size: 12.5px;
+      color: var(--muted);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 13.5px;
+      margin-top: 10px;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: 11px 13px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #f1f5f9;
+      color: #0f172a;
+      font-weight: 700;
+      font-size: 12.5px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    tr:nth-child(even) td {
+      background-color: #fcfcfd;
+    }
+    .badge {
+      display: inline-block;
+      padding: 3px 9px;
+      border-radius: 6px;
+      font-size: 11.5px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      white-space: nowrap;
+    }
+    .badge-high {
+      background: var(--high-bg);
+      color: var(--high-text);
+      border: 1px solid var(--high-border);
+    }
+    .badge-med {
+      background: var(--med-bg);
+      color: var(--med-text);
+      border: 1px solid var(--med-border);
+    }
+    .badge-low {
+      background: var(--low-bg);
+      color: var(--low-text);
+      border: 1px solid var(--low-border);
+    }
+    .badge-ok {
+      background: var(--ok-bg);
+      color: var(--ok-text);
+      border: 1px solid var(--ok-border);
+    }
+    code {
+      font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+      background: #f1f5f9;
+      color: #0f172a;
+      padding: 2px 5px;
+      border-radius: 4px;
+      font-size: 12.5px;
+      border: 1px solid #e2e8f0;
+    }
+    .qa-card {
+      border: 1px solid var(--border);
+      border-left: 5px solid var(--primary);
+      border-radius: 10px;
+      padding: 18px 22px;
+      margin-bottom: 18px;
+      background: #ffffff;
+    }
+    .qa-card h4 {
+      margin: 0 0 10px 0;
+      color: var(--primary);
+      font-size: 16px;
+    }
+    .qa-question {
+      background: #f8fafc;
+      border-left: 3px solid #ef4444;
+      padding: 10px 14px;
+      font-style: italic;
+      color: #1e293b;
+      margin-bottom: 12px;
+      border-radius: 0 6px 6px 0;
+    }
+    .qa-defense {
+      font-size: 14px;
+      color: #334155;
+    }
+    .qa-defense strong {
+      color: #0f172a;
+    }
+    .check-list {
+      list-style: none;
+      padding-left: 0;
+      margin: 0;
+    }
+    .check-list li {
+      padding: 6px 0;
+      border-bottom: 1px dashed var(--border);
+      font-size: 14px;
+    }
+    .check-list li:last-child {
+      border-bottom: none;
+    }
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12.5px;
+      margin-top: 30px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+    .top-nav-bar {
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      background: rgba(15, 23, 42, 0.94);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      padding: 10px 20px;
+      margin: -32px -20px 24px -20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      box-shadow: 0 4px 16px rgba(15, 23, 42, 0.18);
+    }
+    .top-nav-inner {
+      max-width: 1320px;
+      width: 100%;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn-back-sim {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: linear-gradient(135deg, #5b3df5 0%, #4338ca 100%);
+      color: #ffffff;
+      text-decoration: none;
+      font-weight: 700;
+      font-size: 13.5px;
+      padding: 8px 16px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      box-shadow: 0 4px 12px rgba(91, 61, 245, 0.35);
+      transition: transform 0.15s ease, filter 0.15s ease, box-shadow 0.15s ease;
+    }
+    .btn-back-sim:hover {
+      transform: translateY(-1px);
+      filter: brightness(1.1);
+      box-shadow: 0 6px 16px rgba(91, 61, 245, 0.5);
+    }
+    .btn-nav-sec {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      color: #e2e8f0;
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 13px;
+      padding: 7px 14px;
+      border-radius: 999px;
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      transition: background 0.15s ease, color 0.15s ease;
+    }
+    .btn-nav-sec:hover {
+      background: rgba(255, 255, 255, 0.18);
+      color: #ffffff;
+    }
+    .top-nav-title {
+      color: #cbd5e1;
+      font-size: 13px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .top-nav-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #f59e0b;
+      box-shadow: 0 0 8px #f59e0b;
+    }
+    @media print {
+      .top-nav-bar { display: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="top-nav-bar" aria-label="Navegación principal">
+    <div class="top-nav-inner">
+      <div style="display: flex; align-items: center; gap: 10px; flex-wrap: wrap;">
+        <a href="index.html?from=auditoria" class="btn-back-sim">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Volver al Simulador de Planta</span>
+        </a>
+        <a href="plataforma.html" class="btn-nav-sec">
+          <span>Ir a Plataforma Principal</span>
+        </a>
+      </div>
+      <div class="top-nav-title">
+        <span class="top-nav-dot"></span>
+        <span>CELI S.A. &bull; Auditoría Económico-Financiera</span>
+      </div>
+    </div>
+  </nav>
+  <div class="container">
+    <header>
+      <div class="badge-top">Auditoría Financiera Senior &bull; Evaluación de Proyectos UTN</div>
+      <h1>Informe de Auditoría Económico-Financiera Integral — Proyecto &ldquo;CELI&rdquo;</h1>
+      <p>Planta Industrial Elaboradora de Panificados y Galletitas Libres de Gluten (Sin TACC)</p>
+      <div class="meta-grid">
+        <div class="meta-item">
+          <strong>Modelo Económico Auditado</strong>
+          PF Economico Financiero FINAL v3 - Celi.xlsx (28 hojas / 15.388 celdas / 10.078 fórmulas)
+        </div>
+        <div class="meta-item">
+          <strong>Documento Técnico-Comercial de Referencia</strong>
+          [private] PROYECTO FINAL - CELI.docx (93 tablas / 5 capítulos)
+        </div>
+        <div class="meta-item">
+          <strong>Moneda y Criterio de Valuación</strong>
+          Moneda Constante (ARS reales, TC Base = $1.560/USD en Excel) &bull; Horizonte: 10 años
+        </div>
+        <div class="meta-item">
+          <strong>Condición del Archivo Original</strong>
+          Intacto (0 modificaciones aplicadas al Excel durante la auditoría)
+        </div>
+      </div>
+    </header>
+
+    <!-- 1. SEMAFORO EJECUTIVO GENERAL -->
+    <section class="card">
+      <h2>1. Semáforo Ejecutivo General y Resumen de Cuadraturas</h2>
+      <div class="semaforo-box">
+        <div class="semaforo-lights">
+          <div class="light red"></div>
+          <div class="light amber"></div>
+          <div class="light green"></div>
+        </div>
+        <div class="semaforo-content">
+          <h3>ESTADO DE SALUD DEL MODELO: REQUIERE AJUSTES (AMARILLO / ÁMBAR)</h3>
+          <p>
+            <strong>Arquitectura Matemática y Contable Sólida:</strong> El libro de Excel presenta <strong>0 errores de fórmula</strong> (sin <code>#¡REF!</code>, <code>#¡DIV/0!</code>, <code>#¡VALOR!</code> ni referencias circulares activas) y cumple al 100% las reglas de oro contables: el <strong>Balance General</strong> (<code>Activo = Pasivo + PN</code>) y el <strong>Cuadro de Fuentes y Usos (CFyU)</strong> cuadran con diferencia exacta de <code>$0,0000</code> desde el Año 0 hasta el Año 10. Asimismo, las tasas de descuento (<code>Ke real = 15,40%</code> y <code>WACC real = 13,91%</code>) están correctamente deflactadas mediante la ecuación de Fisher sin mezclar flujos reales con tasas nominales.
+          </p>
+          <p>
+            <strong>Motivo de la Calificación en Ámbar:</strong> Se detectaron <strong>4 hallazgos de Criticidad Alta</strong>, <strong>8 de Criticidad Media</strong> y <strong>3 de Criticidad Baja</strong> que un tribunal evaluador de Proyecto Final de Ingeniería Industrial (UTN) observará de inmediato: (1) un desfasaje del <strong>35,7% en precios y ventas anuales</strong> entre las Tablas 11–12 del informe Word y la hoja <code>AUX-Ventas</code>; (2) una <strong>contradicción estratégica triple en Logística</strong> (distribución 100% tercerizada en el Capítulo Comercial vs. camión propio de USD 70.000 en el Capítulo Técnico vs. camión propio de USD 45.000 en el Excel); (3) una <strong>reposición automática de rodados en el Año 10</strong> que destruye <code>$17,04 millones</code> de flujo neto en el año de liquidación; y (4) el cobro de un <strong>12% de interés real anual (+ 21% IVA) sobre la deuda comercial con proveedores a 45 días</strong> junto con un error de referencia de alícuota de IVA en <code>IVA!D12:M12</code> (27% en vez de 21%).
+          </p>
+        </div>
+      </div>
+
+      <div class="pill-grid">
+        <div class="stat-card ok">
+          <div class="label">Integridad de Fórmulas y Cuadraturas</div>
+          <div class="val">0 Errores / Dif. $0,00</div>
+          <div class="sub"><code>Balance!B36:L36 = 0,00</code> y <code>CFyU!B24 = 0,00</code> en los 11 períodos (Año 0 a 10).</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="label">Inversión Inicial Total (Base Estructura)</div>
+          <div class="val">$4.355,49 MM</div>
+          <div class="sub">AF Año 0: <code>$2.301,61M</code> | PeM Año 1: <code>$255,07M</code> | AT Año 0+1: <code>$1.034,87M</code> | IVA Inv.: <code>$763,93M</code>.</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="label">VAN y TIR del Proyecto (Puro)</div>
+          <div class="val">VAN: $3.371,84 MM</div>
+          <div class="sub"><strong>TIR: 29,73% real</strong> vs. <strong>WACC real: 13,91%</strong> (Spread: +15,82 pp).</div>
+        </div>
+        <div class="stat-card ok">
+          <div class="label">VAN y TIR del Inversor (TOR)</div>
+          <div class="val">VAN: $2.938,96 MM</div>
+          <div class="sub"><strong>TOR: 31,58% real</strong> vs. <strong>Ke real: 15,40%</strong> | Apalancamiento: <code>1,062x</code> (+1,85 pp).</div>
+        </div>
+        <div class="stat-card warn">
+          <div class="label">Período de Recupero (Payback)</div>
+          <div class="val">3,65 a. (Simple) / 5,38 a. (Desc.)</div>
+          <div class="sub">En <code>DF- Form!D18</code> y <code>D42</code> está calculado sin descontar. Descontado a WACC/Ke: <strong>5,38 y 5,45 años</strong>.</div>
+        </div>
+        <div class="stat-card err">
+          <div class="label">Cruce Ventas Word vs. Excel (Año 1 a 10)</div>
+          <div class="val">+35,7% en Excel</div>
+          <div class="sub">Año 1: Word Tabla 12 declara <code>$3.586M</code> vs. Excel <code>$5.580,32M</code> (Año 10: <code>$6.900M</code> vs. <code>$10.737,53M</code>).</div>
+        </div>
+      </div>
+
+      <h3>Verificación de las 4 Dimensiones de Auditoría</h3>
+      <ul class="check-list">
+        <li><span class="badge badge-ok">APROBADO</span> <strong>1. Trazabilidad Hojas Auxiliares &rarr; Maestras:</strong> Las 15 hojas auxiliares (<code>AUX-Parámetros</code>, <code>AUX-Ventas</code>, <code>AUX-Capacidad</code>, <code>AUX-MP</code>, <code>AUX-Materiales</code>, <code>AUX-Nómina</code>, <code>AUX-Servicios</code>, <code>AUX-GastosFab</code>, <code>AUX-AdmCom</code>, <code>AUX-Impuestos</code>, <code>AUX-Inversiones</code>, <code>AUX-Superficies</code>, <code>AUX-PeM-MCySE</code>, <code>AUX-Crédito</code>) alimentan dinámicamente a <code>Inv AF</code>, <code>InvAT</code>, <code>CostoPROD</code>, <code>CostoAdmComFin</code>, <code>CTV y CResult</code>, <code>IVA</code>, <code>Resumen Cred</code>, <code>2 Estructura</code>, <code>CFyU</code>, <code>Balance</code> y <code>DF- Form</code>.</li>
+        <li><span class="badge badge-ok">APROBADO</span> <strong>2. Posición de IVA y Recupero Fiscal:</strong> El crédito fiscal de inversiones de Año 0 (<code>$411.174.160,65</code> en <code>IVA!B29</code> y <code>Balance!B9</code>) se absorbe íntegramente durante el Año 1 contra el saldo técnico operativo de IVA (<code>IVA!D15 = $479.885.816,74</code>), pasando a pagar a partir de allí (<code>$68.711.656,08</code> en Año 1) sin quedar saldos crónicos inmovilizados.</li>
+        <li><span class="badge badge-med">OBSERVADO</span> <strong>3. Amortizaciones y Valores Residuales al Año 10:</strong> La suma de amortizaciones y valores residuales cierra contablemente en el Balance, pero una compra automática de rodados en el Año 10 (<code>AUX-Inversiones!W77, W85</code>) y el truncamiento de ventanas móviles en <code>Inv AF!H55:N65</code> distorsionan el último año.</li>
+        <li><span class="badge badge-high">CRÍTICO</span> <strong>4. Coherencia Informe Word vs. Modelo Excel:</strong> Mientras los volúmenes en unidades (11 SKUs, de <code>2.043.681 paq.</code> en Año 1 a <code>3.930.156 paq.</code> en Año 10) y la dotación total (50 personas en 2 turnos &rarr; 62 personas en 3 turnos) coinciden con el informe, existen discrepancias severas en la Tabla de Precios/Facturación, Estrategia Logística, Localización/Terreno, Potencia Eléctrica del Horno y Recetas de Línea B.</li>
+      </ul>
+    </section>
+
+    <!-- 2. RESUMEN DE METRICAS CLAVE AUDITADAS -->
+    <section class="card">
+      <h2>2. Cuadro Resumen de Indicadores Financieros Auditados</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Indicador / Parámetro</th>
+            <th>Celda en Excel</th>
+            <th>Valor en Modelo Excel</th>
+            <th>Valor Recalculado / Criterio Auditoría</th>
+            <th>Estado</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Inversión Activo Fijo Año 0 (sin IVA)</strong></td>
+            <td><code>Inv AF!D34</code></td>
+            <td>$2.301.605.717,87 (USD 1.475.388)</td>
+            <td>Coincide con <code>AUX-Inversiones</code> (+ 5% imprevistos). Difiere de tablas parciales del Word en Terreno, Camión, Apilador y Listing Fees.</td>
+            <td><span class="badge badge-med">Observado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Puesta en Marcha y Des. Marcas (Año 1)</strong></td>
+            <td><code>Inv AF!E29</code></td>
+            <td>$255.068.863,46 (+ IVA $4.730.619)</td>
+            <td>Modelado en Año 1 desde <code>AUX-PeM-MCySE</code> y amortizado en 3 años (Años 2 a 4 en <code>Inv AF!F76:H76</code>).</td>
+            <td><span class="badge badge-ok">Correcto</span></td>
+          </tr>
+          <tr>
+            <td><strong>Activo de Trabajo Acumulado (Año 0 / Año 1 / Año 10)</strong></td>
+            <td><code>InvAT!B13, C13, L13</code></td>
+            <td>A0: $385,54M | A1: $1.034,87M | A10: $1.573,14M</td>
+            <td>En <code>DF- Form!C13</code> (Flujo Proyecto Año 10) sólo se recupera hasta el Año 9 (<code>$1.483,78M</code>), omitiendo registrar la variación y el recupero de Año 10 (<code>$89,36M</code>).</td>
+            <td><span class="badge badge-med">Observado</span></td>
+          </tr>
+          <tr>
+            <td><strong>Préstamo Bancario para Activo Fijo</strong></td>
+            <td><code>AUX-Crédito!C22:C28</code></td>
+            <td>$565.933.329,89 | Tasa real: <strong>7,9585%</strong> | 72m (12m gracia)</td>
+            <td>65% sobre bienes elegibles (<code>$870,67M</code>). 10 cuotas semestrales de <code>$56,59M</code> (Años 1 a 5, Sistema Alemán).</td>
+            <td><span class="badge badge-ok">Correcto</span></td>
+          </tr>
+          <tr>
+            <td><strong>Crédito Comercial (Proveedores 45 días)</strong></td>
+            <td><code>AUX-Crédito!C37:C39, D72:N73</code></td>
+            <td>A0: $101,80M | A10: $335,43M | Tasa: <strong>12,00% real</strong></td>
+            <td>El crédito espontáneo a 45 días no debería devengar un 12% de interés explícito real ni 21% de IVA, o bien debe netearse del Capital de Trabajo en el Flujo del Proyecto.</td>
+            <td><span class="badge badge-high">Crítico</span></td>
+          </tr>
+          <tr>
+            <td><strong>Costo del Capital Propio (Ke Real)</strong></td>
+            <td><code>AUX-Parámetros!B67:B69</code></td>
+            <td>Ke nom USD: 18,29% &rarr; <strong>Ke real: 15,4039%</strong></td>
+            <td><code>(1 + 0,18289) / (1 + 0,025) - 1 = 15,4039%</code> (Rf 4,25% + &beta; 0,86 &times; ERP 3,70% + CRP 7,87% + Prima PyME 3,00%). Metodológicamente impecable.</td>
+            <td><span class="badge badge-ok">Correcto</span></td>
+          </tr>
+          <tr>
+            <td><strong>Costo Promedio Ponderado (WACC Real)</strong></td>
+            <td><code>AUX-Parámetros!B70:B73</code></td>
+            <td><strong>13,9079% (13,91%)</strong></td>
+            <td>Incluye al crédito de proveedores dentro de la ponderación de Deuda (<code>14,62%</code>) pero evaluado a la tasa bancaria (<code>7,96%</code>) en vez de <code>12,00%</code>.</td>
+            <td><span class="badge badge-med">Observado</span></td>
+          </tr>
+          <tr>
+            <td><strong>VAN y TIR del Proyecto (Sin Financiamiento)</strong></td>
+            <td><code>DF- Form!D19:D20</code></td>
+            <td>VAN (13,91%): <strong>$3.371.844.128</strong> | TIR: <strong>29,73%</strong></td>
+            <td>Fórmula <code>=NPV(D21,L4:L13)+L3</code> y <code>=IRR(L3:L13)</code> bien estructuradas desde Año 0.</td>
+            <td><span class="badge badge-ok">Correcto</span></td>
+          </tr>
+          <tr>
+            <td><strong>VAN y TIR del Inversor (Con Financiamiento)</strong></td>
+            <td><code>DF- Form!D43:D44</code></td>
+            <td>VAN (15,40%): <strong>$2.938.963.191</strong> | TOR: <strong>31,58%</strong></td>
+            <td>Apalancamiento positivo: <code>TOR / TIR = 1,0621</code> (+1,85 pp sobre la TIR pura del proyecto).</td>
+            <td><span class="badge badge-ok">Correcto</span></td>
+          </tr>
+          <tr>
+            <td><strong>Período de Recupero (Proyecto / Inversor)</strong></td>
+            <td><code>DF- Form!D18, D42</code></td>
+            <td>Proyecto: <strong>3,65 años</strong> | Inversor: <strong>3,60 años</strong></td>
+            <td>La fórmula matricial interpola sobre flujos acumulados <strong>sin descontar</strong>. El <strong>Payback Descontado</strong> real es <strong>5,38 años</strong> (Proyecto) y <strong>5,45 años</strong> (Inversor).</td>
+            <td><span class="badge badge-med">Observado</span></td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 3. TABLA DE HALLAZGOS Y DESVIOS PRIORIZADA POR CRITICIDAD -->
+    <section class="card">
+      <h2>3. Matriz Detallada de Hallazgos y Desvíos (Priorizada por Criticidad)</h2>
+      <table>
+        <thead>
+          <tr>
+            <th style="width: 85px;">ID / Nivel</th>
+            <th style="width: 190px;">Hoja y Celda / Rango Exacto</th>
+            <th>Descripción Técnica del Error o Inconsistencia</th>
+            <th style="width: 310px;">Corrección Recomendada</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- ALTA 1 -->
+          <tr>
+            <td><span class="badge badge-high">ALTA #1</span></td>
+            <td>
+              <code>AUX-Ventas!I8:K18</code><br>
+              <code>AUX-Ventas!E121:N121</code><br>
+              <code>CTV y CResult!B64:K64</code><br>
+              vs. <strong>Word Tablas 11 y 12</strong>
+            </td>
+            <td>
+              <strong>Desfasaje del 35,7% en Precios de Venta y Facturación Anual entre el Informe Word y el Excel:</strong><br>
+              En el informe Word (Tabla 11, Plan de Ventas), los precios mayoristas por paquete son entre un 20% y un 36% inferiores a los de <code>AUX-Ventas!I8:K18</code>:
+              <ul>
+                <li><em>Galletita Chocolate c/chips picante 150g:</em> Word Tabla 11 indica <strong>$1.440</strong> (Super) y <strong>$1.660</strong> (Distrib.), mientras que <code>AUX-Ventas!I8:K8</code> aplica <strong>$2.239,65</strong> y <strong>$2.575,60</strong> (base SMAMS $1.898 &times; 1,18).</li>
+                <li><em>Pan de molde 400g:</em> Word Tabla 11 indica <strong>$3.600 / $4.140</strong> vs. Excel <strong>$4.462,00 / $5.131,30</strong>.</li>
+                <li><em>Budines 180g:</em> Word Tabla 11 indica <strong>$2.040 / $2.340</strong> vs. Excel <strong>$2.517,00 / $2.894,55</strong>.</li>
+              </ul>
+              Como resultado, la <strong>Tabla 12 del Word</strong> reporta ventas en el Año 1 de <strong>$3.586 millones</strong> y en el Año 10 de <strong>$6.900 millones</strong>, mientras que el Estado de Resultados del Excel (<code>CTV y CResult!B64:K64</code>) contabiliza <strong>$5.580,32 millones en Año 1</strong> y <strong>$10.737,53 millones en Año 10</strong> (+$1.994M a +$3.837M por año). Además, la Tabla 11 del Word tiene las dos columnas rotuladas como <em>&ldquo;Precio Supermercados&rdquo;</em> por error de tipeo.
+            </td>
+            <td>
+              Actualizar las <strong>Tablas 11 y 12 del documento Word</strong> con los precios y montos de facturación vigentes en <code>AUX-Ventas!I8:K18</code> y <code>E121:N121</code> (que sí coinciden con los precios al público mencionados en el texto del Word en la sección <em>&ldquo;Validación del consumidor&rdquo;</em>: $3.456 budín, $6.098 pan, $2.033–$2.439 galletitas), y corregir el encabezado de la segunda columna de la Tabla 11 a <em>&ldquo;Precio Distribuidores [$/paquete]&rdquo;</em>.
+            </td>
+          </tr>
+
+          <!-- ALTA 2 -->
+          <tr>
+            <td><span class="badge badge-high">ALTA #2</span></td>
+            <td>
+              <code>AUX-Inversiones!B30</code><br>
+              <code>AUX-Inversiones!C77:M77</code><br>
+              <code>AUX-Nómina!D31:N31</code><br>
+              <code>AUX-AdmCom!B22:N25, E40:N40</code><br>
+              vs. <strong>Word Cap. 1 y Cap. 2 (Tabla 36)</strong>
+            </td>
+            <td>
+              <strong>Triple Contradicción Estratégica y Numérica en Logística de Distribución:</strong>
+              <ol>
+                <li><strong>Word — Factibilidad Comercial (<em>Estrategia de distribución</em>):</strong> Afirma explícitamente que la logística está <strong>100% tercerizada</strong>: <em>&ldquo;Al no contar con flota propia, nuestro equipo de ventas asume el rol de auditor... eliminando grandes cargas financieras y operativas como: Inversión inicial y activos (se evita el alto costo de adquisición de vehículos) y Costos de personal (elimina la necesidad de gestionar sueldos de choferes)&rdquo;</em>.</li>
+                <li><strong>Word — Factibilidad Técnica (<em>Distribución y Tabla 36</em>):</strong> Contradice al Capítulo Comercial e incorpora <strong>1 camión propio de 10 pallets</strong> valuado en <strong>USD 70.000 &times; $1.500 = $105.000.000</strong>, chofer de <strong>$41.275.000/año</strong> ($2,50M/mes) y un costo operativo total de distribución de <strong>$105.314.371/año</strong>, más fletes tercerizados adicionales desde el Año 7.</li>
+                <li><strong>Excel (<code>AUX-Inversiones!B30 = 1</code>):</strong> Modela flota propia, pero valúa el camión en <strong>USD 45.000 &times; $1.560 = $70.200.000</strong> (<code>Row 77</code>), el chofer en <strong>$27.059.114/año</strong> (<code>AUX-Nómina!R31</code>, $1,60M/mes) y el gasto de combustible + mantenimiento en sólo <strong>$40.250.000/año</strong> constante (<code>AUX-AdmCom!E40:N40</code>), sin sumar fletes extra desde el Año 7. Además, en <code>AUX-Nómina!D31</code> el número de choferes (<code>1</code>) está <strong>hardcodeado</strong> y no se anula si el selector <code>'AUX-Inversiones'!B30</code> pasa a <code>0</code>.</li>
+              </ol>
+            </td>
+            <td>
+              1. Unificar el criterio en el Informe Word eliminando del Capítulo Comercial la afirmación de que <em>&ldquo;no se cuenta con flota propia ni choferes&rdquo;</em> (o aclarándola para envíos fuera de AMBA).<br>
+              2. Conciliar el valor del camión, sueldo del chofer y costo operativo anual entre la Tabla 36 del Word y <code>AUX-Inversiones!R77</code> / <code>AUX-AdmCom!R22:R25</code>.<br>
+              3. Vincular <code>AUX-Nómina!D31:I31</code> con <code>='AUX-Inversiones'!$B$30</code> para que el selector de flota propia/tercerizada funcione integralmente.
+            </td>
+          </tr>
+
+          <!-- ALTA 3 -->
+          <tr>
+            <td><span class="badge badge-high">ALTA #3</span></td>
+            <td>
+              <code>AUX-Inversiones!W77, W85</code><br>
+              <code>Inv AF!N13, N15, N22, N34:N35</code><br>
+              <code>Inv AF!N56, N58, N65, O56, O58, O65</code><br>
+              <code>DF- Form!B13</code>
+            </td>
+            <td>
+              <strong>Compra Automática de Bienes de Uso en el Año 10 (Liquidación) y Destrucción Artificial de Caja:</strong><br>
+              En <code>AUX-Inversiones</code>, las fórmulas de reinversión del Camión liviano (<code>Row 77</code>, vida útil 5 años, <code>$70,20M</code>) y del Apilador eléctrico (<code>Row 85</code>, vida útil 5 años, <code>$10,92M</code>) son <code>=IF(AND($L77&gt;0,$L77&lt;10,MOD(W$36,$L77)=0),$M77,0)</code>. En el <strong>Año 10</strong> (<code>W$36 = 10</code>), como <code>MOD(10, 5) = 0</code>, el modelo dispara una <strong>segunda compra a nuevo en el último año de evaluación</strong> por <strong>$85.176.000 sin IVA</strong> (incluyendo 5% de imprevistos en <code>Inv AF!N22</code>) más <strong>$17.886.960 de IVA</strong>.<br>
+              Acto seguido, en ese mismo Año 10, <code>Inv AF!N56, N58, N65</code> amortiza el 20% (<code>$17.035.200</code>) y liquida el 80% restante como Valor Residual (<code>$68.140.800</code> en <code>Inv AF!O80</code> y <code>DF- Form!B13</code>). Ningún proyecto compra rodados nuevos el día de su cierre para rematarlos al 80%: esto destruye artificialmente <strong>$17.035.200</strong> de flujo de caja libre en el Año 10.
+            </td>
+            <td>
+              Modificar la condición de reinversión en la columna del Año 10 (<code>AUX-Inversiones!W37:W103</code>) agregando <code>W$36&lt;10</code>:<br>
+              <code>=IF(AND($L77&gt;0, $L77&lt;10, W$36&lt;10, MOD(W$36, $L77)=0), $M77, 0)</code>.<br>
+              De este modo, los equipos adquiridos en el Año 5 cumplen sus 5 años de vida útil al cierre del Año 9/10 sin gatillar una compra innecesaria en la liquidación.
+            </td>
+          </tr>
+
+          <!-- ALTA 4 -->
+          <tr>
+            <td><span class="badge badge-high">ALTA #4</span></td>
+            <td>
+              <code>AUX-Crédito!C37:C39</code><br>
+              <code>AUX-Crédito!D72:N73</code><br>
+              <code>CostoAdmComFin!B43:K43</code><br>
+              <code>IVA!D27:M27</code><br>
+              <code>DF- Form!C3:C13</code><br>
+              <code>AUX-Parámetros!B70:B73</code>
+            </td>
+            <td>
+              <strong>Tratamiento Inconsistente del Crédito de Proveedores (Interés Real del 12% + IVA sobre Deuda Comercial y Asimetría en Flujo/WACC):</strong>
+              <ul>
+                <li><strong>Intereses sobre proveedores a 45 días:</strong> En <code>AUX-Crédito!C39</code> y <code>D73:N73</code> se aplica una tasa real anual del <strong>12,00%</strong> sobre el saldo medio de proveedores (50% de MP y packaging a 45 días). Esto hace que la empresa pague entre <strong>$11,58M y $15,25M anuales de intereses reales en los Años 6 a 10</strong> (cuando el préstamo bancario ya está 100% cancelado) y que además compute un <strong>21% de IVA Crédito Fiscal</strong> sobre dichos intereses en <code>IVA!D27:M27</code>. El crédito comercial espontáneo a 45 días no devenga intereses financieros explícitos con IVA separado.</li>
+                <li><strong>Asimetría en WACC y Flujo del Proyecto:</strong> En el Flujo del Proyecto (<code>DF- Form!C3:C12</code>) se resta el 100% del Activo de Trabajo bruto sin netear proveedores, pero en <code>AUX-Parámetros!B72</code> se suma el pasivo con proveedores al peso de la deuda <code>D/(D+E)</code> del WACC, valuándolo además a la tasa bancaria (<code>7,96%</code>) en vez de <code>12%</code>.</li>
+                <li><strong>Recupero incompleto de WK en Año 10 (<code>DF- Form!C13</code>):</strong> La fórmula <code>=-InvAT!L13+InvAT!L22</code> recupera el Capital de Trabajo acumulado hasta el Año 9 (<code>$1.483,78M</code>), omitiendo exponer en <code>C13</code> la inversión del Año 10 (<code>-$89,36M</code>) y su correspondiente recupero total al cierre (<code>+$1.573,14M</code>).</li>
+              </ul>
+            </td>
+            <td>
+              <strong>Opción A (Estándar Evaluación de Proyectos):</strong> Netear el Crédito de Proveedores dentro de la hoja <code>InvAT</code> (como Pasivo Corriente Espontáneo que reduce la necesidad de Capital de Trabajo Neto), fijar <code>AUX-Crédito!C39 = 0%</code> y calcular el WACC exclusivamente con la deuda financiera bancaria.<br>
+              <strong>Opción B:</strong> Si se desea mantener a Proveedores como fuente financiera explícita en el Flujo del Inversor, fijar <code>C39 = 0%</code> (crédito comercial sin interés explícito) y en <code>DF- Form!C13</code> separar la inversión operativa del Año 10 de la fila/columna de liquidación para exponer el recupero íntegro de <code>$1.573,14M</code>.
+            </td>
+          </tr>
+
+          <!-- MEDIA 5 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #5</span></td>
+            <td>
+              <code>IVA!D12:M12</code><br>
+              <code>IVA!B11:B12</code><br>
+              <code>AUX-Leeme!B20</code>
+            </td>
+            <td>
+              <strong>Error de Referencia en Fórmula de IVA Crédito Fiscal de Administración (Usa 27% en vez de 21%):</strong><br>
+              En <code>IVA!B12</code> se colocó la alícuota correcta de <code>0,21</code> (21%) para <em>&ldquo;otros Gastos&rdquo;</em> de Administración (y en <code>AUX-Leeme!B20</code> se documentó su corrección de 27% a 21%). Sin embargo, la fórmula en <code>IVA!D12:M12</code> quedó escrita como:<br>
+              <code>=$B$11*(CostoAdmComFin!B6+CostoAdmComFin!B8+CostoAdmComFin!B9+CostoAdmComFin!B10+CostoAdmComFin!B12)</code><br>
+              Al apuntar a <code>$B$11</code> (27%, alícuota de Servicios) en vez de <code>$B$12</code> (21%), sobrecarga el IVA Crédito Fiscal en <strong>$5.800.061,59 por año</strong> (<strong>$58,00 millones</strong> acumulados en los 10 años).
+            </td>
+            <td>
+              Corregir la referencia absoluta en <code>IVA!D12:M12</code> reemplazando <code>$B$11</code> por <code>$B$12</code>:<br>
+              <code>=$B$12*(CostoAdmComFin!B6+CostoAdmComFin!B8+CostoAdmComFin!B9+CostoAdmComFin!B10+CostoAdmComFin!B12)</code>.
+            </td>
+          </tr>
+
+          <!-- MEDIA 6 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #6</span></td>
+            <td>
+              <code>DF- Form!D18, D42</code><br>
+              <code>DF- Form!M3:N13, G26:H36</code>
+            </td>
+            <td>
+              <strong>Período de Recupero (Payback) Calculado sobre Flujos Sin Descontar:</strong><br>
+              Las fórmulas matriciales en <code>DF- Form!D18</code> (<code>3,65 años</code> Proyecto) y <code>D42</code> (<code>3,60 años</code> Inversor) interpolan sobre los flujos acumulados simples (<code>N3:N13</code> y <code>H26:H36</code>), que no tienen descontado el valor tiempo del dinero. Bajo el estándar de evaluación de proyectos de la cátedra UTN, el <strong>Payback Descontado</strong> (acumulando los flujos actualizados a <code>WACC = 13,91%</code> y <code>Ke = 15,40%</code>) arroja <strong>5,38 años para el Proyecto</strong> y <strong>5,45 años para el Inversor</strong>.
+            </td>
+            <td>
+              Agregar una columna de <em>Flujo de Fondos Descontado</em> y <em>Acumulado Descontado</em> en ambos cuadros de <code>DF- Form</code>, o aclarar explícitamente en la etiqueta de <code>C18</code> y <code>C42</code> <em>&ldquo;Período de Recupero Simple (años)&rdquo;</em> y añadir debajo el <em>&ldquo;Período de Recupero Descontado (años)&rdquo;</em> (5,38 y 5,45 años).
+            </td>
+          </tr>
+
+          <!-- MEDIA 7 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #7</span></td>
+            <td>
+              <code>AUX-Superficies!C12, F9</code><br>
+              <code>AUX-Inversiones!C37:D37</code><br>
+              <code>AUX-Servicios!B25, D25, E78:N78</code><br>
+              <code>AUX-AdmCom!B20</code><br>
+              vs. <strong>Word Tabla 40 y Cap. Instalaciones</strong>
+            </td>
+            <td>
+              <strong>Inconsistencias de Microlocalización, Terreno y Agua de Red (Cardales vs. Pilar):</strong>
+              <ul>
+                <li><strong>Pilar vs. Cardales y Canon de Agua:</strong> El Word (Tabla 40 y Capítulo Legal) define la radicación en el <strong>Parque Industrial Cardales (Ruta 6, Exaltación de la Cruz)</strong> tras descartar Pilar por falta de lotes, y establece que <strong>no existe red de agua</strong> por lo que se abastece al 100% con perforación subterránea propia (Puelche). No obstante, en <code>AUX-Servicios!B25, D25</code> y <code>AUX-AdmCom!B20</code> el Excel sigue citando al <em>&ldquo;Parque Industrial Pilar&rdquo;</em> y paga un <strong>canon fijo de agua de red de $450.000/mes ($5.400.000/año)</strong> en <code>AUX-Servicios!E78:N78</code>, duplicando el costo con la bomba sumergible ya comprada en <code>AUX-Inversiones!R55</code>.</li>
+                <li><strong>Dimensiones y Costo del Terreno:</strong> La Tabla 40 del Word declara un lote de <strong>2.530 m&sup2; a USD 65/m&sup2; = USD 164.450</strong>, mientras que <code>AUX-Superficies!C12</code> y <code>AUX-Inversiones!C37:D37</code> liquidan <strong>2.401 m&sup2; a USD 60/m&sup2; = USD 144.060</strong> (+6,5% gastos = USD 153.456).</li>
+              </ul>
+            </td>
+            <td>
+              1. Reemplazar las menciones residuales al Municipio/Parque Industrial de Pilar por Cardales (Exaltación de la Cruz) tanto en <code>AUX-Servicios</code> y <code>AUX-AdmCom</code> como en la sección de Efluentes del Word.<br>
+              2. Eliminar el canon de red de agua en <code>AUX-Servicios!E78:N78</code> (o renombrarlo como canon de derecho de extracción/análisis bacteriológico y fisicoquímico de pozo).<br>
+              3. Unificar la superficie y valor del lote entre la Tabla 40 del Word y <code>AUX-Superficies!C12</code>.
+            </td>
+          </tr>
+
+          <!-- MEDIA 8 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #8</span></td>
+            <td>
+              <code>AUX-Inversiones!C85:D85, X85</code><br>
+              <code>AUX-Inversiones!C108:D108, X108</code><br>
+              <code>AUX-Servicios!B32</code><br>
+              vs. <strong>Word Tabla 32 y Equipos</strong>
+            </td>
+            <td>
+              <strong>Discrepancias Internas en CAPEX de Autoelevador, Listing Fees y Especificaciones de Equipos/Cajas:</strong>
+              <ul>
+                <li><strong>Autoelevador eléctrico (<code>AUX-Inversiones!R85</code>):</strong> El Word especifica <strong>1 unidad</strong> del apilador HELI ORME-CMM-16, y la nota en <code>AUX-Inversiones!X85</code> indica <em>&ldquo;ARS 23.200.000/u, 2 equipos&rdquo;</em> (~USD 14.870/u). Sin embargo, en <code>C85:D85</code> se cargaron <strong>2 unidades a sólo USD 3.500/u ($5.460.000/u)</strong>, subvaluando el equipo un 76% respecto a su propia nota técnica.</li>
+                <li><strong>Listing Fees en cadenas (<code>AUX-Inversiones!R108</code>):</strong> La nota en <code>X108</code> dice <em>&ldquo;Presupuesto usuario: listing fees ARS 12.500.000 TOTAL / 33 combinaciones&rdquo;</em>, pero en <code>C108:D108</code> se cargaron <code>33 &times; USD 1.500 = USD 49.500 ($77.220.000)</code>, más de 6 veces lo indicado en la nota.</li>
+                <li><strong>Unidades por caja en Word Tabla 32 vs. Excel:</strong> La Tabla 32 del Word indica <strong>12 budines/caja (2,16 kg)</strong> y <strong>12 panes/caja (4,8 kg)</strong>, contradiciendo al propio Word (sección Balancín) y a <code>AUX-Ventas!F16:F18</code> / <code>AUX-Materiales!E15:E17</code> que operan con <strong>16 budines/caja (2,88 kg)</strong> y <strong>6 panes/caja (2,40 kg)</strong>.</li>
+              </ul>
+            </td>
+            <td>
+              1. Verificar y alinear en <code>AUX-Inversiones!R85</code> la cantidad (1 o 2 unidades) y el precio unitario del autoelevador HELI según cotización.<br>
+              2. Confirmar si el Listing Fee total es de <code>$12,5M</code> (~USD 242 por SKU&times;cadena) o <code>$77,22M</code> (USD 1.500 por SKU&times;cadena) y alinear la nota en <code>X108</code>.<br>
+              3. Corregir la Tabla 32 del Word a 16 budines/caja y 6 panes/caja, y actualizar el nombre de la amasadora en <code>AUX-Servicios!B32</code> de <code>HJ25B</code> a <code>HJ50B</code>.
+            </td>
+          </tr>
+
+          <!-- MEDIA 9 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #9</span></td>
+            <td>
+              <code>AUX-Servicios!E34, H60, E70:N70</code><br>
+              vs. <strong>Word Tablas 66, 68, 71 y 72</strong>
+            </td>
+            <td>
+              <strong>Subestimación de Potencia Eléctrica del Horno Túnel y del Consumo Eléctrico Anual en Excel:</strong><br>
+              En el capítulo de Instalación Eléctrica del Word (Tablas 66, 68, 71 y 72), el <strong>Horno túnel continuo</strong> tiene una potencia eléctrica instalada de <strong>24,00 kW</strong> (<code>P dem = 16,80 kW</code>), resultando en una potencia instalada total de <strong>97,3 kW</strong>, una demanda en TGBT de <strong>52,0 kW</strong> y un consumo anual de <strong>163.377 kWh/año</strong> (Años 1–4) y <strong>238.349 kWh/año</strong> (Años 5–10).<br>
+              En cambio, en <code>AUX-Servicios!E34</code> el Horno túnel está cargado con sólo <strong>6,00 kW</strong> (<code>P dem = 4,20 kW</code>), reduciendo la demanda máxima a <strong>42,95 kW</strong> y el consumo anual calculado en <code>E70:N70</code> a <strong>115.761–125.737 kWh/año</strong> (Años 1–4) y <strong>157.590–180.261 kWh/año</strong> (Años 5–10).
+            </td>
+            <td>
+              Actualizar <code>AUX-Servicios!E34</code> de <code>6</code> kW a <code>24</code> kW (o sincronizar las Tablas 66 a 72 del Word si el horno es a gas y sólo consume 6 kW en motores de cinta/ventiladores de convección) para que el cuadro tarifario eléctrico coincida exactamente con el dimensionamiento electromecánico.
+            </td>
+          </tr>
+
+          <!-- MEDIA 10 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #10</span></td>
+            <td>
+              <code>AUX-MP!N26:P26, B79</code><br>
+              <code>AUX-MP!R28:AA76</code><br>
+              vs. <strong>Word Tablas 25, 92 y 93</strong>
+            </td>
+            <td>
+              <strong>Recetas de Budines Incompletas (Suman 93,03%) y Diferencias en Consumos Anuales de Materias Primas:</strong><br>
+              En <code>AUX-MP!O26:P26</code>, las proporciones de ingredientes de la receta de <em>Budín Vainilla</em> y <em>Budín Chocolate</em> suman <strong>93,025%</strong> (falta codificar un <strong>6,975%</strong> del peso del batch en el BOM, tal como advierte la propia nota en <code>AUX-MP!B79</code>). Esto subestima en ~7% el costo de materias primas de los budines.<br>
+              Asimismo, el consumo anual total de MP sin agua en el Año 10 en <code>AUX-MP!AA28:AA76</code> es de <strong>678.354 kg</strong> (<code>801.184 kg</code> con agua), mientras que las Tablas 25, 92 y 93 del Word informan <strong>699.485 kg</strong> sin agua (y el texto del balance de masa menciona <code>826.820 kg</code>).
+            </td>
+            <td>
+              Completar el <code>6,975%</code> faltante en las recetas de Budines en <code>AUX-MP!O8:P25</code> (ajustando agua, huevo líquido o premezcla según la formulación técnica) y actualizar las Tablas 25, 92 y 93 del Word con las cantidades exactas que arroja <code>AUX-MP!AA28:AA76</code>.
+            </td>
+          </tr>
+
+          <!-- MEDIA 11 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #11</span></td>
+            <td>
+              <code>CostoPROD!L5</code><br>
+              <code>CTV y CResult!B79:K93</code><br>
+              <code>AUX-Nómina!D12:N19</code>
+            </td>
+            <td>
+              <strong>Clasificación de la Mano de Obra Directa (MOD) como Costo 100% Variable y Distorsión del Punto de Equilibrio:</strong><br>
+              En <code>CostoPROD!L5</code>, la fila de Sueldos y Cargas Sociales de MOD (<code>$673,50M</code> en Años 1–4 y <code>$1.057,17M</code> en Años 6–10) está tipificada como <code>&quot;VARIABLE&quot;</code>. Sin embargo, en <code>AUX-Nómina</code> los 32 a 48 operarios están contratados bajo el CCT 244/94 con remuneración fija mensual por turno, independientemente de las unidades producidas dentro de cada escalón de capacidad.<br>
+              Al incluir la MOD dentro de los Costos Variables (<code>CTV y CResult!B81</code>), se subestiman los Costos Fijos (<code>B84</code>) y se reduce artificialmente el <strong>Punto de Equilibrio operativo</strong> (<code>B86:K86</code>, que hoy figura en 56,5% en Año 1 y 38,8% en Año 10).
+            </td>
+            <td>
+              Cambiar <code>CostoPROD!L5</code> de <code>&quot;VARIABLE&quot;</code> a <code>&quot;CONSTANTE&quot;</code> (Costo Fijo por escalones / semifijo), tal como exige la teoría contable e industrial en Argentina para personal de planta permanente bajo convenio. Recalcular el Punto de Equilibrio con esta reclasificación.
+            </td>
+          </tr>
+
+          <!-- MEDIA 12 -->
+          <tr>
+            <td><span class="badge badge-med">MEDIA #12</span></td>
+            <td>
+              <code>Inv AF!H55:N65, H76:N76</code><br>
+              <code>AUX-Inversiones!D66, D75, M114:W133</code>
+            </td>
+            <td>
+              <strong>Ventanas Móviles Incompletas en Amortizaciones (<code>Inv AF</code>) y Rango Auto-Referenciado en <code>AUX-Inversiones</code>:</strong>
+              <ul>
+                <li>En <code>Inv AF</code>, las filas con vida útil de 3 años (<code>Row 55</code> y <code>Row 76</code>) pasan en el Año 4 (<code>Col H</code>) a <code>=SUM(F12:H12)*$B55</code> (3 columnas), pero para 5 años (<code>Rows 56:65</code>) en el Año 5 (<code>Col I</code>) usan <code>=SUM($D13:I13)*$B56</code> (6 columnas: Año 0 a Año 5) y recién en el Año 6 (<code>Col J</code>) saltan a <code>=SUM(F13:J13)*$B56</code> (5 columnas). Si se cargara una inversión en el Año 1 (<code>Col E</code>) en los rubros de 5 años, sólo se amortizaría durante 4 años (Años 2 a 5).</li>
+                <li>En <code>AUX-Inversiones!D66, D75</code> y <code>M114:W133</code>, los <code>SUMIF</code> evalúan el rango completo <code>$37:$109</code> que incluye a las propias filas de subtotal (<code>66, 75, 105</code>). No genera error hoy porque la columna criterio está vacía en esas filas, pero es una referencia circular latente.</li>
+              </ul>
+            </td>
+            <td>
+              Homogeneizar la ventana móvil de amortizaciones en <code>Inv AF</code> para que toda alta del año <code>t</code> se amortice desde <code>t+1</code> hasta <code>t+VU</code> (o desde <code>t</code> hasta <code>t+VU-1</code> para reinversiones operativas), y restringir o limpiar las filas de subtotales intermedios dentro del rango <code>37:109</code> de <code>AUX-Inversiones</code>.
+            </td>
+          </tr>
+
+          <!-- BAJA 13 -->
+          <tr>
+            <td><span class="badge badge-low">BAJA #13</span></td>
+            <td>
+              <code>AUX-AdmCom!C16, E36:N36</code><br>
+              vs. <strong>Word Cap. Comercial (Líneas 316, 367) y Cap. Admin. (Línea 2481)</strong>
+            </td>
+            <td>
+              <strong>Falta de Apertura Conceptual del Rubro &ldquo;Comisiones (8% de Ventas)&rdquo;:</strong><br>
+              En <code>AUX-AdmCom!C16</code> y <code>E36:N36</code> se devenga un gasto variable comercial denominado <em>&ldquo;Comisiones&rdquo;</em> del <strong>8,0% sobre la facturación bruta total</strong>, que representa entre <strong>$446,43M/año (Año 1)</strong> y <strong>$859,00M/año (Año 10)</strong>.<br>
+              Sin embargo, en el Word (líneas 316 y 367) se declara que <em>&ldquo;la empresa opta por un modelo de gestión directa... sin pagar comisiones externas&rdquo;</em> y que la fuerza de ventas consta únicamente de <strong>2 Key Account Managers (KAM)</strong> en relación de dependencia (sueldo fijo $2,0M + bono variable en <code>AUX-Nómina!R28</code>). Si ese 8% fueran comisiones de vendedores, cada KAM cobraría más de $35 millones mensuales; en realidad, ese 8% representa <strong>bonificaciones comerciales, rebates de supermercados, rappel por volumen y acuerdos de trade/merma de canal</strong>.
+            </td>
+            <td>
+              Renombrar la fila <code>AUX-AdmCom!B16</code> y <code>B36</code> (y su reflejo en <code>CostoAdmComFin!A21</code>) como <em>&ldquo;Bonificaciones de Canal, Rebates Supermercados y Comisiones Comerciales (8% s/Ventas)&rdquo;</em> para guardar total coherencia con la estrategia comercial de gestión directa descripta en el Word.
+            </td>
+          </tr>
+
+          <!-- BAJA 14 -->
+          <tr>
+            <td><span class="badge badge-low">BAJA #14</span></td>
+            <td>
+              <code>AUX-Parámetros!B11</code><br>
+              vs. <strong>Word Líneas 530, 1008, 1014 y Tabla 87</strong>
+            </td>
+            <td>
+              <strong>Discrepancia Menor en Días de Parada Anual de Planta por Mantenimiento y Dotación Final en Texto:</strong>
+              <ul>
+                <li>El Excel (<code>AUX-Parámetros!B11</code>) opera con <strong>239 días hábiles activos/año</strong> (249 hábiles menos <strong>10 días</strong> de parada de mantenimiento). En el Word se menciona <strong>10 días</strong> en las líneas 530 y 1008, <strong>11 días</strong> en el título de la línea 1014 y <strong>15 días</strong> en la Tabla 87.</li>
+                <li>En la conclusión del Capítulo 3 del Word (línea 2687) se menciona una dotación máxima de <strong>64 colaboradores</strong>, cuando las Tablas 83 y 84 del propio Word y la hoja <code>AUX-Nómina!N34</code> contabilizan exactamente <strong>62 colaboradores</strong>.</li>
+              </ul>
+            </td>
+            <td>
+              Unificar en el texto del Word el período de parada anual programada en <strong>10 días hábiles (239 días operativos)</strong> y corregir el número 64 por <strong>62 colaboradores</strong> en la conclusión de Estructura Organizacional.
+            </td>
+          </tr>
+
+          <!-- BAJA 15 -->
+          <tr>
+            <td><span class="badge badge-low">BAJA #15</span></td>
+            <td>
+              <strong>Word Cap. 2 (Línea 1307) y Cap. 4–5 (Líneas 2690–2711)</strong>
+            </td>
+            <td>
+              <strong>Textos en Borrador y Placeholders Pendientes de Reemplazo en el Documento Word:</strong><br>
+              En el archivo <code>[private] PROYECTO FINAL - CELI.docx</code> quedaron:
+              <ul>
+                <li>Placeholders sin completar en la sección de Packaging (línea 1307: <code>$[Cu]</code>, <code>[Lo] cajas</code>, <code>$[Ch] por pallet</code>).</li>
+                <li>Apuntes internos de trabajo en equipo en los capítulos de <em>Factibilidad Económica y Financiera</em> y <em>Dimensionamiento de la Incertidumbre</em> (líneas 2690–2711: <em>&ldquo;Voy anotando cosas que podemos sumar además de los screen...&rdquo;</em>, <em>&ldquo;Aca voy a inventar un excel con la IA de las etapas de construccion...&rdquo;</em>).</li>
+              </ul>
+            </td>
+            <td>
+              Eliminar las notas internas de borrador en los Capítulos 4 y 5 del Word, reemplazar los placeholders de la sección de Packaging con los valores de <code>AUX-Materiales</code> y volcar las tablas definitivas de Flujo de Fondos, VAN, TIR, WACC y Análisis de Sensibilidad.
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <!-- 4. PREGUNTAS TRAMPA DEL TRIBUNAL UTN -->
+    <section class="card">
+      <h2>4. Preguntas &ldquo;Trampa&rdquo; del Tribunal Evaluador UTN y Estrategia de Defensa</h2>
+
+      <div class="qa-card">
+        <h4>Pregunta Trampa #1: El &ldquo;Efecto Liquidación&rdquo; en el Año 10 y el Capital de Trabajo</h4>
+        <div class="qa-question">
+          &ldquo;Ingenieros, mirando la fila de Inversiones del Flujo del Proyecto en el Año 10 (<code>DF- Form!B13</code> e <code>Inv AF!N34</code>), veo que el último año del proyecto ustedes salen a comprar un camión nuevo y autoelevadores nuevos por $85,18 millones, los amortizan un 20% ese mismo año y los venden como valor residual al 80%. Además, en <code>DF- Form!C13</code> recuperan $1.483 millones de Capital de Trabajo cuando en el Balance (<code>InvAT!L13</code>) tienen $1.573 millones. ¿Por qué compran rodados el día en que cierran la fábrica y qué pasó con los $89 millones de Capital de Trabajo del Año 10?&rdquo;
+        </div>
+        <div class="qa-defense">
+          <strong>Diagnóstico y Respuesta de Defensa:</strong><br>
+          Es una observación técnica exacta derivada de la parametrización de las fórmulas.
+          <ul>
+            <li><strong>Sobre la compra en Año 10:</strong> En <code>AUX-Inversiones</code> se utilizó la función <code>MOD(Año, Vida_Útil) = 0</code> para automatizar las reposiciones cada 5 años (Año 5 y Año 10). Al evaluar el Año 10 como horizonte de corte con continuidad operativa (valor residual contable), la fórmula disparó la renovación del segundo ciclo quinquenal. Si se corrige la fórmula con <code>Año &lt; 10</code> para no recomprar en el año de liquidación, el flujo neto del Año 10 mejora en <strong>+$17,04 millones</strong> y el VAN del proyecto sube marginalmente.</li>
+            <li><strong>Sobre el Capital de Trabajo en <code>DF- Form!C13</code>:</strong> En el Año 10 se produjo una variación operativa incremental de Capital de Trabajo de <code>-$89,36M</code> (<code>InvAT!L22</code>) y simultáneamente el recupero total del stock acumulado de <code>+$1.573,14M</code> (<code>InvAT!L13</code>). La celda <code>DF- Form!C13</code> muestra el <strong>neto algebraico de ambos movimientos</strong> (<code>+$1.573,14M - $89,36M = +$1.483,78M</code>), por lo que matemáticamente no falta ni un peso en el Flujo de Fondos neto, aunque para mayor claridad expositiva conviene mostrar el egreso operativo en la columna de Capital de Trabajo y el recupero total (<code>$1.573,14M</code>) en una columna de Valor Residual de Activo de Trabajo.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <h4>Pregunta Trampa #2: La Paradoja del Crédito de Proveedores al 12% Real Anual</h4>
+        <div class="qa-question">
+          &ldquo;Ustedes declaran que pagan el 50% de las materias primas y el packaging a 45 días de plazo comercial (<code>AUX-Crédito!C37:C38</code>). Sin embargo, en el Estado de Resultados y en el Flujo de Caja siguen pagando entre $11,5 y $15,2 millones por año de intereses financieros reales (al 12% anual más 21% de IVA) entre los Años 6 y 10, cuando el préstamo bancario ya se terminó de pagar en el Año 5. ¿Desde cuándo un proveedor habitual de harina de arroz o cajas de cartón cobra un 12% de interés real anual en dólares con factura de interés financiero e IVA discriminado por pagar a 45 días?&rdquo;
+        </div>
+        <div class="qa-defense">
+          <strong>Diagnóstico y Respuesta de Defensa:</strong><br>
+          <strong>Qué responder ante el Tribunal (si no se modifica antes el Excel):</strong> Se adoptó un criterio de <strong>máxima conservadurismo financiero</strong> asumiendo que, en el mercado argentino, el pago a 45 días frente al pago contado conlleva un costo financiero implícito (descuento por pronto pago perdido) equivalente a una tasa real del 12% anual sobre el saldo financiado.<br>
+          <strong>Recomendación de Corrección Previa a la Entrega:</strong> En evaluación de proyectos, el crédito de proveedores a 30/45 días es <em>financiación comercial espontánea sin costo financiero explícito</em> (el precio de lista del insumo ya lo contempla). Lo más limpio es fijar <code>AUX-Crédito!C39 = 0%</code> o deducir el pasivo comercial directamente en la hoja <code>InvAT</code>, evitando así mezclar deuda comercial espontánea dentro del WACC y del rubro Intereses Financieros.
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <h4>Pregunta Trampa #3: El Salto de Facturación (Tabla 12 vs. Excel) y las &ldquo;Comisiones del 8%&rdquo;</h4>
+        <div class="qa-question">
+          &ldquo;En la Tabla 12 del Informe escrito ustedes dicen que el Año 1 facturan $3.586 millones y en el Año 10 llegan a $6.900 millones. Pero cuando abrimos el Estado de Resultados del Excel (<code>CTV y CResult!B64:K64</code>), el Año 1 factura $5.580 millones y el Año 10 factura $10.737 millones: un 35,7% más todos los años con exactamente la misma cantidad de paquetes. Y además descuentan un 8% de &lsquo;Comisiones&rsquo; ($446M a $859M por año) cuando en el informe escribieron que venden de forma directa con sólo 2 KAMs en nómina sin comisionistas externos. ¿Cuál de los dos documentos dice la verdad?&rdquo;
+        </div>
+        <div class="qa-defense">
+          <strong>Diagnóstico y Respuesta de Defensa:</strong><br>
+          <ul>
+            <li><strong>Sobre la diferencia del 35,7% en Ventas:</strong> La verdad de referencia económica es el <strong>Excel (<code>AUX-Ventas</code>)</strong>, cuyos precios mayoristas ($2.240 a $5.131 sin IVA) guardan perfecta consistencia con los precios en góndola validados en la encuesta del propio informe Word ($3.456 budines, $6.098 pan de molde). Las Tablas 11 y 12 del Word quedaron con una versión preliminar de precios previa a la actualización del tipo de cambio/SMAMS y deben actualizarse antes de la defensa.</li>
+            <li><strong>Sobre el 8% de Comisiones (<code>AUX-AdmCom!C16</code>):</strong> Explicar que, aunque la partida contable en el Excel se llamó genéricamente <em>&ldquo;Comisiones (8%)&rdquo;</em>, en la operatoria de consumo masivo con grandes cadenas de supermercados (Canal Moderno, 50% del volumen) y distribuidores regionales (50%), ese 8% modela las <strong>bonificaciones comerciales por volumen (rappel), acuerdos de trade marketing en cadena, descuentos por centralización logística y mermas reconocidas de canal</strong>, y no comisiones de vendedores independientes.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <h4>Pregunta Trampa #4: La Contradicción Logística (¿Flota Propia o Tercerizada?) y el Agua en Cardales</h4>
+        <div class="qa-question">
+          &ldquo;En el Capítulo Comercial ustedes aseguran textualmente que tercerizan el 100% de la distribución para ahorrar un 50% de costos y no comprar camiones ni contratar choferes. Pero en el Capítulo de Logística y en el Excel compran un camión, contratan un chofer y pagan gasoil y mantenimiento. De forma similar, dicen que se instalan en el Parque Industrial Cardales porque en Pilar no había lotes, y que Cardales no tiene agua de red por lo que hacen una perforación al Puelche, pero en <code>AUX-Servicios!E78</code> siguen pagando $5,4 millones por año de agua de red en Pilar. ¿En qué parque industrial están y cómo entregan la mercadería?&rdquo;
+        </div>
+        <div class="qa-defense">
+          <strong>Diagnóstico y Respuesta de Defensa:</strong><br>
+          Ambos puntos provienen de la evolución del proyecto durante las entregas parciales (pivoteo de Pilar a Cardales y análisis comparativo entre logística tercerizada vs. flota propia):
+          <ul>
+            <li><strong>Logística:</strong> La hoja <code>AUX-Inversiones!B30</code> fue diseñada precisamente con un <strong>selector dinámico (<code>1 = Flota Propia / 0 = Tercerizada</code>)</strong> para evaluar ambas alternativas. Se optó finalmente por <strong>Flota Propia (`B30 = 1`)</strong> para abastecer los centros de distribución de AMBA (2 viajes diarios de 10 pallets), quedando el párrafo del Capítulo Comercial como un remanente de la alternativa descartada que debe depurarse en el texto.</li>
+            <li><strong>Cardales y Canon de Agua:</strong> La localización definitiva es <strong>Parque Industrial Cardales (Exaltación de la Cruz)</strong> con abastecimiento por pozo semisurgente propio. El cargo mensual de <code>$450.000/mes</code> en <code>AUX-Servicios!E78</code> cubre el <strong>canon provincial de uso de agua subterránea (ADA Buenos Aires), insumos de cloración/ablandamiento y análisis fisicoquímicos y microbiológicos obligatorios para industria alimenticia Sin TACC</strong>, habiendo quedado la etiqueta &ldquo;Pilar&rdquo; por arrastre de texto.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="qa-card">
+        <h4>Pregunta Trampa #5: Clasificación de la MOD en el Punto de Equilibrio y Payback Simple vs. Descontado</h4>
+        <div class="qa-question">
+          &ldquo;En el cuadro de Punto de Equilibrio (<code>CTV y CResult!B79:K93</code>) ustedes clasificaron los $673 a $1.057 millones anuales de Mano de Obra Directa (<code>CostoPROD!L5</code>) como Costo 100% Variable. En la industria alimenticia argentina bajo el Convenio 244/94, si este mes venden un 20% menos de galletitas, ¿pueden dejar de pagar el 20% de los sueldos de los operarios de planta? ¿Y cuál es el Período de Recupero del proyecto si descuentan los flujos al WACC del 13,91% en lugar de sumar pesos sin descontar como hicieron en <code>DF- Form!D18</code>?&rdquo;
+        </div>
+        <div class="qa-defense">
+          <strong>Diagnóstico y Respuesta de Defensa:</strong><br>
+          <ul>
+            <li><strong>Sobre la MOD y el Punto de Equilibrio:</strong> Reconocer con rigor técnico que bajo la legislación laboral argentina (CCT 244/94), la Mano de Obra Directa de planta permanente es un <strong>costo fijo por escalones (semifijo por turno)</strong> y no estrictamente proporcional a cada paquete producido. Se la clasificó como variable en <code>CostoPROD!L5</code> siguiendo el criterio de costeo por absorción para separar costos directos de producción de los indirectos, pero si se reclasifica la MOD como Costo Fijo, el Punto de Equilibrio operativo sube (pasando en el Año 1 de ~56,5% a ~67,2% de las ventas proyectadas), manteniéndose igualmente con un margen de seguridad positivo desde el primer año.</li>
+            <li><strong>Sobre el Payback Descontado:</strong> Tener el dato exacto en mano para responder al instante: el indicador de <code>DF- Form!D18</code> (<strong>3,65 años</strong> Proyecto y <strong>3,60 años</strong> Inversor) corresponde al <em>Payback Simple (nominal en moneda constante)</em>; al aplicar el descuento financiero compuesto a <code>WACC = 13,91%</code> y <code>Ke = 15,40%</code>, el <strong>Payback Descontado real es de 5,38 años para el Proyecto y 5,45 años para el Inversor</strong>, recuperándose la totalidad de la inversión más el costo de oportunidad del capital apenas superada la mitad de la vida útil del proyecto.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <div style="margin-bottom: 14px;">
+        <a href="index.html?from=auditoria" class="btn-back-sim">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+          <span>Volver al Simulador de Planta</span>
+        </a>
+      </div>
+      Auditoría Económico-Financiera generada para el Proyecto Final de Ingeniería Industrial (UTN) &mdash; Proyecto &ldquo;CELI&rdquo; &bull; Archivo Excel original preservado sin modificaciones.
+    </footer>
+  </div>
+</body>
+</html>
