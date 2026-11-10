@@ -4,7 +4,7 @@
     { "source": "/simulador", "destination": "/index.html" },
     { "source": "/principal", "destination": "/plataforma.html" },
     { "source": "/plataforma", "destination": "/plataforma.html" },
-    { "source": "/auditoria", "destination": "/Informe_Auditoria_Economico_Financiera_CELI.html" }
+    { "source": "/riesgos", "destination": "/CELI_Riesgos_Interactivo_10_Anios.html" }
   ],
   "headers": [
     {
