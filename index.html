@@ -49,22 +49,22 @@ svg.i{width:1em;height:1em;flex:none;vertical-align:-.14em}
 
 .btn-plataforma{background:var(--accent)!important;color:#fff!important;text-decoration:none;font-weight:700;font-size:12.5px;box-shadow:0 2px 8px -2px var(--accent);transition:all .18s ease;white-space:nowrap}
 .btn-plataforma:hover{filter:brightness(1.15);transform:translateY(-1px);box-shadow:0 4px 12px -2px var(--accent)}
-.btn-auditoria{background:linear-gradient(135deg,#d97706,#b45309)!important;color:#fff!important;text-decoration:none;font-weight:700;font-size:12.5px;box-shadow:0 2px 8px -2px #d97706;transition:all .18s ease;white-space:nowrap}
-.btn-auditoria:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:0 4px 12px -2px #d97706}
-.audit-modal-backdrop{position:fixed;inset:0;z-index:9999;background:rgba(11,15,20,.65);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:18px;animation:auditFadeIn .22s ease-out}
-.audit-modal{background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:24px;max-width:480px;width:100%;padding:26px 26px 22px;box-shadow:0 25px 50px -12px rgba(0,0,0,.45);position:relative;overflow:hidden;animation:auditSlideUp .25s cubic-bezier(.16,1,.3,1)}
-.audit-modal::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#f59e0b,#5b3df5,#ff2d78)}
-.audit-modal-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:color-mix(in srgb,#f59e0b 16%,transparent);color:#d97706;margin-bottom:12px}
-.audit-modal-dot{width:7px;height:7px;border-radius:50%;background:#f59e0b;box-shadow:0 0 8px #f59e0b}
-.audit-modal h3{margin:0 0 8px;font-size:20px;font-weight:800;line-height:1.2;letter-spacing:-.01em}
-.audit-modal p{margin:0 0 20px;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
-.audit-modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
-.audit-btn-ignore{border:1px solid var(--rule);background:var(--panel-2);color:var(--ink-2);font-weight:700;font-size:13px;padding:10px 18px;border-radius:99px;cursor:pointer;transition:all .15s ease}
-.audit-btn-ignore:hover{background:color-mix(in srgb,var(--ink) 8%,var(--panel-2));color:var(--ink)}
-.audit-btn-open{border:0;background:linear-gradient(135deg,#5b3df5,#4338ca);color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:10px 20px;border-radius:99px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;box-shadow:0 6px 16px -4px rgba(91,61,245,.55);transition:all .15s ease}
-.audit-btn-open:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 8px 20px -4px rgba(91,61,245,.7)}
-@keyframes auditFadeIn{from{opacity:0}to{opacity:1}}
-@keyframes auditSlideUp{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
+.btn-riesgos{background:linear-gradient(135deg,#0d9488,#0f766e)!important;color:#fff!important;text-decoration:none;font-weight:700;font-size:12.5px;box-shadow:0 2px 8px -2px #0d9488;transition:all .18s ease;white-space:nowrap}
+.btn-riesgos:hover{filter:brightness(1.12);transform:translateY(-1px);box-shadow:0 4px 12px -2px #0d9488}
+.risk-modal-backdrop{position:fixed;inset:0;z-index:9999;background:rgba(11,15,20,.65);backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;padding:18px;animation:riskFadeIn .22s ease-out}
+.risk-modal{background:var(--panel);color:var(--ink);border:1px solid var(--rule);border-radius:24px;max-width:520px;width:100%;padding:26px 26px 22px;box-shadow:0 25px 50px -12px rgba(0,0,0,.45);position:relative;overflow:hidden;animation:riskSlideUp .25s cubic-bezier(.16,1,.3,1)}
+.risk-modal::before{content:"";position:absolute;top:0;left:0;right:0;height:5px;background:linear-gradient(90deg,#0d9488,#2563eb,#7c3aed)}
+.risk-modal-badge{display:inline-flex;align-items:center;gap:6px;padding:4px 11px;border-radius:99px;font-size:11px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;background:color-mix(in srgb,#0d9488 16%,transparent);color:#0d9488;margin-bottom:12px}
+.risk-modal-dot{width:7px;height:7px;border-radius:50%;background:#0d9488;box-shadow:0 0 8px #0d9488}
+.risk-modal h3{margin:0 0 8px;font-size:20px;font-weight:800;line-height:1.2;letter-spacing:-.01em}
+.risk-modal p{margin:0 0 20px;font-size:13.5px;line-height:1.5;color:var(--ink-2)}
+.risk-modal-actions{display:flex;align-items:center;justify-content:flex-end;gap:10px;flex-wrap:wrap}
+.risk-btn-ignore{border:1px solid var(--rule);background:var(--panel-2);color:var(--ink-2);font-weight:700;font-size:13px;padding:10px 18px;border-radius:99px;cursor:pointer;transition:all .15s ease}
+.risk-btn-ignore:hover{background:color-mix(in srgb,var(--ink) 8%,var(--panel-2));color:var(--ink)}
+.risk-btn-open{border:0;background:linear-gradient(135deg,#0d9488,#0f766e);color:#fff;text-decoration:none;font-weight:700;font-size:13px;padding:10px 20px;border-radius:99px;cursor:pointer;display:inline-flex;align-items:center;gap:7px;box-shadow:0 6px 16px -4px rgba(13,148,136,.55);transition:all .15s ease}
+.risk-btn-open:hover{filter:brightness(1.1);transform:translateY(-1px);box-shadow:0 8px 20px -4px rgba(13,148,136,.7)}
+@keyframes riskFadeIn{from{opacity:0}to{opacity:1}}
+@keyframes riskSlideUp{from{opacity:0;transform:translateY(14px) scale(.97)}to{opacity:1;transform:none}}
 
 #panelBtn{display:none}
 #side{grid-area:side;background:var(--panel);border-right:1px solid var(--rule);display:flex;flex-direction:row;min-height:0;z-index:4;position:relative}
@@ -242,14 +242,11 @@ details.tech dd{margin:0;font-weight:600;min-width:0;overflow-wrap:anywhere}
     <button class="btn ic" id="fitBtn" title="Encuadrar" aria-label="Encuadrar"></button>
     <button class="btn ic" id="themeBtn" title="Tema claro u oscuro" aria-label="Tema"></button>
     <button class="btn" id="panelBtn"></button>
-    <a href="Informe_Auditoria_Economico_Financiera_CELI.html" class="btn btn-auditoria" title="Ver Informe de Auditoría Económico-Financiera">
+    <a href="CELI_Riesgos_Interactivo_10_Anios.html" class="btn btn-riesgos" title="Ver Simulador de Riesgos Interactivo a 10 Años">
       <svg class="i" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
-        <polyline points="14 2 14 8 20 8"/>
-        <line x1="16" y1="13" x2="8" y2="13"/>
-        <line x1="16" y1="17" x2="8" y2="17"/>
+        <path d="M22 12h-4l-3 9L9 3l-3 9H2"/>
       </svg>
-      <span>Auditoría Económica</span>
+      <span>Simulador de Riesgos</span>
     </a>
     <a href="plataforma.html" class="btn btn-plataforma" title="Ir a la Plataforma Principal (Factibilidad Comercial, Técnica, Económica)">
       <svg class="i" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -1734,41 +1731,43 @@ setViewMode('plano', null, false);
 V.start();
 
 </script>
-<div id="auditModal" class="audit-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="auditModalTitle" onclick="if(event.target===this)window.closeAuditModal()">
-  <div class="audit-modal">
-    <div class="audit-modal-badge">
-      <span class="audit-modal-dot"></span>
-      <span>Nuevo Informe Disponible &bull; UTN</span>
+<div id="riskModal" class="risk-modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="riskModalTitle" onclick="if(event.target===this)window.closeRiskModal()">
+  <div class="risk-modal">
+    <div class="risk-modal-badge">
+      <span class="risk-modal-dot"></span>
+      <span>Simulador Interactivo &bull; UTN</span>
     </div>
-    <h3 id="auditModalTitle">Auditoría Económico-Financiera Disponible</h3>
-    <p>Ya está disponible el <strong>Informe de Auditoría Económico-Financiera Integral</strong> del Proyecto CELI (semáforo ejecutivo, cuadraturas contables, hallazgos críticos y respuestas de defensa). ¿Deseás abrirlo ahora o continuar en el simulador?</p>
-    <div class="audit-modal-actions">
-      <button type="button" id="auditIgnoreBtn" class="audit-btn-ignore" onclick="window.closeAuditModal()">Ignorar</button>
-      <a href="Informe_Auditoria_Economico_Financiera_CELI.html" class="audit-btn-open">
-        <span>Abrir</span>
+    <h3 id="riskModalTitle">Simulador de Riesgos Disponible</h3>
+    <p>Ya está disponible el <strong>Simulador de Riesgos Interactivo a 10 Años</strong> del Proyecto CELI (análisis de sensibilidad TIR/VAN/PRI, gráfico tornado de variables críticas, matriz 3×3 y escenarios de estrés dinámicos). ¿Deseás abrirlo ahora o continuar en el simulador?</p>
+    <div class="risk-modal-actions">
+      <button type="button" id="riskIgnoreBtn" class="risk-btn-ignore" onclick="window.closeRiskModal()">Continuar en Simulador</button>
+      <a href="CELI_Riesgos_Interactivo_10_Anios.html" class="risk-btn-open">
+        <span>Abrir Simulador</span>
         <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
       </a>
     </div>
   </div>
 </div>
 <script>
-window.closeAuditModal = function() {
-  const modal = document.getElementById('auditModal');
+window.closeRiskModal = function() {
+  const modal = document.getElementById('riskModal');
   if (modal) {
     modal.hidden = true;
     modal.style.display = 'none';
   }
 };
+window.closeAuditModal = window.closeRiskModal;
+
 (function(){
   const params = new URLSearchParams(window.location.search);
-  if (params.get('from') === 'auditoria') {
-    window.closeAuditModal();
+  if (params.get('from') === 'riesgos' || params.get('from') === 'auditoria') {
+    window.closeRiskModal();
     if (window.history && window.history.replaceState) {
       window.history.replaceState({}, document.title, window.location.pathname);
     }
   }
-  document.addEventListener('keydown', e => {
-    if (e.key === 'Escape') window.closeAuditModal();
+  document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') window.closeRiskModal();
   });
 })();
 </script>
