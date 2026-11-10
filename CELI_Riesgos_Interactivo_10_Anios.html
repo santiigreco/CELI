@@ -1,4 +1,5 @@
-<!DOCTYPE html><html lang="es"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CELI · Riesgos actualizados | Noviembre 2026</title>
+<!DOCTYPE html><html lang="es"><head>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.7/dist/chart.umd.min.js"></script><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>CELI · Riesgos actualizados | Noviembre 2026</title>
 <style>
 :root{--navy:#132d45;--blue:#2d6c8c;--teal:#167f75;--red:#b84d52;--amber:#bd8334;--muted:#657689;--bg:#f3f6fa;--white:#fff;--line:#dfe7ef;--soft:#eaf0f6}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);font:14px/1.5 'Segoe UI',Arial,sans-serif;color:#1f3548}h1,h2,h3{line-height:1.18;color:var(--navy)}
@@ -13,6 +14,10 @@ nav{display:flex;flex-wrap:wrap;gap:7px;margin:18px 0}button{font:inherit;cursor
 .altcards{display:grid;grid-template-columns:repeat(2,minmax(280px,1fr));gap:13px}.altcard{border-left:5px solid var(--red)}.altstats{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:11px 0}.altstats b{font-size:14px;color:var(--navy)}.detail{font-size:12px;color:#50657a}.detail strong{color:var(--navy)}.highlight{font-size:12px;font-weight:770;color:var(--red)}
 footer{text-align:center;color:var(--muted);font-size:11px;margin-top:34px}@media(max-width:960px){.duo,.tri,.altcards{grid-template-columns:1fr}.stats{grid-template-columns:repeat(2,minmax(120px,1fr))}main{padding:14px}}@media(max-width:520px){header{padding:20px}header h1{font-size:24px}.card{padding:14px}.metric{font-size:22px}}
 @media print{body{background:white}nav,.controls,.btn,.scenbtn{display:none!important}.page{display:block!important}.card{page-break-inside:avoid}.risk{page-break-inside:avoid}}
+
+.chart-box{position:relative;height:310px;width:100%}
+.chart-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.chart-header h3{margin:0}
 </style></head><body>
 <header>
   <div style="display:flex;justify-content:space-between;align-items:flex-start;flex-wrap:wrap;gap:14px">
@@ -33,10 +38,105 @@ footer{text-align:center;color:var(--muted);font-size:11px;margin-top:34px}@medi
 </header>
 <main><div class="alert"><b>Alcance de los resultados.</b> La TIR, el VAN y el PRI de la base se verifican con <b>DF- Form</b>. Las variantes responden a un <b>modelo incremental reproducible</b> que aproxima resultados de impuestos, costos variables y capital de trabajo. No equivale al recálculo total de todas las fórmulas del Excel. Las alternativas sin cotización utilizan estimaciones visibles y no precios confirmados.</div>
 <nav id="tabs"><button class="tab active" data-tab="resumen">Resumen</button><button class="tab" data-tab="sensibilidad">Sensibilidad</button><button class="tab" data-tab="estres">Estrés</button><button class="tab" data-tab="escenarios">Escenarios</button><button class="tab" data-tab="alternativas">Alternativas</button><button class="tab" data-tab="matriz">Matriz 3 × 3</button><button class="tab" data-tab="metodo">Método</button></nav>
-<section class="page active" id="resumen"><div class="grid stats" id="basecards"></div><div class="grid duo"><div class="card"><h3>Impacto individual sobre la TIR</h3><div id="tornado"></div><p class="caption">Barra roja: resultado pesimista; verde: optimista. Línea discontinua: TIR base.</p></div><div class="card"><h3>Lectura ejecutiva</h3><p>La demanda es la fuente de sensibilidad más fuerte. Se mantienen cuatro variables base: ventas, costo de materia prima, plazo de cobranza e inversión en máquinas.</p><p>El objetivo del estrés es identificar el valor que anula el VAN a 13,90%. Los escenarios combinan los mismos factores, sin asignar probabilidades artificiales.</p><div class="chips" style="margin-top:13px"><span class="chip">Ventas ±10%</span><span class="chip">MP ±10%</span><span class="chip">Cobranza 30 / 39 / 60</span><span class="chip">Maquinaria ±10%</span></div></div></div><h2>Resultados individuales — tablas separadas</h2><div id="sensTables" class="grid duo"></div></section>
-<section class="page" id="sensibilidad"><h2>Laboratorio de sensibilidad</h2><p class="muted">Mover una sola variable por vez permite aislar su efecto. El modo simultáneo permite construir escenarios. Los deslizadores alcanzan límites de estrés ilustrativos, pero no implican plausibilidad económica.</p><div class="rowflex controls"><button id="one" class="btn primary">Individual (una variable)</button><button id="all" class="btn">Simultáneo (escenario)</button><button id="reset" class="btn">Restablecer</button><button id="csv" class="btn">Exportar flujos CSV</button></div><div class="grid duo"><div class="card controls"><h3>Variables del modelo</h3><div class="controller"><label>Variación de volumen de ventas<output id="out_v">0%</output></label><input type="range" id="v" min="-35" max="30" step="1" value="0"><div class="ranges"><span>−35%</span><span>Base 0%</span><span>+30%</span></div></div><div class="controller"><label>Variación de costo de MP<output id="out_mp">0%</output></label><input type="range" id="mp" min="-30" max="110" step="1" value="0"><div class="ranges"><span>−30%</span><span>Base 0%</span><span>+110%</span></div></div><div class="controller"><label>Plazo medio de cobro<output id="out_days">39 días</output></label><input type="range" id="days" min="0" max="450" step="1" value="39"><div class="ranges"><span>0 días</span><span>Base 39 días</span><span>450 días</span></div></div><div class="controller"><label>Variación inversión en maquinaria<output id="out_machine">0%</output></label><input type="range" id="machine" min="-30" max="850" step="5" value="0"><div class="ranges"><span>−30%</span><span>Base 0%</span><span>+850%</span></div></div><p class="hint">Ventas representa <b>cantidad</b>, no precio. La combinación modifica costos de insumos, comerciales, inventarios y créditos por ventas según el modelo incremental.</p></div><div class="card"><h3>Resultados dinámicos</h3><div class="grid stats" style="grid-template-columns:repeat(2,1fr);margin:8px 0"><div><div class="metric-label">TIR simulada</div><div class="metric" id="tir_live"></div></div><div><div class="metric-label">VAN simulado</div><div class="metric" id="van_live"></div></div><div><div class="metric-label">PRI</div><div class="metric" id="pri_live"></div></div><div><div class="metric-label">Tasa de corte</div><div class="metric" id="wacc_live"></div></div></div><div id="decision" class="highlight"></div><div id="gauge"></div><div class="caption">Actualización inmediata sin conexión. VAN calculado con el flujo anual simulado y la tasa base del proyecto.</div></div></div><div class="card" style="margin-top:16px"><h3>Comprobación año por año — ventas y materia prima</h3><p class="muted">Los valores modificados se calculan para A1–A10, no solamente para A1. La tabla responde a los deslizadores; Δ flujo es la diferencia anual respecto del proyecto original.</p><div id="audit_10y" class="tablewrap"></div><p class="caption">Importes en millones de pesos (MM) constantes. El total anual de flujos es la suma sin descontar; para evaluar rentabilidad se utiliza el VAN.</p></div></section>
-<section class="page" id="estres"><h2>Límites de estrés</h2><div class="card"><p>Se agrava cada factor aisladamente hasta anular el VAN, manteniendo el WACC en 13,90%. El estrés de plazos de cobro y el de inversiones pueden producir valores extremos que no representan decisiones realizables.</p><div id="stresslist"></div></div></section>
-<section class="page" id="escenarios"><h2>Escenarios compuestos</h2><div class="grid tri" id="scen_cards"></div><div class="card" style="margin-top:14px"><h3>Combinación de parámetros</h3><div class="tablewrap"><table><thead><tr><th>Factor</th><th>Optimista</th><th>Base</th><th>Pesimista</th></tr></thead><tbody><tr><td>Volumen de ventas</td><td>+10%</td><td>0%</td><td>−10%</td></tr><tr><td>Materia prima</td><td>−10%</td><td>0%</td><td>+10%</td></tr><tr><td>Cobranza</td><td>30 días</td><td>39 días</td><td>60 días</td></tr><tr><td>Maquinaria</td><td>−10%</td><td>0%</td><td>+10%</td></tr></tbody></table></div><p class="caption">Los escenarios no se suman: se proyecta un flujo con todos los cambios a la vez. No se asignaron probabilidades sin evidencia.</p></div></section>
+<section class="page active" id="resumen"><div class="grid stats" id="basecards"></div><div class="grid duo">
+  <div class="card">
+    <div class="chart-header"><h3>Impacto individual sobre la TIR (Tornado %)</h3><span class="chip isgood">Base: 31,62%</span></div>
+    <div id="tornado"></div>
+    <p class="caption">Sensibilidad relativa de la TIR ante variaciones aisladas de ±10% (cobro 30/60 días). Línea punteada: TIR base.</p>
+  </div>
+  <div class="card">
+    <div class="chart-header"><h3>Impacto individual sobre el VAN (Tornado $ MM)</h3><span class="chip isgood">Base: $ 3.626,0 MM</span></div>
+    <div id="tornadoNpv"></div>
+    <p class="caption">Capital neto generado en riesgo (millones de pesos constantes). La demanda explica el 73% de la variabilidad.</p>
+  </div>
+</div>
+<div class="card" style="margin-top:14px">
+  <div class="chart-header"><h3>Lectura ejecutiva del perfil de riesgo</h3><span class="chip">Sensibilidad Multivariable</span></div>
+  <p>La demanda es la fuente de sensibilidad más fuerte del proyecto: una oscilación del ±10% en el volumen de ventas desplaza el VAN en <strong>±$ 1.456,8 MM</strong> y la TIR en <strong>±6,5 puntos porcentuales</strong>. El costo de materias primas ocupa el segundo orden de relevancia (±$ 403,8 MM de VAN). En contraste, la inversión inicial en maquinaria presenta una sensibilidad reducida sobre el retorno global (±$ 47,1 MM de VAN).</p>
+  <div class="chips" style="margin-top:10px">
+    <span class="chip">Ventas ±10% (&Delta;VAN $ 2.913,6 MM)</span>
+    <span class="chip">MP ±10% (&Delta;VAN $ 807,6 MM)</span>
+    <span class="chip">Cobranza 30-60d (&Delta;VAN $ 294,5 MM)</span>
+    <span class="chip">Maquinaria ±10% (&Delta;VAN $ 94,2 MM)</span>
+  </div>
+</div><h2>Resultados individuales — tablas separadas</h2><div id="sensTables" class="grid duo"></div></section>
+<section class="page" id="sensibilidad"><h2>Laboratorio de sensibilidad</h2><p class="muted">Mover una sola variable por vez permite aislar su efecto. El modo simultáneo permite construir escenarios. Los deslizadores alcanzan límites de estrés ilustrativos, pero no implican plausibilidad económica.</p><div class="rowflex controls"><button id="one" class="btn primary">Individual (una variable)</button><button id="all" class="btn">Simultáneo (escenario)</button><button id="reset" class="btn">Restablecer</button><button id="csv" class="btn">Exportar flujos CSV</button></div><div class="grid duo"><div class="card controls"><h3>Variables del modelo</h3><div class="controller"><label>Variación de volumen de ventas<output id="out_v">0%</output></label><input type="range" id="v" min="-35" max="30" step="1" value="0"><div class="ranges"><span>−35%</span><span>Base 0%</span><span>+30%</span></div></div><div class="controller"><label>Variación de costo de MP<output id="out_mp">0%</output></label><input type="range" id="mp" min="-30" max="110" step="1" value="0"><div class="ranges"><span>−30%</span><span>Base 0%</span><span>+110%</span></div></div><div class="controller"><label>Plazo medio de cobro<output id="out_days">39 días</output></label><input type="range" id="days" min="0" max="450" step="1" value="39"><div class="ranges"><span>0 días</span><span>Base 39 días</span><span>450 días</span></div></div><div class="controller"><label>Variación inversión en maquinaria<output id="out_machine">0%</output></label><input type="range" id="machine" min="-30" max="850" step="5" value="0"><div class="ranges"><span>−30%</span><span>Base 0%</span><span>+850%</span></div></div><p class="hint">Ventas representa <b>cantidad</b>, no precio. La combinación modifica costos de insumos, comerciales, inventarios y créditos por ventas según el modelo incremental.</p></div><div class="card"><h3>Resultados dinámicos</h3><div class="grid stats" style="grid-template-columns:repeat(2,1fr);margin:8px 0"><div><div class="metric-label">TIR simulada</div><div class="metric" id="tir_live"></div></div><div><div class="metric-label">VAN simulado</div><div class="metric" id="van_live"></div></div><div><div class="metric-label">PRI</div><div class="metric" id="pri_live"></div></div><div><div class="metric-label">Tasa de corte</div><div class="metric" id="wacc_live"></div></div></div><div id="decision" class="highlight"></div><div id="gauge"></div><div class="caption">Actualización inmediata sin conexión. VAN calculado con el flujo anual simulado y la tasa base del proyecto.</div></div></div><div class="grid duo" style="margin-top:16px">
+  <div class="card">
+    <div class="chart-header">
+      <div>
+        <h3>Curva J de Recupero y Flujo de Fondos (A0 a A10)</h3>
+        <p class="muted" style="margin:2px 0 0">Flujo anual base vs. simulado y trayectoria acumulada del Payback.</p>
+      </div>
+      <span class="chip isgood" id="chartPaybackChip">Payback: 3,42 años</span>
+    </div>
+    <div class="chart-box">
+      <canvas id="chartLiveCashFlow"></canvas>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="chart-header">
+      <div>
+        <h3>Ingresos vs. Costos Operativos y Margen Simulado</h3>
+        <p class="muted" style="margin:2px 0 0">Apertura anual de ventas, compras de materia prima y costos variables.</p>
+      </div>
+      <span class="chip" id="chartSpreadChip">Margen Operativo</span>
+    </div>
+    <div class="chart-box">
+      <canvas id="chartLiveBreakdown"></canvas>
+    </div>
+  </div>
+</div>
+
+<div class="card" style="margin-top:16px">
+  <h3>Comprobación año por año — ventas y materia prima</h3>
+  <p class="muted">Los valores modificados se calculan para A1–A10, no solamente para A1. La tabla responde en tiempo real a los deslizadores; &Delta; flujo es la diferencia anual respecto del proyecto original.</p>
+  <div id="audit_10y" class="tablewrap" style="margin-top:12px"></div>
+  <p class="caption">Importes en millones de pesos (MM) constantes. El total anual de flujos es la suma sin descontar; para evaluar rentabilidad se utiliza el VAN.</p>
+</div></section>
+<section class="page" id="estres"><h2>Límites de estrés &amp; Margen de Seguridad</h2>
+<div class="grid duo">
+  <div class="card">
+    <h3>Punto de Quiebre Individual (TIR = WACC 13,90%)</h3>
+    <p class="muted" style="margin-bottom:12px">Variación máxima admisible de cada parámetro aisladamente antes de destruir valor (VAN = 0).</p>
+    <div id="stresslist"></div>
+  </div>
+  <div class="card">
+    <div class="chart-header">
+      <h3>Margen de Seguridad ante Shock (%)</h3>
+      <span class="chip isgood">Tolerancia Máxima</span>
+    </div>
+    <p class="muted" style="margin-bottom:10px">Porcentaje de deterioro tolerable por variable antes de anular el VAN del proyecto.</p>
+    <div class="chart-box" style="height:270px">
+      <canvas id="chartStressMargin"></canvas>
+    </div>
+  </div>
+</div></section>
+<section class="page" id="escenarios"><h2>Escenarios compuestos</h2>
+<div class="grid tri" id="scen_cards"></div>
+<div class="grid duo" style="margin-top:16px">
+  <div class="card">
+    <div class="chart-header">
+      <h3>Comparativa de Curvas J de Recupero</h3>
+      <span class="chip">Horizonte 10 Años</span>
+    </div>
+    <p class="muted" style="margin-bottom:10px">Evolución del saldo acumulado: Optimista (Payback 2,66a) vs. Esperado (3,42a) vs. Pesimista (5,23a).</p>
+    <div class="chart-box">
+      <canvas id="chartScenariosCum"></canvas>
+    </div>
+  </div>
+  <div class="card">
+    <div class="chart-header">
+      <h3>Rentabilidad por Escenario: VAN ($ MM) &amp; TIR (%)</h3>
+      <span class="chip isgood">WACC Corte 13,90%</span>
+    </div>
+    <p class="muted" style="margin-bottom:10px">Comparación de creación de valor monetario y tasa interna de retorno proyectada.</p>
+    <div class="chart-box">
+      <canvas id="chartScenariosBars"></canvas>
+    </div>
+  </div>
+</div>
+<div class="card" style="margin-top:14px"><h3>Combinación de parámetros</h3><div class="tablewrap"><table><thead><tr><th>Factor</th><th>Optimista</th><th>Base</th><th>Pesimista</th></tr></thead><tbody><tr><td>Volumen de ventas</td><td>+10%</td><td>0%</td><td>−10%</td></tr><tr><td>Materia prima</td><td>−10%</td><td>0%</td><td>+10%</td></tr><tr><td>Cobranza</td><td>30 días</td><td>39 días</td><td>60 días</td></tr><tr><td>Maquinaria</td><td>−10%</td><td>0%</td><td>+10%</td></tr></tbody></table></div><p class="caption">Los escenarios no se suman: se proyecta un flujo con todos los cambios a la vez. No se asignaron probabilidades sin evidencia.</p></div></section>
 <section class="page" id="alternativas"><h2>Alternativas técnicas y organizacionales</h2><p class="muted">Se muestran resultados numéricos estimados para las cinco alternativas solicitadas, sin dejar decisiones sin evaluar. Comparación principal mediante el diferencial de VAN frente a la configuración original.</p><div class="altcards" id="alt_cards"></div></section>
 <section class="page" id="matriz"><h2>Evaluación cualitativa — matriz 3 × 3</h2><p class="muted">Se consideran inaceptables las combinaciones probable/moderada y cualquier severidad catastrófica. La probabilidad es un juicio inicial, no una frecuencia medida.</p><div class="card tablewrap"><table class="risk"><thead><tr><th>Probabilidad / severidad</th><th>Insignificante</th><th>Moderada</th><th>Catastrófica</th></tr></thead><tbody id="riskcells"></tbody></table><div class="rowflex"><span class="flag">Inaceptable</span><span class="chip">Riesgo a vigilar</span><span class="chip">Bajo</span></div></div><h2>Listado de eventos y prioridades</h2><div class="rowflex controls"><button class="btn primary" id="allrisk">Todos</button><button class="btn" id="badonly">Solo inaceptables</button></div><div class="card tablewrap"><table><thead><tr><th>ID</th><th>Riesgo</th><th>Probabilidad</th><th>Severidad</th><th>Evaluación</th></tr></thead><tbody id="risklist"></tbody></table></div></section>
 <section class="page" id="metodo"><h2>Supuestos y trazabilidad</h2><div class="card"><p><b>Archivo de base:</b> PF Economico Financiero FINAL v3 - Celi (2).xlsx. <b>Celdas:</b> DF- Form!M3:M13 y D18:D21; AUX-Ventas!E121:N121; AUX-MP!E84:N84; CostoPROD!B8:K8; InvAT!C5:L18; AUX-GastosFab!E30:N31; AUX-Servicios!E75:N80; AUX-Nómina!J23:K31; AUX-Inversiones!J50, J65, J66, J72, J77; AUX-AdmCom!C22:C26.</p><p>Impacto operativo marginal: ventas modifican facturación, compras MP, materiales, gastos comerciales proporcionales y stocks/cuentas por cobrar. Se aplica tasa marginal conjunta aproximada del <b>61,75%</b> de resultado después de Ganancias y honorarios. Los cambios de maquinaria incluyen imprevistos y mantenimiento, con simplificaciones de flujo de IVA. Las variaciones de ventas y MP se aplican a los DIEZ años; se puede verificar en la tabla anual del laboratorio. El modelo no rehace íntegramente deuda, reinversiones, impuestos diferidos ni cronograma fiscal.</p><p><b>Hornos eléctricos:</b> estimación de +30% del valor sin IVA de los dos Pauna a gas y adecuación de infraestructura por $65 millones. Potencia Pauna publicada: 55,84 kW por horno. <b>Scrap:</b> dos compostadoras de 100 kg/día, USD 13.500 por unidad, +35% instalación e importación, energía, mantenimiento y apoyo operativo. <b>Banco:</b> multa estimada por desvío de coseno de phi en los cargos de potencia; no es una factura real.</p><p><b>Referencias externas:</b></p><p><a href="https://www.paunaonline.com/producto-detalle/10-horno-rotativo" target="_blank">Pauna 7090 Sigma eléctrico</a>; <a href="https://www.paunaonline.com/producto-detalle/9-horno-rotativo" target="_blank">Pauna 7090 Sigma a gas</a>; <a href="https://www.ecer.com/corp/details-uuu5mav-p1447r0-electric-food-vegetable-garbage-composting-machine-100kg-per-day-sus304.html" target="_blank">Referencia comercial compostadora 100 kg/día</a>; <a href="https://www.argentina.gob.ar/normativa/nacional/resoluci%C3%B3n-222-2024-397994/actualizacion" target="_blank">ENRE, factor de potencia</a>.</p><p class="highlight">Antes de una decisión de inversión, sustituir supuestos de cotización y validar los escenarios en una copia completamente calculable del libro financiero original.</p></div></section>
@@ -49,7 +149,16 @@ const RISK=[
 const format=(n,d=1)=>Number(n).toLocaleString('es-AR',{minimumFractionDigits:d,maximumFractionDigits:d});const pct=n=>n==null?'—':format(n*100,2)+'%';const mm=n=>n==null?'—':'$ '+format(n/1e6,1)+' MM';const pri=n=>n==null?'Sin recupero':format(n,2)+' años';
 const BASE=D.stat_base;const stat=(label,val,foot='')=>`<div class="card"><div class="metric-label">${label}</div><div class="metric">${val}</div><div class="muted">${foot}</div></div>`;
 document.getElementById('basecards').innerHTML=stat('TIR del proyecto',pct(BASE.irr),'DF- Form!D19')+stat('VAN base',mm(BASE.npv),'DF- Form!D20')+stat('PRI',pri(BASE.pri),'DF- Form!D18')+stat('WACC real',pct(D.wacc),'DF- Form!D21');
-let currentTab='resumen';function tab(name){document.querySelectorAll('.page').forEach(e=>e.classList.toggle('active',e.id===name));document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('active',e.dataset.tab===name));currentTab=name}document.querySelectorAll('.tab').forEach(e=>e.onclick=()=>tab(e.dataset.tab));
+let currentTab='resumen';function tab(name){
+  document.querySelectorAll('.page').forEach(e=>e.classList.toggle('active',e.id===name));
+  document.querySelectorAll('.tab').forEach(e=>e.classList.toggle('active',e.dataset.tab===name));
+  currentTab=name;
+  setTimeout(()=>{
+    if(name==='sensibilidad'){if(chartLiveCashFlow)chartLiveCashFlow.resize();if(chartLiveBreakdown)chartLiveBreakdown.resize();}
+    if(name==='escenarios'){if(chartScenariosCum)chartScenariosCum.resize();if(chartScenariosBars)chartScenariosBars.resize();}
+    if(name==='estres'){if(chartStressMargin)chartStressMargin.resize();}
+  },50);
+}document.querySelectorAll('.tab').forEach(e=>e.onclick=()=>tab(e.dataset.tab));
 const vn=[['ventas','Volumen de ventas','ventas'],['mp','Costo de materias primas','mp'],['cobro','Cobranza','cobro'],['maquinaria','Inversión en maquinaria','maquinaria']];
 const bases={ventas:D.sales.reduce((a,b)=>a+b,0),mp:D.mp.reduce((a,b)=>a+b,0),cobro:39,maquinaria:D.machinery_capex};
 function valueTxt(k,side){if(k==='ventas')return mm(bases.ventas*(side==='op'?1.1:side==='pes'?.9:1));if(k==='mp')return mm(bases.mp*(side==='op'?.9:side==='pes'?1.1:1));if(k==='cobro')return(side==='op'?30:side==='pes'?60:39)+' días';return mm(bases.maquinaria*(side==='op'?.9:side==='pes'?1.1:1))}
@@ -57,6 +166,23 @@ function individual(k){let d=D.solved[k];return `<article class="card"><h3>${vn.
 document.getElementById('sensTables').innerHTML=vn.map(x=>individual(x[0])).join('');
 function tornado(){const W=600,H=285,left=148,right=44,min=.10,max=.42,x=v=>left+(v-min)/(max-min)*(W-left-right),irr=BASE.irr,ks=vn.map(x=>x[0]);let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Sensibilidad TIR"><line x1="${x(irr)}" y1="25" x2="${x(irr)}" y2="250" stroke="#17354e" stroke-dasharray="4 4" stroke-width="2"/>`;
 ks.forEach((k,j)=>{let z=D.solved[k],y=46+j*53;let l=z.pes.irr,r=z.op.irr;s+=`<text x="${left-10}" y="${y+5}" text-anchor="end" fill="#253d51" font-size="13">${vn[j][1]}</text><rect x="${x(l)}" y="${y-11}" width="${Math.max(1,x(irr)-x(l))}" height="22" fill="#be5961" rx="2"/><rect x="${x(irr)}" y="${y-11}" width="${Math.max(1,x(r)-x(irr))}" height="22" fill="#158575" rx="2"/><text x="${x(l)-5}" y="${y+4}" text-anchor="end" fill="#b34e56" font-size="10">${pct(l)}</text><text x="${x(r)+4}" y="${y+4}" fill="#187969" font-size="10">${pct(r)}</text>`});s+=`<text x="${x(irr)+5}" y="22" fill="#17354e" font-size="12" font-weight="bold">Base ${pct(irr)}</text></svg>`;return s}document.getElementById('tornado').innerHTML=tornado();
+
+function tornadoNpv(){
+  const W=600,H=285,left=148,right=54,min=1800,max=5400,x=v=>left+(v-min)/(max-min)*(W-left-right),baseNpv=BASE.npv/1e6,ks=vn.map(x=>x[0]);
+  let s=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Sensibilidad VAN"><line x1="${x(baseNpv)}" y1="25" x2="${x(baseNpv)}" y2="250" stroke="#17354e" stroke-dasharray="4 4" stroke-width="2"/>`;
+  ks.forEach((k,j)=>{
+    let z=D.solved[k],y=46+j*53;
+    let l=z.pes.npv/1e6,r=z.op.npv/1e6;
+    s+=`<text x="${left-10}" y="${y+5}" text-anchor="end" fill="#253d51" font-size="13">${vn[j][1]}</text>
+    <rect x="${x(l)}" y="${y-11}" width="${Math.max(1,x(baseNpv)-x(l))}" height="22" fill="#be5961" rx="2"/>
+    <rect x="${x(baseNpv)}" y="${y-11}" width="${Math.max(1,x(r)-x(baseNpv))}" height="22" fill="#158575" rx="2"/>
+    <text x="${x(l)-5}" y="${y+4}" text-anchor="end" fill="#b34e56" font-size="10">$${format(l,0)}M</text>
+    <text x="${x(r)+4}" y="${y+4}" fill="#187969" font-size="10">$${format(r,0)}M</text>`;
+  });
+  s+=`<text x="${x(baseNpv)+5}" y="22" fill="#17354e" font-size="12" font-weight="bold">Base $${format(baseNpv,0)}M</text></svg>`;
+  return s;
+}
+if(document.getElementById('tornadoNpv')) document.getElementById('tornadoNpv').innerHTML=tornadoNpv();
 function cashflows(volume=0,mpc=0,days=39,machine=0){let c=D.base_cash.slice(),wc=[];for(let i=0;i<10;i++){let dRev=volume*D.sales[i],dMp=D.mp[i]*((1+volume)*(1+mpc)-1),dPack=D.materials[i]*volume,dComm=D.sales[i]*volume*(.08+.01+.015+.005+.04+.012+.003),dOther=(D.scrap[i]+D.pallet_cost[i])*volume;let op=dRev-dMp-dPack-dComm-dOther;c[i+1]+=op*D.aftertax;
 let dr=(D.sales[i]*(1+volume)*days-D.sales[i]*39)/365*D.ar_factor[i];let inv=D.mpstocks[i]*((1+volume)*(1+mpc)-1)+D.packstocks[i]*volume+D.finishstocks[i]*volume;wc.push(dr+inv)}for(let y=1;y<=9;y++)c[y]-=wc[y-1]-(y>1?wc[y-2]:0);c[10]+=wc[8];const da=machine*D.machinery_capex;c[0]-=da*1.04;for(let i=1;i<=10;i++)c[i]-=da*.02*D.aftertax;return c}
 function getNpv(c,rate){return c.reduce((s,v,i)=>s+v/Math.pow(1+rate,i),0)}function getIrr(c){let l=-.95,u=1023;let nl=getNpv(c,l),nu=getNpv(c,u);if(!Number.isFinite(nl)||!Number.isFinite(nu)||nl*nu>0)return null;for(let i=0;i<130;i++){let m=(l+u)/2,nm=getNpv(c,m);if(nm*nl>0){l=m;nl=nm}else{u=m;nu=nm}}return(l+u)/2}
@@ -75,7 +201,9 @@ function liveGauge(irr){const val=Math.min(100,Math.max(0,(irr||0)*100));let mar
 let ranges=['v','mp','days','machine'].map(id=>document.getElementById(id));let mode='single';let prev=null;let last=D.base_cash.slice();
 function update(changed){if(mode==='single'&&changed){for(const el of ranges)if(el!==changed)el.value=el.id==='days'?'39':'0'}let v=+ranges[0].value/100,mp=+ranges[1].value/100,days=+ranges[2].value,mach=+ranges[3].value/100;
 document.getElementById('out_v').textContent=(v>=0?'+':'')+format(v*100,0)+'%';document.getElementById('out_mp').textContent=(mp>=0?'+':'')+format(mp*100,0)+'%';document.getElementById('out_days').textContent=days+' días';document.getElementById('out_machine').textContent=(mach>=0?'+':'')+format(mach*100,0)+'%';let c=cashflows(v,mp,days,mach),m=metric(c);last=c;auditAnnual(v,mp,c);
-document.getElementById('tir_live').textContent=pct(m.irr);document.getElementById('van_live').textContent=mm(m.npv);document.getElementById('pri_live').textContent=pri(m.pri);document.getElementById('wacc_live').textContent=pct(D.wacc);let msg=document.getElementById('decision');msg.textContent=m.npv>=0?'VAN positivo en el escenario simulado':'VAN nulo o negativo en el escenario simulado';msg.className=m.npv>=0?'isgood':'isbad';document.getElementById('gauge').innerHTML=liveGauge(m.irr)}
+document.getElementById('tir_live').textContent=pct(m.irr);document.getElementById('van_live').textContent=mm(m.npv);document.getElementById('pri_live').textContent=pri(m.pri);document.getElementById('wacc_live').textContent=pct(D.wacc);let msg=document.getElementById('decision');msg.textContent=m.npv>=0?'VAN positivo en el escenario simulado':'VAN nulo o negativo en el escenario simulado';msg.className=m.npv>=0?'isgood':'isbad';document.getElementById('gauge').innerHTML=liveGauge(m.irr);
+  if(window.updateLiveCharts) window.updateLiveCharts(v,mp,days,mach,c,m);
+}
 ranges.forEach(e=>e.addEventListener('input',()=>update(e)));function setMode(m){mode=m;document.getElementById('one').classList.toggle('primary',m==='single');document.getElementById('all').classList.toggle('primary',m==='all')}document.getElementById('one').onclick=()=>{setMode('single');update(ranges.find(e=>e.value!==(e.id==='days'?'39':'0'))||null)};document.getElementById('all').onclick=()=>setMode('all');document.getElementById('reset').onclick=()=>{ranges.forEach(e=>e.value=e.id==='days'?'39':'0');update()};
 document.getElementById('csv').onclick=()=>{let rows=['Año;Flujo incremental simulado ($)'];last.forEach((x,i)=>rows.push(i+';'+Number(x).toFixed(2)));let blob=new Blob(['\ufeff'+rows.join('\r\n')],{type:'text/csv;charset=utf-8'});let url=URL.createObjectURL(blob);let a=document.createElement('a');a.href=url;a.download='CELI_flujos_sensibilidad_actualizado.csv';a.click();setTimeout(()=>URL.revokeObjectURL(url),300)};
 const stressLabels=[['ventas','Caída máxima de ventas','−'+format(D.stress.ventas*100,1)+'%'],['mp','Incremento máximo de MP','+'+format(D.stress.mp*100,1)+'%'],['cobro','Demora adicional de cobranza','+'+format(D.stress.cobro,0)+' días (total '+format(39+D.stress.cobro,0)+')'],['maquinaria','Sobrecosto máximo de maquinaria','+'+format(D.stress.maquinaria*100,1)+'%']];document.getElementById('stresslist').innerHTML=stressLabels.map(x=>`<div class="rowflex" style="padding:14px 0;border-bottom:1px solid #e2e9ee;justify-content:space-between"><div><b>${x[1]}</b><div class="muted">TIR alcanza ${pct(D.wacc)}</div></div><b style="font-size:19px;color:#17354e">${x[2]}</b></div>`).join('');
@@ -84,4 +212,426 @@ const alts=[['visual','Control visual frente al sorter','Costo fijo mensual de u
 document.getElementById('alt_cards').innerHTML=alts.map(a=>{let m=D.alternatives[a[0]],dv=m.npv-BASE.npv;return `<article class="card altcard"><h3>${a[1]}</h3><div class="altstats"><div><div class="metric-label">TIR estimada</div><b>${pct(m.irr)}</b></div><div><div class="metric-label">VAN estimado</div><b>${mm(m.npv)}</b></div><div><div class="metric-label">PRI</div><b>${pri(m.pri)}</b></div></div><div class="highlight">Δ VAN vs. original: ${dv>=0?'+':'−'}${mm(Math.abs(dv))}</div><p class="detail">${a[2]}</p><p class="caption">Costo de alternativa de prefactibilidad; reemplazar supuestos por cotización.</p></article>`}).join('');
 let levels=['Probable','Posible','Improbable'],sevs=['Insignificante','Moderada','Catastrófica'];document.getElementById('riskcells').innerHTML=levels.map(prob=>'<tr><td class="r">'+prob+'</td>'+sevs.map(sev=>{let xs=RISK.filter(x=>x[2]===prob&&x[3]===sev),cat=xs.some(x=>x[4])?'crit':sev==='Moderada'?'med':'low';return '<td class="'+cat+'">'+(xs.length?xs.map(x=>'<span class="items">'+x[0]+'</span>').join(''):'—')+(xs.some(x=>x[4])?'<span class="flag">Inaceptable</span>':'')+'</td>'}).join('')+'</tr>').join('');
 function fillRisks(bad){document.getElementById('risklist').innerHTML=RISK.filter(r=>!bad||r[4]).map(r=>`<tr class="riskrow"><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td>${r[4]?'<span class="flag">INACEPTABLE</span>':'<span class="ok">Vigilar</span>'}</td></tr>`).join('');document.getElementById('allrisk').classList.toggle('primary',!bad);document.getElementById('badonly').classList.toggle('primary',bad)}document.getElementById('allrisk').onclick=()=>fillRisks(false);document.getElementById('badonly').onclick=()=>fillRisks(true);fillRisks(false);update();
-</script></body></html>
+</script>
+<!-- Chart.js Setup and Live Binding -->
+<script>
+let chartLiveCashFlow = null;
+let chartLiveBreakdown = null;
+let chartScenariosCum = null;
+let chartScenariosBars = null;
+let chartStressMargin = null;
+
+function computeCum(cashArray) {
+  let acc = 0;
+  return cashArray.map(x => { acc += x; return +(acc / 1e6).toFixed(1); });
+}
+
+function initLiveCharts() {
+  if (typeof Chart === 'undefined') return;
+
+  const yearsLabels = ['Año 0', 'Año 1', 'Año 2', 'Año 3', 'Año 4', 'Año 5', 'Año 6', 'Año 7', 'Año 8', 'Año 9', 'Año 10'];
+  const baseNet = D.base_cash.map(x => +(x / 1e6).toFixed(1));
+  const baseCum = computeCum(D.base_cash);
+
+  // 1. Chart Live Cash Flow (Sensibilidad)
+  const ctxCash = document.getElementById('chartLiveCashFlow');
+  if (ctxCash) {
+    chartLiveCashFlow = new Chart(ctxCash, {
+      type: 'bar',
+      data: {
+        labels: yearsLabels,
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Flujo Neto Base ($ MM)',
+            data: baseNet,
+            backgroundColor: 'rgba(148, 163, 184, 0.45)',
+            borderColor: '#94a3b8',
+            borderWidth: 1,
+            borderRadius: 5,
+            order: 3
+          },
+          {
+            type: 'bar',
+            label: 'Flujo Neto Simulado ($ MM)',
+            data: baseNet,
+            backgroundColor: 'rgba(16, 185, 129, 0.75)',
+            borderColor: '#059669',
+            borderWidth: 1,
+            borderRadius: 5,
+            order: 2
+          },
+          {
+            type: 'line',
+            label: 'Curva J Acumulada Simulada ($ MM)',
+            data: baseCum,
+            borderColor: '#0d9488',
+            backgroundColor: 'rgba(13, 148, 136, 0.12)',
+            borderWidth: 3,
+            fill: true,
+            tension: 0.3,
+            pointRadius: 4,
+            pointHoverRadius: 6,
+            pointBackgroundColor: '#0d9488',
+            order: 1
+          },
+          {
+            type: 'line',
+            label: 'Curva J Base ($ MM)',
+            data: baseCum,
+            borderColor: '#64748b',
+            borderWidth: 1.5,
+            borderDash: [5, 5],
+            fill: false,
+            tension: 0.3,
+            pointRadius: 0,
+            order: 4
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11, weight: 'bold' } } },
+          tooltip: {
+            callbacks: {
+              label: ctx => `${ctx.dataset.label}: $ ${format(ctx.parsed.y, 1)} MM`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+          y: {
+            grid: { color: 'rgba(226, 232, 240, 0.7)' },
+            ticks: {
+              callback: v => '$ ' + format(v, 0) + ' M',
+              font: { size: 10 }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // 2. Chart Live Breakdown (Ingresos vs Costos y Margen)
+  const ctxBreakdown = document.getElementById('chartLiveBreakdown');
+  if (ctxBreakdown) {
+    const opYears = ['A1', 'A2', 'A3', 'A4', 'A5', 'A6', 'A7', 'A8', 'A9', 'A10'];
+    const sBase = D.sales.map(s => +(s / 1e6).toFixed(1));
+    const mpBase = D.mp.map(m => +(m / 1e6).toFixed(1));
+    const matBase = D.materials.map(m => +(m / 1e6).toFixed(1));
+    const marginBase = D.sales.map((s, i) => +((s - D.mp[i] - D.materials[i]) / 1e6).toFixed(1));
+
+    chartLiveBreakdown = new Chart(ctxBreakdown, {
+      data: {
+        labels: opYears,
+        datasets: [
+          {
+            type: 'bar',
+            label: 'Ventas Simuladas ($ MM)',
+            data: sBase,
+            backgroundColor: 'rgba(16, 185, 129, 0.75)',
+            borderColor: '#059669',
+            borderWidth: 1,
+            borderRadius: 4
+          },
+          {
+            type: 'bar',
+            label: 'Materia Prima Simulada ($ MM)',
+            data: mpBase,
+            backgroundColor: 'rgba(239, 68, 68, 0.75)',
+            borderColor: '#dc2626',
+            borderWidth: 1,
+            borderRadius: 4
+          },
+          {
+            type: 'bar',
+            label: 'Materiales & Empaque ($ MM)',
+            data: matBase,
+            backgroundColor: 'rgba(245, 158, 11, 0.7)',
+            borderColor: '#d97706',
+            borderWidth: 1,
+            borderRadius: 4
+          },
+          {
+            type: 'line',
+            label: 'Margen Bruto Proyectado ($ MM)',
+            data: marginBase,
+            borderColor: '#2563eb',
+            backgroundColor: '#2563eb',
+            borderWidth: 2.5,
+            tension: 0.3,
+            pointRadius: 3,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11, weight: 'bold' } } },
+          tooltip: {
+            callbacks: {
+              label: ctx => `${ctx.dataset.label}: $ ${format(ctx.parsed.y, 1)} MM`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { display: false }, ticks: { font: { size: 11 } } },
+          y: {
+            grid: { color: 'rgba(226, 232, 240, 0.7)' },
+            ticks: {
+              callback: v => '$ ' + format(v, 0) + ' M',
+              font: { size: 10 }
+            }
+          }
+        }
+      }
+    });
+  }
+
+  // 3. Chart Scenarios Cumulative Curve
+  const ctxScenCum = document.getElementById('chartScenariosCum');
+  if (ctxScenCum) {
+    const cOp = cashflows(0.10, -0.10, 30, -0.10);
+    const cBase = cashflows(0, 0, 39, 0);
+    const cPes = cashflows(-0.10, 0.10, 60, 0.10);
+
+    chartScenariosCum = new Chart(ctxScenCum, {
+      type: 'line',
+      data: {
+        labels: yearsLabels,
+        datasets: [
+          {
+            label: 'Optimista (TIR 41,6% • PRI 2,66a)',
+            data: computeCum(cOp),
+            borderColor: '#10b981',
+            backgroundColor: 'rgba(16, 185, 129, 0.1)',
+            borderWidth: 3,
+            tension: 0.3,
+            pointRadius: 4,
+            fill: false
+          },
+          {
+            label: 'Esperado (TIR 31,6% • PRI 3,42a)',
+            data: computeCum(cBase),
+            borderColor: '#2563eb',
+            backgroundColor: 'rgba(37, 99, 235, 0.1)',
+            borderWidth: 3,
+            tension: 0.3,
+            pointRadius: 4,
+            fill: false
+          },
+          {
+            label: 'Pesimista (TIR 21,4% • PRI 5,23a)',
+            data: computeCum(cPes),
+            borderColor: '#ef4444',
+            backgroundColor: 'rgba(239, 68, 68, 0.1)',
+            borderWidth: 3,
+            tension: 0.3,
+            pointRadius: 4,
+            fill: false
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11, weight: 'bold' } } },
+          tooltip: {
+            callbacks: {
+              label: ctx => `${ctx.dataset.label}: $ ${format(ctx.parsed.y, 1)} MM`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { display: false } },
+          y: {
+            grid: { color: 'rgba(226, 232, 240, 0.7)' },
+            ticks: { callback: v => '$ ' + format(v, 0) + ' M' }
+          }
+        }
+      }
+    });
+  }
+
+  // 4. Chart Scenarios Bars (VAN & TIR)
+  const ctxScenBars = document.getElementById('chartScenariosBars');
+  if (ctxScenBars) {
+    chartScenariosBars = new Chart(ctxScenBars, {
+      data: {
+        labels: ['Pesimista', 'Esperado (Base)', 'Optimista'],
+        datasets: [
+          {
+            type: 'bar',
+            label: 'VAN ($ MM)',
+            yAxisID: 'yVAN',
+            data: [+(D.scenarios.pesimista.npv / 1e6).toFixed(1), +(D.scenarios.base.npv / 1e6).toFixed(1), +(D.scenarios.optimista.npv / 1e6).toFixed(1)],
+            backgroundColor: ['rgba(239, 68, 68, 0.75)', 'rgba(37, 99, 235, 0.75)', 'rgba(16, 185, 129, 0.75)'],
+            borderColor: ['#dc2626', '#1d4ed8', '#059669'],
+            borderWidth: 1,
+            borderRadius: 6,
+            order: 2
+          },
+          {
+            type: 'line',
+            label: 'TIR (%)',
+            yAxisID: 'yTIR',
+            data: [+(D.scenarios.pesimista.irr * 100).toFixed(2), +(D.scenarios.base.irr * 100).toFixed(2), +(D.scenarios.optimista.irr * 100).toFixed(2)],
+            borderColor: '#f59e0b',
+            backgroundColor: '#f59e0b',
+            borderWidth: 3,
+            pointRadius: 6,
+            pointHoverRadius: 8,
+            fill: false,
+            order: 1
+          }
+        ]
+      },
+      options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'top', labels: { boxWidth: 12, font: { size: 11, weight: 'bold' } } },
+          tooltip: {
+            callbacks: {
+              label: ctx => ctx.dataset.yAxisID === 'yVAN'
+                ? `VAN: $ ${format(ctx.parsed.y, 1)} MM`
+                : `TIR: ${format(ctx.parsed.y, 2)}%`
+            }
+          }
+        },
+        scales: {
+          x: { grid: { display: false } },
+          yVAN: {
+            type: 'linear',
+            position: 'left',
+            title: { display: true, text: 'VAN ($ MM)', font: { size: 11, weight: 'bold' } },
+            ticks: { callback: v => '$ ' + format(v, 0) + ' M' },
+            grid: { color: 'rgba(226, 232, 240, 0.7)' }
+          },
+          yTIR: {
+            type: 'linear',
+            position: 'right',
+            title: { display: true, text: 'TIR (%)', font: { size: 11, weight: 'bold' } },
+            ticks: { callback: v => v + '%' },
+            grid: { display: false },
+            min: 10,
+            max: 50
+          }
+        }
+      }
+    });
+  }
+
+  // 5. Chart Stress Margin
+  const ctxStress = document.getElementById('chartStressMargin');
+  if (ctxStress) {
+    chartStressMargin = new Chart(ctxStress, {
+      type: 'bar',
+      data: {
+        labels: ['Caída Ventas', 'Suba Costo MP', 'Demora Cobro (+días)', 'Sobrecosto Maquinaria'],
+        datasets: [{
+          label: 'Tolerancia hasta VAN = 0',
+          data: [
+            +(D.stress.ventas * 100).toFixed(1),
+            +(D.stress.mp * 100).toFixed(1),
+            +(D.stress.cobro / 39 * 100).toFixed(1),
+            +(D.stress.maquinaria * 100).toFixed(1)
+          ],
+          backgroundColor: [
+            'rgba(239, 68, 68, 0.75)',
+            'rgba(245, 158, 11, 0.75)',
+            'rgba(59, 130, 246, 0.75)',
+            'rgba(16, 185, 129, 0.75)'
+          ],
+          borderColor: ['#dc2626', '#d97706', '#2563eb', '#059669'],
+          borderWidth: 1,
+          borderRadius: 6
+        }]
+      },
+      options: {
+        indexAxis: 'y',
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+          legend: { display: false },
+          tooltip: {
+            callbacks: {
+              label: ctx => {
+                const raw = [
+                  'Caída máx: -' + format(D.stress.ventas * 100, 1) + '%',
+                  'Suba máx MP: +' + format(D.stress.mp * 100, 1) + '%',
+                  'Demora máx: +' + format(D.stress.cobro, 0) + ' días (extensión +' + format(D.stress.cobro / 39 * 100, 0) + '%)',
+                  'Sobrecosto máx máq: +' + format(D.stress.maquinaria * 100, 1) + '%'
+                ];
+                return raw[ctx.dataIndex];
+              }
+            }
+          }
+        },
+        scales: {
+          x: {
+            grid: { color: 'rgba(226, 232, 240, 0.7)' },
+            ticks: { callback: v => v + '%' }
+          },
+          y: { grid: { display: false }, ticks: { font: { weight: 'bold', size: 11 } } }
+        }
+      }
+    });
+  }
+}
+
+window.updateLiveCharts = function(v, mp, days, mach, cash, metric) {
+  if (!chartLiveCashFlow || !chartLiveBreakdown) return;
+
+  // 1. Update live cash flow chart
+  const netVals = cash.map(x => +(x / 1e6).toFixed(1));
+  const cumVals = computeCum(cash);
+
+  chartLiveCashFlow.data.datasets[1].data = netVals;
+  chartLiveCashFlow.data.datasets[1].backgroundColor = netVals.map((val, i) => {
+    return val >= +(D.base_cash[i] / 1e6).toFixed(1)
+      ? 'rgba(16, 185, 129, 0.75)'
+      : 'rgba(239, 68, 68, 0.75)';
+  });
+  chartLiveCashFlow.data.datasets[1].borderColor = netVals.map((val, i) => {
+    return val >= +(D.base_cash[i] / 1e6).toFixed(1) ? '#059669' : '#dc2626';
+  });
+  chartLiveCashFlow.data.datasets[2].data = cumVals;
+  chartLiveCashFlow.update('none');
+
+  const chip = document.getElementById('chartPaybackChip');
+  if (chip) {
+    chip.textContent = metric.pri ? `Payback: ${pri(metric.pri)}` : 'Sin recupero';
+    chip.className = metric.npv >= 0 ? 'chip isgood' : 'chip isbad';
+  }
+
+  // 2. Update live breakdown chart
+  const sSim = D.sales.map(s => +(s * (1 + v) / 1e6).toFixed(1));
+  const mpSim = D.mp.map((m, i) => +(m * (1 + v) * (1 + mp) / 1e6).toFixed(1));
+  const matSim = D.materials.map(m => +(m * (1 + v) / 1e6).toFixed(1));
+  const marginSim = sSim.map((s, i) => +(s - mpSim[i] - matSim[i]).toFixed(1));
+
+  chartLiveBreakdown.data.datasets[0].data = sSim;
+  chartLiveBreakdown.data.datasets[1].data = mpSim;
+  chartLiveBreakdown.data.datasets[2].data = matSim;
+  chartLiveBreakdown.data.datasets[3].data = marginSim;
+  chartLiveBreakdown.update('none');
+};
+
+document.addEventListener('DOMContentLoaded', () => {
+  initLiveCharts();
+});
+if (document.readyState === 'complete' || document.readyState === 'interactive') {
+  initLiveCharts();
+}
+</script>
+</body></html>
