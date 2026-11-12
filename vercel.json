@@ -2,6 +2,7 @@
   "cleanUrls": true,
   "rewrites": [
     { "source": "/simulador", "destination": "/index.html" },
+    { "source": "/presentacion", "destination": "/CELI_Presentacion_Final.html" },
     { "source": "/principal", "destination": "/plataforma.html" },
     { "source": "/plataforma", "destination": "/plataforma.html" },
     { "source": "/riesgos", "destination": "/CELI_Riesgos_Interactivo_10_Anios.html" }
